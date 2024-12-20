@@ -1,0 +1,6 @@
+obj
+minishell
+*.swo
+*.swp
+*.out
+.vscode
