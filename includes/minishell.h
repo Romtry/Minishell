@@ -12,6 +12,21 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef enum e_type
+{
+	WORD,
+	SEP, // whitespace
+	PIPE, // |
+	INPUTREDIR, // <
+	OUTPUTREDIR, // >
+	HEREDOC, // <<
+	APPENDREDIR, // >>
+	SINGLEQUOTE, // '
+	DOUBLEQUOTE, // "
+	DOLLAR, // $
+	EMPTY, // NULL
+} t_type;
+
 typedef struct token
 {
 	char			**word;
