@@ -40,8 +40,8 @@ int	main(void)
 		// printf("%s\n", input);
 		add_history (input);
 		lexer(&token, input);
-		get_type(&token);
-		parsing(&token);
+		// get_type(&token);
+		parsing(&token, 0);
 		// exec(&token);
 		free_token(&token);
 	}

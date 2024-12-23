@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
+#    By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2024/12/23 14:45:14 by rothiery         ###   ########.fr        #
+#    Updated: 2024/12/23 16:08:26 by ttouahmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	Minishell
 
 SRC= 	src/main.c	src/parsing.c	src/utils.c	src/execution.c	src/test.c	\
-		src/utils_2.c	\
+		src/utils_2.c		src/utils_exec.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

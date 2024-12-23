@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2024/12/23 14:52:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:06:53 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void			print_token(t_token *token);
 unsigned int	is_sep(char c);
 void			lexer(t_token *token, char *input);
 void			get_type(t_token *token);
-void			parsing(t_token *token);
+void			parsing(t_token *token, int i);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
 unsigned int	count_word(char *str);
 unsigned int	ft_strcmp(char *str, char *str2);
 unsigned int	ft_strlen(char *str);
 void			free_token(t_token *token);
+int				exitmentioned(t_token *token);
+void			echo(t_token *token, unsigned int i);

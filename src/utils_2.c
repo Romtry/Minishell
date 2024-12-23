@@ -15,13 +15,11 @@
 unsigned int	ft_strcmp(char *str, char *str2)
 {
 	unsigned int	i;
-	unsigned int	n;
 
-	n = ft_strlen(str2);
 	i = 0;
-	while (str[i] && str[i] == str2[i] && i < n)
+	while (str[i] && str2[i] && str[i] == str2[i])
 		i++;
-	if (i == n)
+	if (!str[i] && !str2[i])
 		return (0);
 	return (1);
 }
@@ -38,4 +36,21 @@ void	free_token(t_token *token)
 	}
 	free(token->word);
 	free(token->type);
+}
+
+int exitmentioned(t_token *token)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (token->word[i])
+	{
+		if (!ft_strcmp("exit",token->word[i]))
+		{
+			puts("exited\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
