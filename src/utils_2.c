@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 14:47:38 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:07:39 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ unsigned int	ft_strcmp(char *str, char *str2)
 	if (i == n)
 		return (0);
 	return (1);
-	
 }
 
 void	free_token(t_token *token)
