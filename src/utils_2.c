@@ -24,6 +24,7 @@ unsigned int	ft_strcmp(char *str, char *str2)
 	if (i == n)
 		return (0);
 	return (1);
+	
 }
 
 void	free_token(t_token *token)
