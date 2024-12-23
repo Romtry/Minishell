@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2024/12/23 13:34:52 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:52:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct token
 
 void			print_token(t_token *token);
 
+unsigned int	is_sep(char c);
 void			lexer(t_token *token, char *input);
 void			get_type(t_token *token);
 void			parsing(t_token *token);
