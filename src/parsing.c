@@ -35,7 +35,7 @@ void	lexer(t_token *token, char *input)
 
 void	get_type(t_token *token)
 {
-	
+	//jeml2bites
 }
 
 void	parsing(t_token *token)
