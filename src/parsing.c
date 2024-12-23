@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 14:46:10 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:17:11 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	lexer(t_token *token, char *input)
 
 void	get_type(t_token *token)
 {
-	//jeml2bites
+
 }
 
 void	parsing(t_token *token)
