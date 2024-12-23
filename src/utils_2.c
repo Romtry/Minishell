@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 14:46:10 by rothiery         ###   ########.fr       */
+/*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
+/*   Updated: 2024/12/23 14:47:38 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lexer(t_token *token, char *input)
+unsigned int	ft_strcmp(char *str, char *str2)
 {
 	unsigned int	i;
-	unsigned int	c;
+	unsigned int	n;
+
+	n = ft_strlen(str2);
+	i = 0;
+	while (str[i] && str[i] == str2[i] && i < n)
+		i++;
+	if (i == n)
+		return (0);
+	return (1);
+}
+
+void	free_token(t_token *token)
+{
+	unsigned int	i;
 
 	i = 0;
-	c = 0;
-	token->word = malloc(sizeof(char *) * (count_word(input) + 1));
-	token->type = malloc(sizeof(t_type) * (count_word(input) + 1));
-	while (input[i] && is_sep(input[i]) == 0)
-		i++;
-	while (c < count_word(input))
+	while (token->word[i])
 	{
-		i += malloc_word(token, input + i, c);
-		c++;
+		free(token->word[i]);
+		i++;
 	}
-	token->word[c] = NULL;
-	token->type[c] = '\0';
-	print_token(token);
-}
-
-void	get_type(t_token *token)
-{
-	
-}
-
-void	parsing(t_token *token)
-{
-
+	free(token->word);
+	free(token->type);
 }

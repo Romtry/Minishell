@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 13:05:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:39:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ unsigned int	malloc_word(t_token *token, char *input, unsigned int c)
 	save = wich_type(input[0]);
 	while (input[i] && save == wich_type(input[i]))
 		i++;
-	token->word[c] = malloc(sizeof(char *) * (i + 1));
+	token->word[c] = malloc(sizeof(char) * (i + 1));
 	i = 0;
 	while (input[i] && save == wich_type(input[i]))
 	{
@@ -92,19 +92,5 @@ unsigned int	count_word(char *str)
 		ret++;
 	}
 	return (ret);
-}
-
-unsigned int	ft_strcmp(char *str, char *str2)
-{
-	unsigned int	i;
-	unsigned int	n;
-
-	n = ft_strlen(str2);
-	i = 0;
-	while (str[i] && str[i] == str2[i] && i < n)
-		i++;
-	if (i == n)
-		return (0);
-	return (1);
 }
 

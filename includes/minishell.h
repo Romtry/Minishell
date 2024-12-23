@@ -42,3 +42,4 @@ unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
 unsigned int	count_word(char *str);
 unsigned int	ft_strcmp(char *str, char *str2);
 unsigned int	ft_strlen(char *str);
+void			free_token(t_token *token);

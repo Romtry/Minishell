@@ -6,18 +6,19 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2024/12/23 09:42:06 by rothiery         ###   ########.fr        #
+#    Updated: 2024/12/23 14:45:14 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	Minishell
 
-SRC= 	src/main.c	src/parsing.c	src/utils.c	src/execution.c	src/test.c\
+SRC= 	src/main.c	src/parsing.c	src/utils.c	src/execution.c	src/test.c	\
+		src/utils_2.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
 CC= 	cc
-CFLAGS= -Wall -Wextra -I includes
+CFLAGS= -Wall -Wextra -fsanitize=address -g3 -I includes
 RESET = \033[0m
 GRAS = \033[1m
 ITALIQUE = \033[3m
