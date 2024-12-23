@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 14:38:39 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:15:15 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(void)
 		add_history (input);
 		lexer(&token, input);
 		// get_type(&token);
-		parsing(&token, 0);
+		parsing(&token, 0, toklen(&token));
 		// exec(&token);
 		free_token(&token);
 	}

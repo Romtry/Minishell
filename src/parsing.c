@@ -6,7 +6,7 @@
 /*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 16:09:23 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:17:30 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_type(t_token *token)
 
 }
 
-void	parsing(t_token *token, int i)
+void	parsing(t_token *token, int i, int tlen)
 {
 	// int y;
 
@@ -53,7 +53,7 @@ void	parsing(t_token *token, int i)
 			if(!ft_strcmp("echo", token->word[i]))
 			{
 				puts("echoed\n");
-				echo(token, i);
+				echo(token, i, tlen);
 			}
 		}
 		i++;
