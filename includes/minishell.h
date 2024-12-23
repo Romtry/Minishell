@@ -29,14 +29,16 @@ typedef enum e_type
 
 typedef struct token
 {
-	char			**word;
-	unsigned int	*token;
+	char	**word;
+	t_type	*type;
 }	t_token;
 
 void			print_token(t_token *token);
 
-unsigned int	ft_strcmp(char *str, char *str2);
-void			parsing(t_token *token, char *input);
-unsigned int	count_word(char *str);
-unsigned int	ft_strlen(char *str);
+void			lexer(t_token *token, char *input);
+void			get_type(t_token *token);
+void			parsing(t_token *token);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
+unsigned int	count_word(char *str);
+unsigned int	ft_strcmp(char *str, char *str2);
+unsigned int	ft_strlen(char *str);
