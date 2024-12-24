@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2024/12/23 16:08:26 by ttouahmi         ###   ########.fr        #
+#    Updated: 2024/12/24 12:45:58 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	Minishell
 
 SRC= 	src/main.c	src/parsing.c	src/utils.c	src/execution.c	src/test.c	\
-		src/utils_2.c		src/utils_exec.c	\
+		src/utils_2.c		src/utils_exec.c	src/parsing2.c	src/utils_3.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
 CC= 	cc
-CFLAGS= -Wall -Wextra -fsanitize=address -g3 -I includes
+CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g3 -I includes
 RESET = \033[0m
 GRAS = \033[1m
 ITALIQUE = \033[3m
