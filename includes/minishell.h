@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2024/12/24 10:14:45 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:29:24 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define BLUE			"\e[38;2;47;160;219m"
+# define BLUE			"\001\e[38;2;47;160;219m\002"
+# define RED			"\e[38;5;196m"
+# define RESET			"\001\e[0m\002"
 
 typedef enum e_type
 {
@@ -48,12 +50,18 @@ typedef struct token
 	t_type			*type;
 }	t_token;
 
+void			print_array(char **array);
 void			print_token(t_token *token);
 
+unsigned int	wich_type(char c);
+char			*ft_strcpy(char *str1);
+char			*ft_strjoin(char *s1, char *s2);
+void			parsing(t_token *token);
+void			print_error(unsigned int n);
 unsigned int	is_sep(char c);
 void			lexer(t_token *token, char *input);
 void			get_type(t_token *token);
-void			parsing(t_token *token, unsigned int i);
+void			parsing2(t_token *token, unsigned int i);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
 unsigned int	count_word(char *str);
 unsigned int	ft_strcmp(char *str, char *str2);

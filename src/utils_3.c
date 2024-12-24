@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 11:10:09 by rothiery         ###   ########.fr       */
+/*   Created: 2024/12/24 12:34:52 by rothiery          #+#    #+#             */
+/*   Updated: 2024/12/24 15:20:21 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(t_token *token, unsigned int i)
+void	get_type(t_token *token)
 {
-    i++;
-    while(token->type[i] != 2 && token->type[i] != 10 && i < token->tlen)
-    {
-        printf("%s", token->word[i]);
-        i++;
-    }
-    printf("%s\n", token->word[i]);
-    //printf("\n");
-    parsing2(token, i);
+	unsigned int	type;
+	unsigned int	i;
+
+	i = 0;
+	printf("tlen = %u\n", token->tlen);
+	token->type = malloc(sizeof(int) * (token->tlen + 1));
+	while (token->word[i])
+	{
+		type = wich_type(token->word[i][0]);
+		token->type[i] = type;
+		i++;
+	}
+	token->type[i] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 10:07:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:55:34 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,34 @@ int exitmentioned(t_token *token)
 	return (0);
 }
 
-void	toklen(t_token *token)
+char	*ft_strjoin(char *str1, char *str2)
 {
-	int	i;
+	char			*ret;
+	unsigned int	l;
+	unsigned int	i;
 
-	i = 0;
-	while (token->word[i])
-		i++;
-	token->tlen = i;
+	i = -1;
+	l = ft_strlen(str1) + ft_strlen(str2);
+	ret = malloc(sizeof(char) * l + 1);
+	while (str1[++i])
+		ret[i] = str1[i];
+	i--;
+	while (str2[++i - ft_strlen(str1)])
+		ret[i] = str2[i - ft_strlen(str1)];
+	free(str1);
+	ret[i] = '\0';
+	return (ret);
+}
+
+char	*ft_strcpy(char *str)
+{
+	unsigned int	i;
+	char			*ret;
+
+	i = -1;
+	ret = malloc(ft_strlen(str) + 1);
+	while (str[++i])
+		ret[i] = str[i];
+	ret[i] = '\0';
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 14:39:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:14:16 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ unsigned int	ft_strlen(char *str)
 	unsigned int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[0])
 		return (0);
-	while (str[i] != '\0')
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -34,19 +34,19 @@ unsigned int	is_sep(char c)
 unsigned int	wich_type(char c)
 {
 	if (is_sep(c) == 0)
-		return (1);
+		return (SEP);
 	else if (c == '|')
-		return (2);
+		return (PIPE);
 	else if (c == '<')
-		return (3);
+		return (INPUTREDIR);
 	else if (c == '>')
-		return (4);
+		return (OUTPUTREDIR);
 	else if (c == '\'')
-		return (5);
+		return (SINGLEQUOTE);
 	else if (c == '\"')
-		return (6);
+		return (DOUBLEQUOTE);
 	else if (c == '$')
-		return (7);
+		return (DOLLAR);
 	else
 		return (0);
 }
