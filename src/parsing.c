@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 16:17:30 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:08:15 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_type(t_token *token)
 
 }
 
-void	parsing(t_token *token, int i, int tlen)
+void	parsing(t_token *token, unsigned int i)
 {
 	// int y;
 
@@ -53,7 +53,7 @@ void	parsing(t_token *token, int i, int tlen)
 			if(!ft_strcmp("echo", token->word[i]))
 			{
 				puts("echoed\n");
-				echo(token, i, tlen);
+				echo(token, i);
 			}
 		}
 		i++;

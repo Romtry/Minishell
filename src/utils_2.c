@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/23 16:22:27 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:07:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ int exitmentioned(t_token *token)
 	return (0);
 }
 
-int toklen(t_token *token)
+void	toklen(t_token *token)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (token->word[i])
 		i++;
-	return i - 1;
+	token->tlen = i;
 }
