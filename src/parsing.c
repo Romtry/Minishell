@@ -6,15 +6,30 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 15:20:58 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 15:28:50 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_quote(t_token *token)
+void	skip_quotes(t_token *token, unsigned int *i, unsigned int n)
 {
-	
+	char	*temp;
+
+	if (n == 0)
+	{
+		*i = *i - 1;
+		temp = token->word[*i];
+		token->word[*i] = token->word[*i - 1];
+		token->word[*i - 1] = temp;
+	}
+	else
+	{
+		*i = *i + 1;
+		temp = token->word[*i];
+		token->word[*i] = token->word[*i + 1];
+		token->word[*i + 1] = temp;
+	}
 }
 
 void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
@@ -25,9 +40,9 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 
 	i = -1;
 	if (*one != 0 && token->type[*one - 1] == WORD)
-		*one = *one -1;
+		skip_quotes(token, one, 0);
 	if (token->word[two + 1] && token->word[two + 1] == WORD)
-		two++;
+		skip_quotes(token, &two, 1);
 	token->tlen -= (two - *one);
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
 	while (++i < *one)
