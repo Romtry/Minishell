@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 10:08:15 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:11:09 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ void	lexer(t_token *token, char *input)
 	token->word[c] = NULL;
 	token->type[c] = '\0';
 	print_token(token);
-}
-
-void	get_type(t_token *token)
-{
-
 }
 
 void	parsing(t_token *token, unsigned int i)

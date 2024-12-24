@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2024/12/24 10:08:51 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:14:45 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define BLUE			"\e[38;2;47;160;219m"
 
 typedef enum e_type
 {
@@ -59,4 +61,4 @@ unsigned int	ft_strlen(char *str);
 void			free_token(t_token *token);
 int				exitmentioned(t_token *token);
 void			echo(t_token *token, unsigned int i);
-int				toklen(t_token *token);
+void			toklen(t_token *token);

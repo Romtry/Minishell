@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 10:09:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:15:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 
 	while (1)
 	{
-		input = readline("(satoru caca)> ");
+		input = readline(BLUE"(satoru caca)> \e[0m");
 		// printf("%s\n", input);
 		add_history (input);
 		lexer(&token, input);
