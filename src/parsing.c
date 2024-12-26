@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 15:28:50 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:45:26 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	skip_quotes(t_token *token, unsigned int *i, unsigned int n)
 	if (n == 0)
 	{
 		*i = *i - 1;
-		temp = token->word[*i];
-		token->word[*i] = token->word[*i - 1];
-		token->word[*i - 1] = temp;
+		temp = token->word[*i + 1];
+		token->word[*i + 1] = token->word[*i];
+		token->word[*i] = temp;
 	}
 	else
 	{
 		*i = *i + 1;
-		temp = token->word[*i];
-		token->word[*i] = token->word[*i + 1];
-		token->word[*i + 1] = temp;
+		temp = token->word[*i - 1];
+		token->word[*i - 1] = token->word[*i];
+		token->word[*i] = temp;
 	}
 }
 
@@ -40,8 +40,10 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 
 	i = -1;
 	if (*one != 0 && token->type[*one - 1] == WORD)
+		// *one -= 1;
 		skip_quotes(token, one, 0);
-	if (token->word[two + 1] && token->word[two + 1] == WORD)
+	if (token->word[two + 1] && token->type[two + 1] == WORD)
+		// two++;
 		skip_quotes(token, &two, 1);
 	token->tlen -= (two - *one);
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
@@ -59,14 +61,13 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	get_type(token);
 }
 
-int	secnd_quote(t_token *token, unsigned int *one)
+int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 {
 	unsigned int	two;
 
 	two = *one + 1;
-	while (token->word[two] && token->type[two] != SINGLEQUOTE)
+	while (token->word[two] && token->type[two] != quote)
 		two++;
-	// printf("two = %u\n", two);
 	if (token->word[two])
 		return(realloc_word(token, one, two), 0);
 	else
@@ -80,8 +81,8 @@ void	parsing(t_token *token)
 	i = 0;
 	while (token->word[i])
 	{
-		if (token->type[i] == SINGLEQUOTE)
-			secnd_quote(token, &i);
+		if (token->type[i] == SINGLEQUOTE || token->type[i] == DOUBLEQUOTE)
+			secnd_quote(token, &i, token->type[i]);
 		i++;
 	}
 }
