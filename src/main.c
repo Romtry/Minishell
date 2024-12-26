@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 15:03:55 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:48:29 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	main(void)
 		add_history (input);
 		lexer(&token, input);
 		// get_type(&token);
-		puts("avant parsing\n");
-		print_token(&token);
 		parsing(&token);
-		puts("après parsing\n");
 		print_token(&token);
 		// exec(&token);
 		free_token(&token);
