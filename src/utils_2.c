@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 13:55:34 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:41:05 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ char	*ft_strcpy(char *str)
 	unsigned int	i;
 	char			*ret;
 
-	i = -1;
+	i = 0;
 	ret = malloc(ft_strlen(str) + 1);
-	while (str[++i])
+	while (str[i])
+	{
 		ret[i] = str[i];
+		i++;
+	}
 	ret[i] = '\0';
 	return (ret);
 }

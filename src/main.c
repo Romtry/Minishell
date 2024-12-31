@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/26 10:48:29 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/31 11:51:33 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	print_error(unsigned int n)
 	if (n == 0)
 		printf(RED"Command error tu seras privé de tarte au caca !\e[0m\n");
 	if (n == 1)
-		printf(RED"Single quote not closed so no caca pie !\e[0m\n");
+		printf(RED"Quote not closed so no caca pie !\e[0m\n");
+	if (n == 2)
+		printf(RED"syntax error near unexpected token '|' no metal pipe for diner !\e[0m\n");
 }
 
 void	lexer(t_token *token, char *input)
@@ -49,12 +51,11 @@ int	main(void)
 	while (1)
 	{
 		input = readline(BLUE"(satoru caca)> "RESET);
-		// printf("%s\n", input);
 		add_history (input);
 		lexer(&token, input);
-		// get_type(&token);
 		parsing(&token);
 		print_token(&token);
+		// parsing_exec(&token);
 		// exec(&token);
 		free_token(&token);
 	}

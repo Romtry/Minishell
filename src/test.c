@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 14:30:54 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/30 08:32:06 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_token(t_token *token)
 {
 	unsigned int	i;
-	const char *t_type_str[] = {
+	const char		*t_type_str[] = {
 		"WORD",
     	"SEP",           // whitespace
     	"PIPE",          // |

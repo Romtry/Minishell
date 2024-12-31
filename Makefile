@@ -6,14 +6,15 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2024/12/24 15:30:46 by rothiery         ###   ########.fr        #
+#    Updated: 2024/12/26 14:22:31 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	minishell
 
 SRC= 	src/main.c	src/parsing.c	src/utils.c	src/execution.c	src/test.c	\
-		src/utils_2.c		src/utils_exec.c	src/parsing2.c	src/utils_3.c	\
+		src/utils_2.c		src/utils_exec.c	src/parsing_exec.c	src/utils_3.c	\
+		src/quotes_pars.c	src/utils_exec2.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

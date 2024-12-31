@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing2.c                                         :+:      :+:    :+:   */
+/*   parsing_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/24 11:02:14 by rothiery         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:20:41 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_pars(t_token *token, unsigned int *i)
+unsigned int	is_command(t_token *token, unsigned int *i)
 {
-	if (!token->type[*i + 1] || token->type[*i + 1] != 1)
-		print_error(0);
+	if (ft_strcmp(token->word[*i], "echo"))
+		echo(token, i);
+	else if (ft_strcmp(token->word[*i], "cd"))
+		cd(token, i);
+	else if (ft_strcmp(token->word[*i], "pwd"))
+		pwd(token, i);
+	else if (ft_strcmp(token->word[*i], "export"))
+		export(token, i);
+	else if (ft_strcmp(token->word[*i], "unset"))
+		unset(token, i);
+	else if (ft_strcmp(token->word[*i], "env"))
+		env(token, i);
+	else
+		return (1);
+	return (0);
 }
 
-void	parsing2(t_token *token, unsigned int i)
+void	parsing_exec(t_token *token, unsigned int *i)
 {
-	// int y;
-
-	// y = 0;
-	if(i == 0)
+	if(*i == 0)
 		if(exitmentioned(token))
 			return ;
-	while(token->word[i])
-	{
-		if(token->type[i] == WORD)
-		{
-			if(!ft_strcmp("echo", token->word[i]))
-			{
-				puts("echoed\n");
-				echo_pars(token, &i);
-				break;
-			}
-		}
-		i++;
-	}
+	if (is_command(token, i) == 1)
+		print_error(2);
 }
