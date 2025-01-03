@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/31 11:41:05 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/03 10:53:43 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ void	free_token(t_token *token)
 	unsigned int	i;
 
 	i = 0;
-	while (token->word[i])
+	if (token->word)
 	{
-		free(token->word[i]);
-		i++;
+		puts("cacamax\n");
+		while (token->word[i])
+		{
+			free(token->word[i]);
+			i++;
+		}
+		free(token->word);
+		token->word = NULL;
+		free(token->type);
+		token->type = NULL;
 	}
-	free(token->word);
-	free(token->type);
+	else
+		puts("pascaca\n");
 }
 
 int exitmentioned(t_token *token)

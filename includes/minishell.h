@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2024/12/31 14:58:11 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:35:06 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum e_type
 
 typedef struct token
 {
+	unsigned int	err;
 	unsigned int	tlen;
 	char			**word;
 	t_type			*type;
@@ -61,11 +62,13 @@ void			unset(t_token *token, unsigned int *i);
 void			env(t_token *token, unsigned int *i);
 void			echo(t_token *token, unsigned int *i);
 
+void			erased_str(t_token *token, unsigned int *s);
+void			erased_quote(t_token *token, unsigned int *p);
 unsigned int	wich_type(char c);
 char			*ft_strcpy(char *str1);
 char			*ft_strjoin(char *s1, char *s2);
-void			parsing(t_token *token);
-void			print_error(unsigned int n);
+unsigned int	parsing(t_token *token);
+void			print_error(t_token *token, unsigned int n);
 unsigned int	is_sep(char c);
 void			lexer(t_token *token, char *input);
 void			get_type(t_token *token);

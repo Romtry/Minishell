@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/26 14:20:41 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/02 10:19:38 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	parsing_exec(t_token *token, unsigned int *i)
 		if(exitmentioned(token))
 			return ;
 	if (is_command(token, i) == 1)
-		print_error(2);
+		print_error(token, 2);
 }
