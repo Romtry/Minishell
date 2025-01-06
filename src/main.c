@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/03 10:52:20 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:53:16 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	print_error(t_token *token, unsigned int n)
 		printf(RED"Quote not closed so no caca pie !\e[0m\n");
 	else if (n == 2)
 		printf(RED"syntax error near unexpected token '|' no metal pipe for diner !\e[0m\n");
+	else if (n == 3)
+		printf(RED"syntax error near unexpected token 'newline'\e[0m\n]");
 	token->err = 1;
 }
 
@@ -80,7 +82,7 @@ int	main(void)
 		// print_token(&token);
 		free_token(&token);
 	}
-	free_token(&token);
+	// free_token(&token);
 	rl_clear_history();
 	return (0);
 }

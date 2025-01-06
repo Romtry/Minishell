@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/03 10:53:43 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/06 10:50:25 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	free_token(t_token *token)
 	i = 0;
 	if (token->word)
 	{
-		puts("cacamax\n");
 		while (token->word[i])
 		{
 			free(token->word[i]);

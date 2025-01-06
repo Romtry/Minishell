@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/03 10:20:14 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:17:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	pipe_pars(t_token *token, unsigned int i)
 {
-	
 	if (i == 0 || i == token->tlen - 1)
-		return (print_error(token, 2));
+		return (free_token(token), print_error(token, 2));
 	else if (ft_strlen(token->word[i]) != 1)
-		return (print_error(token, 2));
+		return (free_token(token), print_error(token, 2));
 	else if (token->type[i - 1] == WORD || token->type[i - 1] == DOLLAR)
 	{
 		if (token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
@@ -26,6 +25,29 @@ void	pipe_pars(t_token *token, unsigned int i)
 			return ;
 	}
 	print_error(token, 2);
+}
+
+void	dir_out(t_token *token, unsigned int i)
+{
+	if (!token->word[i + 1])
+		print_error(token, 3);
+}
+
+void	parsing2(t_token *token)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (token->word[i])
+	{
+		if (token->type[i] == PIPE)
+			pipe_pars(token, i);
+		else if (token->type[i] == OUTPUTREDIR || token->type[i] == APPENDREDIR)
+			dir_out(token, i);
+		if (token->err == 1)
+			return ;
+		i++;
+	}
 }
 
 unsigned int	parsing(t_token *token)
@@ -45,21 +67,14 @@ unsigned int	parsing(t_token *token)
 			erased_str(token, &i);
 		}
 		i++;
-		print_token(token);
-		printf("\n");
 	}
 	i--;
 	if (token->word[i] && token->type[i] == SEP)
 		erased_str(token, &i);
 	print_token(token);
-	i = 0;
-	while (token->word[i])
-	{
-		if (token->type[i] == PIPE)
-			pipe_pars(token, i);
-		// else if (token->type[i] == DOLLAR)
-		i++;
-	}
+	parsing2(token);
+	if (token->err == 1)
+		return (1);
 	return (0);
 }
 // mais si je met 'et un truc du genre cette phrase
