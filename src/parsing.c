@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/06 12:17:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:51:04 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ void	pipe_pars(t_token *token, unsigned int i)
 	print_error(token, 2);
 }
 
-void	dir_out(t_token *token, unsigned int i)
+void	redir(t_token *token, unsigned int i)
 {
 	if (!token->word[i + 1])
-		print_error(token, 3);
+		return(free_token(token), print_error(token, 3));
+}
+
+void	pars_dollar(t_token *token)
+{
+	(void)token;
 }
 
 void	parsing2(t_token *token)
@@ -42,8 +47,11 @@ void	parsing2(t_token *token)
 	{
 		if (token->type[i] == PIPE)
 			pipe_pars(token, i);
-		else if (token->type[i] == OUTPUTREDIR || token->type[i] == APPENDREDIR)
-			dir_out(token, i);
+		else if (token->type[i] == OUTPUTREDIR || token->type[i] == APPENDREDIR
+			|| token->type[i] == INPUTREDIR || token->type[i] == HEREDOC)
+			redir(token, i);
+		else if (token->type[i] == DOLLAR)
+			pars_dollar(token);
 		if (token->err == 1)
 			return ;
 		i++;
@@ -71,7 +79,6 @@ unsigned int	parsing(t_token *token)
 	i--;
 	if (token->word[i] && token->type[i] == SEP)
 		erased_str(token, &i);
-	print_token(token);
 	parsing2(token);
 	if (token->err == 1)
 		return (1);
