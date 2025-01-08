@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/02 14:35:06 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:38:39 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define BLUE			"\001\e[38;2;47;160;219m\002"
 #define RED			"\e[38;5;196m"
 #define RESET			"\001\e[0m\002"
+#define ENV			__environ
 
 typedef enum e_type
 {
@@ -43,10 +44,18 @@ typedef enum e_type
 	EMPTY, // NULL
 }	t_type;
 
+typedef struct env
+{
+	struct env	*next;
+	char		*value;
+	char		*name;
+}	t_env;
+
 typedef struct token
 {
 	unsigned int	err;
 	unsigned int	tlen;
+	t_env 			*envhead;
 	char			**word;
 	t_type			*type;
 }	t_token;
@@ -61,6 +70,10 @@ void			export(t_token *token, unsigned int *i);
 void			unset(t_token *token, unsigned int *i);
 void			env(t_token *token, unsigned int *i);
 void			echo(t_token *token, unsigned int *i);
+
+void			free_env(t_token *token);
+t_env			*ft_lstnew(char *content);
+void			ft_env_print(t_env *env);
 
 void			erased_str(t_token *token, unsigned int *s);
 void			erased_quote(t_token *token, unsigned int *p);
