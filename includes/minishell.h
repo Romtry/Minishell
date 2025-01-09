@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/08 12:38:39 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:07:28 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_type
 	DOUBLEQUOTE, // "
 	DOLLAR, // $
 	EMPTY, // NULL
+	QUOTED, // "WORD"
 }	t_type;
 
 typedef struct env
@@ -75,6 +76,7 @@ void			free_env(t_token *token);
 t_env			*ft_lstnew(char *content);
 void			ft_env_print(t_env *env);
 
+void			free_word(t_token *token);
 void			erased_str(t_token *token, unsigned int *s);
 void			erased_quote(t_token *token, unsigned int *p);
 unsigned int	wich_type(char c);
@@ -84,7 +86,7 @@ unsigned int	parsing(t_token *token);
 void			print_error(t_token *token, unsigned int n);
 unsigned int	is_sep(char c);
 void			lexer(t_token *token, char *input);
-void			get_type(t_token *token);
+void			get_type(t_token *token, unsigned int one, unsigned int two);
 void			parsing_exec(t_token *token, unsigned int *i);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
 unsigned int	count_word(char *str);

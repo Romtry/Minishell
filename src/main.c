@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/08 12:38:54 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:48:10 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	init_env(t_token *token)
 
 	i = 0;
 	token->envhead = ft_lstnew(ENV[0]);
-	printf("name = %s\n", token->envhead->name);
 	env = token->envhead;
 	while (ENV[i])
 	{
@@ -83,7 +82,7 @@ int	main(void)
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
 	init_env(token);
-	ft_env_print(token->envhead);
+	// ft_env_print(token->envhead);
 	while (1)
 	{
 		input = readline(BLUE"(satoru caca)> "RESET);
@@ -98,8 +97,8 @@ int	main(void)
 		lexer(token, input);
 		free(input);
 		if (parsing(token) == 0)
-			// parsing_exec(&token);
-		// print_token(&token);
+			// parsing_exec(token);
+		print_token(token);
 		free_token(token);
 	}
 	free_env(token);

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/08 12:41:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:06:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,7 @@ void	free_token(t_token *token)
 	i = 0;
 	if (token->word)
 	{
-		while (token->word[i])
-		{
-			free(token->word[i]);
-			i++;
-		}
-		free(token->word);
-		token->word = NULL;
+		free_word(token);
 		free(token->type);
 		token->type = NULL;
 	}

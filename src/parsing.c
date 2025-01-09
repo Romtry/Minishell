@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/06 14:51:04 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:10:00 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,18 @@ unsigned int	parsing(t_token *token)
 {
 	unsigned int	i;
 
-	i = 0;
-	while (token->word[i])
+	i = -1;
+	while (token->word[++i])
 	{
 		if (token->type[i] == SINGLEQUOTE || token->type[i] == DOUBLEQUOTE)
 			secnd_quote(token, &i, token->type[i]);
 		if (token->err == 1)
 			return (1);
-		if (i > 0 && token->type[i - 1]  == SEP)
+		if (i > 0 && token->type[i - 1] == SEP)
 		{
 			i--;
 			erased_str(token, &i);
 		}
-		i++;
 	}
 	i--;
 	if (token->word[i] && token->type[i] == SEP)
@@ -84,4 +83,3 @@ unsigned int	parsing(t_token *token)
 		return (1);
 	return (0);
 }
-// mais si je met 'et un truc du genre cette phrase

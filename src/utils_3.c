@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:34:52 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/02 15:11:36 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:46:46 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,55 @@ void	erased_str(t_token *token, unsigned int *s)
 	while (token->word[i])
 		temp[i2++] = ft_strcpy(token->word[i++]);
 	temp[i2] = NULL;
+	free_word(token);
+	token->word = temp;
+	get_type(token, *s, *s);
 	if (*s > 0)
 		*s -= 1;
-	free_token(token);
-	token->word = temp;
-	get_type(token);
 }
 
-void	get_type(t_token *token)
+void	get_type(t_token *token, unsigned int one, unsigned int two)
 {
-	unsigned int	type;
 	unsigned int	i;
 	unsigned int	i2;
+	unsigned int	*temp;
 
-	i = 0;
-	i2 = 0;
-	token->type = malloc(sizeof(int) * (token->tlen + 1));
-	while (token->word[i])
+	i = -1;
+	temp = malloc(sizeof(unsigned int) * (token->tlen + 1));
+	while (token->word[++i] && i < one)
+		temp[i] = token->type[i];
+	if (one != two)
 	{
-		type = wich_type(token->word[i][0]);
-		while (token->word[i][i2])
-		{
-			if (type != wich_type(token->word[i][i2])
-				|| wich_type(token->word[i][i2]) == WORD)
-			{
-				type = WORD;
-				break;
-			}
-			i2++;
-		}
-		i2 = 0;
-		token->type[i] = type;
+		temp[i] = QUOTED;
+		i2 = i + 1;
+	}
+	else
+		i2 = i;
+	i = two + 1;
+	while (token->word[i2])
+	{
+		temp[i2] = token->type[i];
+		i2++;
 		i++;
 	}
-	token->type[i] = '\0';
+	temp[i2] = '\0';
+	free(token->type);
+	token->type = temp;
+}
+
+void	free_word(t_token *token)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (token->word)
+	{
+		while (token->word[i])
+		{
+			free(token->word[i]);
+			i++;
+		}
+		free(token->word);
+		token->word = NULL;
+	}
 }

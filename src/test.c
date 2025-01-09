@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/30 08:32:06 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:15:41 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	print_token(t_token *token)
     	"SINGLEQUOTE",   // '
     	"DOUBLEQUOTE",   // "
     	"DOLLAR",        // $
-    	"EMPTY"          // NULL
+    	"EMPTY",         // NULL
+		"QUOTED"		//"WORD"
 	};
 	i = 0;
 	while (token->word[i])

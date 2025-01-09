@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 11:16:04 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/03 11:02:24 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:52:42 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	while (token->word[++i])
 		temp[++i2] = ft_strcpy(token->word[i]);
 	temp[i2 + 1] = NULL;
-	free_token(token);
+	free_word(token);
 	token->word = temp;
-	get_type(token);
+	get_type(token, *one, two);
+	print_token(token);
+	printf("\n");
 }
 
 void	erased_quote(t_token *token, unsigned int *p)
@@ -81,9 +83,9 @@ void	erased_quote(t_token *token, unsigned int *p)
 	while (token->word[i])
 		temp[i2++] = ft_strcpy(token->word[i++]);
 	temp[i2] = NULL;
-	free_token(token);
+	free_word(token);
 	token->word = temp;
-	get_type(token);
+	get_type(token, *p, *p);
 }
 
 int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
