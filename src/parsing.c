@@ -33,9 +33,33 @@ void	redir(t_token *token, unsigned int i)
 		return(free_token(token), print_error(token, 3));
 }
 
-void	pars_dollar(t_token *token)
+void	pars_dollar(t_token *token, unsigned int i)
 {
-	(void)token;
+	t_env	*list;
+
+	list = token->envhead;
+	while (list)
+	{
+		if (ft_strcmp(list->name, token->word[i + 1]) == 0)
+		{
+			erased_str(token, &i);
+			free(token->word[i + 1]);
+			token->word[i + 1] = ft_strcpy(list->value);
+			return ;
+		}
+		list = list->next;
+	}
+	if (token->type[i - 1] == WORD)
+	{
+		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
+		erased_str(token, &i);
+	}
+	else if (token->type[i + 1] == QUOTED)
+	{
+		token->word[i + 1] = ft_strjoin("$", token->word[i + 1]);
+		erased_str(token, &i);
+	}
+	token->type[i] = WORD;
 }
 
 void	parsing2(t_token *token)
@@ -51,7 +75,7 @@ void	parsing2(t_token *token)
 			|| token->type[i] == INPUTREDIR || token->type[i] == HEREDOC)
 			redir(token, i);
 		else if (token->type[i] == DOLLAR)
-			pars_dollar(token);
+			pars_dollar(token, i);
 		if (token->err == 1)
 			return ;
 		i++;
