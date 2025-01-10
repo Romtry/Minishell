@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/10 09:19:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:42:21 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void			free_env(t_token *token);
 t_env			*ft_lstnew(char *content);
 void			ft_env_print(t_env *env);
 
+void			erased_str2(t_token *token, unsigned int s);
 void			free_word(t_token *token);
+void			realloc_word(t_token *token, unsigned int *one, unsigned int two);
 void			erased_str(t_token *token, unsigned int *s);
 void			erased_quote(t_token *token, unsigned int *p);
 unsigned int	wich_type(char c);

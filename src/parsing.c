@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/10 13:29:47 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:45:08 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	pars_dollar(t_token *token, unsigned int i)
 		}
 		list = list->next;
 	}
-	if (i < token->tlen && i > 0 && token->type[i - 1] == WORD && token->type[i + 1] != WORD)
+	if (i < token->tlen && token->type[i + 1] == WORD)
+		erased_str2(token, i);
+	else if (i < token->tlen && i > 0 && token->type[i - 1] == WORD && token->type[i + 1] != WORD)
 		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
 	else if (token->type[i + 1] == QUOTED)
 		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
-	else if (i < token->tlen && token->type[i + 1] == WORD)
-		erased_str(token, &i);
 	erased_str(token, &i);
 	token->type[i] = WORD;
 }
@@ -75,7 +75,10 @@ void	parsing2(t_token *token)
 			redir(token, i);
 		else if (token->type[i] == DOLLAR)
 		{
-			pars_dollar(token, i);
+			if (i + 1 >= token->tlen)
+				print_error(token, 0);
+			else
+				pars_dollar(token, i);
 			i--;
 		}
 		if (token->err == 1)
