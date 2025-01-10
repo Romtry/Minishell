@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/09 13:07:28 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:19:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			erased_quote(t_token *token, unsigned int *p);
 unsigned int	wich_type(char c);
 char			*ft_strcpy(char *str1);
 char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strjoin2(char *str1, char *str2);
 unsigned int	parsing(t_token *token);
 void			print_error(t_token *token, unsigned int n);
 unsigned int	is_sep(char c);

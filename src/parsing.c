@@ -40,25 +40,24 @@ void	pars_dollar(t_token *token, unsigned int i)
 	list = token->envhead;
 	while (list)
 	{
-		if (ft_strcmp(list->name, token->word[i + 1]) == 0)
+		if (ft_strcmp(list->name, token->word[i + 1]) == 0 && token->type[i + 1] == WORD)
 		{
 			erased_str(token, &i);
+			if (i == 0)
+				i--;
 			free(token->word[i + 1]);
 			token->word[i + 1] = ft_strcpy(list->value);
 			return ;
 		}
 		list = list->next;
 	}
-	if (token->type[i - 1] == WORD)
-	{
+	if (i < token->tlen && i > 0 && token->type[i - 1] == WORD && token->type[i + 1] != WORD)
 		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
-		erased_str(token, &i);
-	}
 	else if (token->type[i + 1] == QUOTED)
-	{
-		token->word[i + 1] = ft_strjoin("$", token->word[i + 1]);
+		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
+	else if (i < token->tlen && token->type[i + 1] == WORD)
 		erased_str(token, &i);
-	}
+	erased_str(token, &i);
 	token->type[i] = WORD;
 }
 
@@ -75,7 +74,10 @@ void	parsing2(t_token *token)
 			|| token->type[i] == INPUTREDIR || token->type[i] == HEREDOC)
 			redir(token, i);
 		else if (token->type[i] == DOLLAR)
+		{
 			pars_dollar(token, i);
+			i--;
+		}
 		if (token->err == 1)
 			return ;
 		i++;
