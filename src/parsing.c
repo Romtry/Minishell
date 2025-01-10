@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/09 15:10:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:29:47 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ unsigned int	parsing(t_token *token)
 			secnd_quote(token, &i, token->type[i]);
 		if (token->err == 1)
 			return (1);
-		if (i > 0 && token->type[i - 1] == SEP)
-		{
-			i--;
-			erased_str(token, &i);
-		}
+		// if (i > 0 && token->type[i - 1] == SEP)
+		// {
+		// 	i--;
+		// 	erased_str(token, &i);
+		// }
 	}
 	i--;
 	if (token->word[i] && token->type[i] == SEP)
