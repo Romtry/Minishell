@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/10 13:45:08 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:44:43 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,24 @@ void	pipe_pars(t_token *token, unsigned int i)
 	print_error(token, 2);
 }
 
-void	redir(t_token *token, unsigned int i)
+void	redir(t_token *token)
 {
-	if (!token->word[i + 1])
-		return(free_token(token), print_error(token, 3));
+	unsigned int	i;
+
+	i = 0;
+	while (token->word[i])
+	{
+		if (token->type[i] == OUTPUTREDIR || token->type[i] == APPENDREDIR
+			|| token->type[i] == INPUTREDIR || token->type[i] == HEREDOC)
+		{
+			if (i + 1 >= token->tlen)
+				return(free_token(token), print_error(token, 3));
+			if (token->type[i + 1] != WORD && (i + 3 < token->tlen
+				|| token->type[i + 1] != SEP || token->type[i + 2] != WORD))
+				return(free_token(token), print_error(token, 3));
+		}
+		i++;
+	}
 }
 
 void	pars_dollar(t_token *token, unsigned int i)
@@ -70,13 +84,15 @@ void	parsing2(t_token *token)
 	{
 		if (token->type[i] == PIPE)
 			pipe_pars(token, i);
-		else if (token->type[i] == OUTPUTREDIR || token->type[i] == APPENDREDIR
-			|| token->type[i] == INPUTREDIR || token->type[i] == HEREDOC)
-			redir(token, i);
 		else if (token->type[i] == DOLLAR)
 		{
-			if (i + 1 >= token->tlen)
-				print_error(token, 0);
+			if (i + 1 >= token->tlen && token->type[i - 1] == WORD)
+			{
+				token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
+				erased_str(token, &i);
+			}
+			else if (i + 1 >= token->tlen && token->type[i - 1] != WORD)
+				token->type[i] = WORD;
 			else
 				pars_dollar(token, i);
 			i--;
@@ -85,6 +101,7 @@ void	parsing2(t_token *token)
 			return ;
 		i++;
 	}
+	redir(token);
 }
 
 unsigned int	parsing(t_token *token)
@@ -108,6 +125,7 @@ unsigned int	parsing(t_token *token)
 	if (token->word[i] && token->type[i] == SEP)
 		erased_str(token, &i);
 	parsing2(token);
+	
 	if (token->err == 1)
 		return (1);
 	return (0);

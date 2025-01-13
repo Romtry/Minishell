@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/10 13:42:21 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:51:08 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum e_type
 	DOUBLEQUOTE, // "
 	DOLLAR, // $
 	EMPTY, // NULL
-	QUOTED, // "WORD"
+	DQUOTE, // "WORD"
+	SQUOTE, // ''
 }	t_type;
 
 typedef struct env

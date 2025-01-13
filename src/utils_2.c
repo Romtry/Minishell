@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/10 09:14:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:21:32 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	free_token(t_token *token)
 		free(token->type);
 		token->type = NULL;
 	}
-	else
-		puts("pascaca\n");
 }
 
 int exitmentioned(t_token *token)

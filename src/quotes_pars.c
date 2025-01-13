@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 11:16:04 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/09 13:52:42 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:31:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 	if (token->tlen <= 1 && (ft_strlen(token->word[*one]) % 2) == 1)
 		return(free_token(token), print_error(token, 1), 1);
 	else if (token->tlen <= 1 && (ft_strlen(token->word[*one]) % 2) == 0)
-		return(free_token(token), print_error(token, 0), 1);
+		return(free_token(token), print_error(token, -1), printf("\n"), 1);
 	else if ((ft_strlen(token->word[*one]) % 2) == 0)
 		return (erased_quote(token, one), 0);
 	while (token->word[two] && token->type[two] != quote)
