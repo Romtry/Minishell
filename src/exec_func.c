@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:54:40 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/26 14:18:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:07:39 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,29 @@
 //     //printf("\n");
 //     parsing2(token, i);
 // }
+
+void exec_pwd(t_token *token)
+{
+    char *pwd;
+
+    pwd = getcwd(NULL, 0);
+    if (pwd == NULL)
+    {
+        printf("prout");
+        return ;
+    }
+    printf("%s\n",pwd);
+    free(pwd);
+}
+
+void    exec_env(t_token *token)
+{
+    t_env *current;
+
+    current = token->envhead;
+    while (current)
+    {
+        printf("%s=%s\n", current->name, current->value);
+        current = current->next;
+    }
+}

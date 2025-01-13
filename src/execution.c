@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/26 12:33:52 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:07:39 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	exec(t_token *token)
-// {
-// 	// unsigned int	i;
-
-// 	// i = 0;
-// 	print_token(token);
-// }
+/*void	exec(t_token *token)
+{
+    // unsigned int	i;
+    // i = 0;
+    print_token(token);
+}
+*/
