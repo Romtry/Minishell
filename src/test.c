@@ -6,17 +6,16 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:36:21 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:06:50 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_cmd(t_token *token)
+void	print_cmd(t_cmd *cmd)
 {
 	unsigned int	i;
 	unsigned int	i2;
-	t_cmd			*cmd;
 	const char		*t_type_str[] = {
 		"WORD",
 		"SEP",				// whitespace
@@ -32,7 +31,6 @@ void	print_cmd(t_token *token)
 		"DQUOTED",			//"WORD"
 		"SQUOTED",			//'WORD'
 	};
-	cmd = token->cmd;
 	i = 0;
 	i2 = 0;
 	while (cmd->word[i])

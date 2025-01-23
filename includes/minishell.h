@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/23 10:47:39 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:44:00 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ typedef struct token
 	t_env			*envhead;
 	char			**word;
 	t_type			*type;
-	t_cmd			*cmd;
 }	t_token;
 
 void			print_array(char **array);
 void			print_token(t_token *token);
-void			print_cmd(t_token *token);
+void			print_cmd(t_cmd *cmd);
 void			env_print(t_env *env);
 
 // free_utils
@@ -120,7 +119,7 @@ unsigned int	wich_type(char c);
 unsigned int	ft_strcmp(char *str, char *str2);
 
 // transfert
-void		    transfert(t_token *token);
+void		    transfert(t_token *token, t_cmd *cmd);
 
 // exec
 void			parsing_exec(t_token *token, unsigned int *i);

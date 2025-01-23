@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:30:37 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:07:42 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,43 @@ void	init_env(t_token *token)
 	}
 }
 
+unsigned int	rl(t_token *token)
+{
+	char	*input;
+
+	input = readline(BLUE"(satoru caca)> "RESET);
+	if (!input)
+		return (1);
+	if (input[0] == '\0')
+	{
+		free(input);
+		return (1);
+	}
+	add_history (input);
+	lexer(token, input);
+	free(input);
+	return (0);
+}
+
 int	main(void)
 {
 	t_token	*token;
-	char	*input;
+	t_cmd	*cmd;
 
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
 	init_env(token);
 	while (1)
 	{
-		input = readline(BLUE"(satoru caca)> "RESET);
-		if (!input)
-			break ;
-		if (input[0] == '\0')
-		{
-			free(input);
-			continue ;
-		}
-		add_history (input);
-		lexer(token, input);
-		free(input);
+		if (rl(token) == 1)
+			break;
 		parsing(token);
+		cmd = malloc(sizeof(t_cmd));
+		transfert(token, cmd);
+		// puts("ICI\n");
 		if (token->err == 0)
-			print_cmd(token);
-		transfert(token);
-		free_cmd(token->cmd);
+			print_cmd(cmd);
+		free_cmd(cmd);
 	}
 	free_env(token);
 	rl_clear_history();
