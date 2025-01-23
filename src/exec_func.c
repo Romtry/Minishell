@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:54:40 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/13 16:07:39 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:47:26 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 //     parsing2(token, i);
 // }
 
-void exec_pwd(t_token *token)
+void exec_pwd(void)
 {
     char *pwd;
 

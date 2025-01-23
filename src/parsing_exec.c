@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:06 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/02 10:19:38 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/20 08:33:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ unsigned int	is_command(t_token *token, unsigned int *i)
 void	parsing_exec(t_token *token, unsigned int *i)
 {
 	if(*i == 0)
-		if(exitmentioned(token))
-			return ;
-	if (is_command(token, i) == 1)
+		token->err = 1;
+	else if (is_command(token, i) == 1)
 		print_error(token, 2);
 }

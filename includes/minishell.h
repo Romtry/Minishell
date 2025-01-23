@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/13 15:51:08 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:09:56 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define BLUE			"\001\e[38;2;47;160;219m\002"
 #define RED			"\e[38;5;196m"
 #define RESET			"\001\e[0m\002"
+#define	CLEAR		"\e[0m\n"
 #define ENV			__environ
 
 typedef enum e_type
@@ -38,12 +39,12 @@ typedef enum e_type
 	OUTPUTREDIR, // >
 	HEREDOC, // <<
 	APPENDREDIR, // >>
-	SINGLEQUOTE, // '
-	DOUBLEQUOTE, // "
+	SQUOTE, // '
+	DQUOTE, // "
 	DOLLAR, // $
 	EMPTY, // NULL
-	DQUOTE, // "WORD"
-	SQUOTE, // ''
+	DQUOTED, // "WORD"
+	SQUOTED, // 'WORD'
 }	t_type;
 
 typedef struct env
@@ -53,13 +54,20 @@ typedef struct env
 	char		*name;
 }	t_env;
 
+typedef struct cmd
+{
+	t_type		**type;
+	char		***word;
+}	t_cmd;
+
 typedef struct token
 {
 	unsigned int	err;
 	unsigned int	tlen;
-	t_env 			*envhead;
+	t_env			*envhead;
 	char			**word;
 	t_type			*type;
+	t_cmd			*cmd;
 }	t_token;
 
 void			print_array(char **array);
@@ -70,16 +78,21 @@ void			cd(t_token *token, unsigned int *i);
 void			pwd(t_token *token, unsigned int *i);
 void			export(t_token *token, unsigned int *i);
 void			unset(t_token *token, unsigned int *i);
-void			env(t_token *token, unsigned int *i);
+void			exec_env(t_token *token);
 void			echo(t_token *token, unsigned int *i);
+void			env(t_token *token, unsigned int *i);
 
 void			free_env(t_token *token);
 t_env			*ft_lstnew(char *content);
 void			ft_env_print(t_env *env);
 
+void		    transfert(t_token *token);
+void			lexer(t_token *token, char *input);
 void			erased_str2(t_token *token, unsigned int s);
 void			free_word(t_token *token);
-void			realloc_word(t_token *token, unsigned int *one, unsigned int two);
+void			realloc_word(t_token *token, unsigned int *one,
+					unsigned int two);
+void			pars_dollar(t_token *token, unsigned int i);
 void			erased_str(t_token *token, unsigned int *s);
 void			erased_quote(t_token *token, unsigned int *p);
 unsigned int	wich_type(char c);

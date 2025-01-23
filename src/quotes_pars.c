@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 11:16:04 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/13 15:31:30 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:18:14 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	char			**temp;
 
 	i = -1;
-	if (*one != 0 && token->type[*one - 1] == WORD)
-		skip_quotes(token, one, 0);
-	if (token->word[two + 1] && token->type[two + 1] == WORD)
-		skip_quotes(token, &two, 1);
 	token->tlen -= (two - *one);
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
 	while (++i < *one)
@@ -57,7 +53,6 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	free_word(token);
 	token->word = temp;
 	get_type(token, *one, two);
-	print_token(token);
 	printf("\n");
 }
 
@@ -88,6 +83,8 @@ void	erased_quote(t_token *token, unsigned int *p)
 	get_type(token, *p, *p);
 }
 
+
+
 int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 {
 	unsigned int	two;
@@ -101,11 +98,11 @@ int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 		return (erased_quote(token, one), 0);
 	while (token->word[two] && token->type[two] != quote)
 		two++;
-	if (token->word[two] && (ft_strlen(token->word[two]) % 2) == 0)
+	if (!token->word[two])
+		return(print_error(token, 1), 1);
+	else if ((ft_strlen(token->word[two]) % 2) == 0)
 		return (erased_quote(token, &two),
 				secnd_quote(token, one, quote));
-	else if (token->word[two])
-		return(realloc_word(token, one, two), 0);
 	else
-		return(print_error(token, 1), 1);
+		return(realloc_word(token, one, two), 0);
 }

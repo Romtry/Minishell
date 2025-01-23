@@ -6,33 +6,68 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/09 11:15:41 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:15:27 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_cmd(t_token *token)
+{
+	unsigned int	i;
+	unsigned int	i2;
+	t_cmd			*cmd;
+	const char		*t_type_str[] = {
+		"WORD",
+		"SEP",				// whitespace
+		"PIPE",				// |
+		"INPUTREDIR",		// <
+		"OUTPUTREDIR",		// >
+		"HEREDOC",			// <<
+		"APPENDREDIR",		// >>
+		"SQUOTE",			// '
+		"DQUOTE",			// "
+		"DOLLAR",			// $
+		"EMPTY",        	// NULL
+		"DQUOTED",			//"WORD"
+		"SQUOTED",			//'WORD'
+	};
+	cmd = token->cmd;
+	i = 0;
+	i2 = 0;
+	while (cmd->word[i])
+	{
+		while (cmd->word[i][i2])
+		{
+			printf("word[%u][%u] = [%s] type = %s\n", i, i2, cmd->word[i][i2], t_type_str[cmd->type[i][i2]]);
+			i2++;
+		}
+	}
+}
 
 void	print_token(t_token *token)
 {
 	unsigned int	i;
 	const char		*t_type_str[] = {
 		"WORD",
-    	"SEP",           // whitespace
-    	"PIPE",          // |
-    	"INPUTREDIR",    // <
-    	"OUTPUTREDIR",   // >
-    	"HEREDOC",       // <<
-    	"APPENDREDIR",   // >>
-    	"SINGLEQUOTE",   // '
-    	"DOUBLEQUOTE",   // "
-    	"DOLLAR",        // $
-    	"EMPTY",         // NULL
-		"QUOTED"		//"WORD"
+		"SEP",				// whitespace
+		"PIPE",				// |
+		"INPUTREDIR",		// <
+		"OUTPUTREDIR",		// >
+		"HEREDOC",			// <<
+		"APPENDREDIR",		// >>
+		"SINGLEQUOTE",		// '
+		"DOUBLEQUOTE",		// "
+		"DOLLAR",			// $
+		"EMPTY",			// NULL
+		"DQUOTED",			// "WORD"
+		"SQUOTED",			// 'WORD'
 	};
 	i = 0;
 	while (token->word[i])
 	{
-		printf("word %u = [%s] type = %s\n", i, token->word[i], t_type_str[token->type[i]]);
+		printf("word %u = [%s] ", i, token->word[i]);
+		printf("type = %s\n", t_type_str[token->type[i]]);
 		i++;
 	}
 }

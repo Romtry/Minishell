@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_3.c                                          :+:      :+:    :+:   */
+/*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:34:52 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/13 14:59:25 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:31:10 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ void	erased_str(t_token *token, unsigned int *s)
 		*s -= 1;
 }
 
+void	quote_type(t_token *token, unsigned int one, unsigned int *temp)
+{
+	if (token->type[one] == DQUOTE)
+		temp[one] = DQUOTED;
+	else if (token->type[one] == SQUOTE)
+		temp[one] = SQUOTED;
+}
+
 void	get_type(t_token *token, unsigned int one, unsigned int two)
 {
 	unsigned int	i;
@@ -78,7 +86,7 @@ void	get_type(t_token *token, unsigned int one, unsigned int two)
 		temp[i] = token->type[i];
 	if (one != two)
 	{
-		temp[i] = QUOTED;
+		quote_type(token, one, temp);
 		i2 = i + 1;
 	}
 	else
@@ -95,37 +103,32 @@ void	get_type(t_token *token, unsigned int one, unsigned int two)
 	token->type = temp;
 }
 
-void	free_word(t_token *token)
+void	pars_dollar(t_token *token, unsigned int i)
 {
-	unsigned int	i;
+	t_env	*list;
 
-	i = 0;
-	if (token->word)
+	list = token->envhead;
+	while (list)
 	{
-		while (token->word[i])
+		if (ft_strcmp(list->name, token->word[i + 1]) == 0
+			&& token->type[i + 1] == WORD)
 		{
-			free(token->word[i]);
-			i++;
+			erased_str(token, &i);
+			if (i == 0)
+				i--;
+			free(token->word[i + 1]);
+			token->word[i + 1] = ft_strcpy(list->value);
+			return ;
 		}
-		free(token->word);
-		token->word = NULL;
+		list = list->next;
 	}
-}
-
-char	*ft_strjoin2(char *str1, char *str2)
-{
-	char			*ret;
-	unsigned int	l;
-	unsigned int	i;
-
-	i = -1;
-	l = ft_strlen(str1) + ft_strlen(str2);
-	ret = malloc(sizeof(char) * l + 1);
-	while (str1[++i])
-		ret[i] = str1[i];
-	i--;
-	while (str2[++i - ft_strlen(str1)])
-		ret[i] = str2[i - ft_strlen(str1)];
-	ret[i] = '\0';
-	return (ret);
+	if (i < token->tlen && token->type[i + 1] == WORD)
+		erased_str2(token, i);
+	else if (i < token->tlen && i > 0
+		&& token->type[i - 1] == WORD && token->type[i + 1] != WORD)
+		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
+	else if (token->type[i + 1] == DQUOTED || token->type[i + 1] == SQUOTED)
+		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
+	erased_str(token, &i);
+	token->type[i] = WORD;
 }

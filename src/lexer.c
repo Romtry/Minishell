@@ -1,55 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2024/12/30 09:18:33 by rothiery         ###   ########.fr       */
+/*   Created: 2025/01/20 08:27:45 by rothiery          #+#    #+#             */
+/*   Updated: 2025/01/20 08:30:33 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-unsigned int	ft_strlen(char *str)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (!str || !str[0])
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
-unsigned int	is_sep(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
-		return (0);
-	return (1);
-}
-
-unsigned int	wich_type(char c)
-{
-	if (is_sep(c) == 0)
-		return (SEP);
-	else if (c == '|')
-		return (PIPE);
-	else if (c == '<')
-		return (INPUTREDIR);
-	else if (c == '>')
-		return (OUTPUTREDIR);
-	else if (c == '\'')
-		return (SINGLEQUOTE);
-	else if (c == '\"')
-		return (DOUBLEQUOTE);
-	else if (c == '$')
-		return (DOLLAR);
-	else
-		return (0);
-}
 
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c)
 {
@@ -94,3 +55,24 @@ unsigned int	count_word(char *str)
 	return (ret);
 }
 
+void	lexer(t_token *token, char *input)
+{
+	unsigned int	i;
+	unsigned int	c;
+
+	i = 0;
+	c = 0;
+	token->tlen = count_word(input);
+	token->err = 0;
+	token->word = malloc(sizeof(char *) * (token->tlen + 1));
+	token->type = malloc(sizeof(t_type) * (token->tlen + 1));
+	while (input[i] && is_sep(input[i]) == 0)
+		i++;
+	while (c < token->tlen)
+	{
+		i += malloc_word(token, input + i, c);
+		c++;
+	}
+	token->word[c] = NULL;
+	token->type[c] = '\0';
+}

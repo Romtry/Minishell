@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/13 15:19:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:00:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,15 @@
 void	print_error(t_token *token, unsigned int n)
 {
 	if (n == 0)
-		printf(RED"Command error tu seras privé de tarte au caca !\e[0m\n");
+		printf(RED"Command error tu seras privé de tarte au caca !"CLEAR);
 	else if (n == 1)
-		printf(RED"Quote not closed so no caca pie !\e[0m\n");
+		printf(RED"Quote not closed so no caca pie !"CLEAR);
 	else if (n == 2)
-		printf(RED"syntax error near unexpected token '|' no metal pipe for diner !\e[0m\n");
+		printf(RED"syntax error near unexpected token '|' !"CLEAR);
 	else if (n == 3)
-		printf(RED"syntax error near unexpected token 'newline'\e[0m\n");
+		printf(RED"syntax error near unexpected token 'newline'"CLEAR);
 	token->err = 1;
-}
-
-void	lexer(t_token *token, char *input)
-{
-	unsigned int	i;
-	unsigned int	c;
-
-	i = 0;
-	c = 0;
-	token->tlen = count_word(input);
-	token->err = 0;
-	token->word = malloc(sizeof(char *) * (token->tlen + 1));
-	token->type = malloc(sizeof(t_type) * (token->tlen + 1));
-	while (input[i] && is_sep(input[i]) == 0)
-		i++;
-	while (c < token->tlen)
-	{
-		i += malloc_word(token, input + i, c);
-		c++;
-	}
-	token->word[c] = NULL;
-	token->type[c] = '\0';
+	free_token(token);
 }
 
 void	handle_signal(int sig)
@@ -76,30 +55,28 @@ void	init_env(t_token *token)
 
 int	main(void)
 {
-	t_token *token;
+	t_token	*token;
 	char	*input;
 
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
 	init_env(token);
-	// ft_env_print(token->envhead);
 	while (1)
 	{
 		input = readline(BLUE"(satoru caca)> "RESET);
 		if (!input)
-			break;
+			break ;
 		if (input[0] == '\0')
 		{
 			free(input);
-			continue;
+			continue ;
 		}
 		add_history (input);
 		lexer(token, input);
 		free(input);
-		if (parsing(token) == 0)
-			// parsing_exec(token);
-		print_token(token);
-		free_token(token);
+		parsing(token);
+		if (token->err == 0)
+			print_token(token);
 	}
 	free_env(token);
 	rl_clear_history();
