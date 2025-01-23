@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/23 10:09:56 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:47:39 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,58 @@ typedef struct token
 
 void			print_array(char **array);
 void			print_token(t_token *token);
+void			print_cmd(t_token *token);
+void			env_print(t_env *env);
 
+// free_utils
+void			free_cmd(t_cmd	*cmd);
+void			free_token(t_token *token);
+void			free_env(t_token *token);
+void			free_word(t_token *token);
+
+// lexer
+void			lexer(t_token *token, char *input);
+unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
+unsigned int	count_word(char *str);
+void			lexer(t_token *token, char *input);
+
+// lst_utils
+t_env			*ft_lstnew(char *content);
+
+// main
+void			print_error(t_token *token, unsigned int n);
+
+// malloc_utils
+char			*ft_strcpy(char *str1);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strjoin2(char *str1, char *str2);
+
+// pars_utils
+void			erased_str(t_token *token, unsigned int *s);
+void			erased_str2(t_token *token, unsigned int s);
+void			get_type(t_token *token, unsigned int one, unsigned int two);
+void			pars_dollar(t_token *token, unsigned int i);
+
+// parsing
+unsigned int	parsing(t_token *token);
+
+// quotes_pars
+void			erased_quote(t_token *token, unsigned int *p);
+int				secnd_quote(t_token *token, unsigned int *one, t_type quote);
+void			realloc_word(t_token *token, unsigned int *one,
+					unsigned int two);
+
+// str_utils
+unsigned int	ft_strlen(char *str);
+unsigned int	is_sep(char c);
+unsigned int	wich_type(char c);
+unsigned int	ft_strcmp(char *str, char *str2);
+
+// transfert
+void		    transfert(t_token *token);
+
+// exec
+void			parsing_exec(t_token *token, unsigned int *i);
 void			exec(t_token *token, unsigned int *i);
 void			cd(t_token *token, unsigned int *i);
 void			pwd(t_token *token, unsigned int *i);
@@ -81,35 +132,4 @@ void			unset(t_token *token, unsigned int *i);
 void			exec_env(t_token *token);
 void			echo(t_token *token, unsigned int *i);
 void			env(t_token *token, unsigned int *i);
-
-void			free_env(t_token *token);
-t_env			*ft_lstnew(char *content);
-void			ft_env_print(t_env *env);
-
-void		    transfert(t_token *token);
-void			lexer(t_token *token, char *input);
-void			erased_str2(t_token *token, unsigned int s);
-void			free_word(t_token *token);
-void			realloc_word(t_token *token, unsigned int *one,
-					unsigned int two);
-void			pars_dollar(t_token *token, unsigned int i);
-void			erased_str(t_token *token, unsigned int *s);
-void			erased_quote(t_token *token, unsigned int *p);
-unsigned int	wich_type(char c);
-char			*ft_strcpy(char *str1);
-char			*ft_strjoin(char *s1, char *s2);
-char			*ft_strjoin2(char *str1, char *str2);
-unsigned int	parsing(t_token *token);
-void			print_error(t_token *token, unsigned int n);
-unsigned int	is_sep(char c);
-void			lexer(t_token *token, char *input);
-void			get_type(t_token *token, unsigned int one, unsigned int two);
-void			parsing_exec(t_token *token, unsigned int *i);
-unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
-unsigned int	count_word(char *str);
-unsigned int	ft_strcmp(char *str, char *str2);
-unsigned int	ft_strlen(char *str);
-void			free_token(t_token *token);
 int				exitmentioned(t_token *token);
-void			toklen(t_token *token);
-int				secnd_quote(t_token *token, unsigned int *one, t_type quote);

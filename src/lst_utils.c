@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:45:35 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/08 12:41:50 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:36:15 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,4 @@ t_env	*ft_lstnew(char *content)
 		env->next = NULL;
 	}
 	return (env);
-}
-
-void	ft_env_print(t_env *env)
-{
-	if (!env)
-	{
-		printf(RED"!env\e[0m\n");
-		return ;
-	}
-	while (env->next)
-	{
-		printf("%s = %s\n", env->name, env->value);
-		env = env->next;
-	}
-}
-
-void	free_env(t_token *token)
-{
-	t_env	*temp;
-
-	while (token->envhead)
-	{
-		temp = token->envhead->next;
-		free(token->envhead->name);
-		free(token->envhead->value);
-		free(token->envhead);
-		token->envhead = temp;
-	}
-	free(token);
 }

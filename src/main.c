@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:00:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:30:37 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ int	main(void)
 		free(input);
 		parsing(token);
 		if (token->err == 0)
-			print_token(token);
+			print_cmd(token);
+		transfert(token);
+		free_cmd(token->cmd);
 	}
 	free_env(token);
 	rl_clear_history();

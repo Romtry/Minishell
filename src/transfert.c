@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 09:58:06 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:16:37 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:33:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void    transfert(t_token *token)
     }
 	token->cmd = malloc(sizeof(char **) * (p + 1));
 	transfert2(token);
+	free_token(token);
 }
