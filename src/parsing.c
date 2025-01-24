@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/20 13:58:42 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:39:03 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ void	pipe_pars(t_token *token, unsigned int i)
 		return (free_token(token), print_error(token, 2));
 	else if (ft_strlen(token->word[i]) != 1)
 		return (free_token(token), print_error(token, 2));
-	else if (token->type[i - 1] == WORD || token->type[i - 1] == DOLLAR)
+	else if (token->type[i - 1] == WORD || token->type[i - 1] == DOLLAR
+		|| token->type[i - 1] == SEP)
 	{
-		if (token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
+		if ((token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
 			|| token->type[i + 1] == SQUOTE || token->type[i + 1] == DQUOTE)
+			|| (token->type[i + 1] == SEP && (token->type[i + 1] == WORD
+			|| token->type[i + 1] == DOLLAR || token->type[i + 1] == SQUOTE
+			|| token->type[i + 1] == DQUOTE)))
 			return ;
 	}
 	print_error(token, 2);

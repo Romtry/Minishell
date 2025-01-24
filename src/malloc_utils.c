@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:01:53 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:03:03 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,29 @@ char	*ft_strjoin2(char *str1, char *str2)
 	return (ret);
 }
 
+char	**array_cpy(char **arr)
+{
+	unsigned int	i;
+	unsigned int	i2;
+	char			**ret;
+
+	i = 0;
+	i2 = 0;
+	while (arr[i])
+		i++;
+	ret = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (arr[++i])
+	{
+		while (arr[i][i2])
+			i2++;
+		ret[i] = malloc(sizeof(char) * (i2 + 1));
+		i2 = -1;
+		while (arr[i][++i2])
+			ret[i][i2] = arr[i][i2];
+		ret[i][i2] = '\0';
+		i2 = 0;
+	}
+	ret[i] = NULL;
+	return (ret);
+}

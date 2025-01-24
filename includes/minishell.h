@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:44:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:06:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 typedef enum e_type
 {
+	END,
 	WORD,
 	SEP, // whitespace
 	PIPE, // |
@@ -96,6 +97,7 @@ void			print_error(t_token *token, unsigned int n);
 char			*ft_strcpy(char *str1);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strjoin2(char *str1, char *str2);
+char			**array_cpy(char **arr);
 
 // pars_utils
 void			erased_str(t_token *token, unsigned int *s);

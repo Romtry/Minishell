@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:01:20 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:33:21 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:15:10 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@ void	free_cmd(t_cmd	*cmd)
 
 	i = 0;
 	i2 = 0;
-	while (cmd->word[i][0])
+	while (cmd->word[i])
 	{
 		while (cmd->word[i][i2])
 		{
 			free(cmd->word[i][i2]);
 			i2++;
 		}
+		free(cmd->word[i]);
 		free(cmd->type[i]);
 		i2 = 0;
 		i++;
 	}
+	free(cmd->type);
+	free(cmd->word);
+	free(cmd);
 }
 
 void	free_token(t_token *token)

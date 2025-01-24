@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/20 08:50:40 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:07:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ unsigned int	wich_type(char c)
 	else if (c == '$')
 		return (DOLLAR);
 	else
-		return (0);
+		return (1);
 }
 
 unsigned int	ft_strcmp(char *str, char *str2)

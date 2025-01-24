@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 14:06:50 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:31:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_cmd(t_cmd *cmd)
 	unsigned int	i;
 	unsigned int	i2;
 	const char		*t_type_str[] = {
+		"END",
 		"WORD",
 		"SEP",				// whitespace
 		"PIPE",				// |
@@ -31,14 +32,15 @@ void	print_cmd(t_cmd *cmd)
 		"DQUOTED",			//"WORD"
 		"SQUOTED",			//'WORD'
 	};
-	i = 0;
-	i2 = 0;
-	while (cmd->word[i])
+	i = -1;
+	i2 = -1;
+	while (cmd->word[++i])
 	{
-		while (cmd->word[i][i2])
+		while (cmd->word[i][++i2])
 		{
-			printf("word[%u][%u] = [%s] type = %s\n", i, i2, cmd->word[i][i2], t_type_str[cmd->type[i][i2]]);
-			i2++;
+			printf("word[%u][%u]", i, i2);
+			printf(" = [%s]", cmd->word[i][i2]);
+			printf(" type = %s\n", t_type_str[cmd->type[i][i2]]);
 		}
 	}
 }
@@ -47,6 +49,7 @@ void	print_token(t_token *token)
 {
 	unsigned int	i;
 	const char		*t_type_str[] = {
+		"END",
 		"WORD",
 		"SEP",				// whitespace
 		"PIPE",				// |

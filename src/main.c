@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 14:07:42 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:32:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ int	main(void)
 		if (rl(token) == 1)
 			break;
 		parsing(token);
-		cmd = malloc(sizeof(t_cmd));
-		transfert(token, cmd);
-		// puts("ICI\n");
 		if (token->err == 0)
+		{
+			cmd = malloc(sizeof(t_cmd));
+			transfert(token, cmd);
 			print_cmd(cmd);
-		free_cmd(cmd);
+			free_cmd(cmd);
+		}
 	}
 	free_env(token);
 	rl_clear_history();
