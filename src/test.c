@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 15:31:30 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:57:24 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_cmd(t_cmd *cmd)
 			printf(" = [%s]", cmd->word[i][i2]);
 			printf(" type = %s\n", t_type_str[cmd->type[i][i2]]);
 		}
+		i2 = -1;
 	}
 }
 

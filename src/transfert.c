@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 09:58:06 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 15:28:45 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:55:40 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ void	malloc_array(t_token *token, t_cmd *cmd)
 	}
 }
 
+void	transfert_pipe(t_cmd *cmd, unsigned int *p, unsigned int *i2)
+{
+	cmd->word[*p][*i2] = NULL;
+	cmd->type[*p][*i2] = '\0';
+	*p += 1;
+	*i2 = 0;
+}
+
 void	transfert2(t_token *token, t_cmd *cmd)
 {
 	unsigned int	i;
@@ -46,27 +54,24 @@ void	transfert2(t_token *token, t_cmd *cmd)
 	i = -1;
 	p = 0;
 	i2 = 0;
+	malloc_array(token, cmd);
 	while (token->word[++i])
 	{
-		malloc_array(token, cmd);
-		if (token->type[i] != PIPE)
+		if (token->type[i] == PIPE)
+			transfert_pipe(cmd, &p, &i2);
+		else
 		{
 			cmd->word[p][i2] = ft_strcpy(token->word[i]);
 			cmd->type[p][i2] = token->type[i];
 			i2++;
 		}
-		else
-		{
-			cmd->word[p][i2] = NULL;
-			cmd->type[p][i2] = '\0';
-			p++;
-			i2 = 0;
-		}
 	}
 	cmd->word[p][i2] = NULL;
 	cmd->type[p][i2] = '\0';
+	p++;
 	cmd->word[p] = NULL;
 	cmd->type[p] = NULL;
+	printf("%u\n", cmd->type[1][0]);
 }
 
 void	no_pipe(t_token *token, t_cmd *cmd)
