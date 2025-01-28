@@ -6,16 +6,16 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/01/23 10:10:53 by rothiery         ###   ########.fr        #
+#    Updated: 2025/01/28 11:45:28 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	minishell
 
 SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/execution.c	src/test.c	\
-		src/malloc_utils.c	src/utils_exec.c	src/parsing_exec.c	src/pars_utils.c	\
-		src/quotes_pars.c	src/utils_exec2.c	src/lst_utils.c		src/exec_func.c \
-		src/lexer.c			src/transfert.c		src/free_utils.c	\
+		src/malloc_utils.c	src/utils_exec.c	src/parsing_exec.c	src/pars_utils.c			\
+		src/quotes_pars.c	src/utils_exec2.c	src/lst_utils.c		src/exec_func.c 			\
+		src/lexer.c			src/transfert.c		src/free_utils.c	src/dollar_pars.c			\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

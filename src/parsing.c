@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:55:42 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 14:39:03 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:40:22 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	pipe_pars(t_token *token, unsigned int i)
 	print_error(token, 2);
 }
 
-void	redir(t_token *token)
+void	redir_pars(t_token *token)
 {
 	unsigned int	i;
 
@@ -51,20 +51,6 @@ void	redir(t_token *token)
 	}
 }
 
-void	dollar_pars(t_token *token, unsigned int *i)
-{
-	if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
-	{
-		token->word[*i - 1] = ft_strjoin(token->word[*i - 1], "$");
-		erased_str(token, i);
-	}
-	else if (*i + 1 >= token->tlen && (*i == 0 || token->type[*i - 1] != WORD))
-		token->type[*i] = WORD;
-	else
-		pars_dollar(token, *i);
-	*i -= 1;
-}
-
 void	parsing2(t_token *token)
 {
 	unsigned int	i;
@@ -74,14 +60,15 @@ void	parsing2(t_token *token)
 	{
 		if (token->type[i] == PIPE)
 			pipe_pars(token, i);
-		else if (token->type[i] == DOLLAR || (token->type[i] == DQUOTED
-				&& token->word[i][0] == '$'))
+		else if (token->type[i] == DOLLAR && token->type[i + 1] == WORD)
 			dollar_pars(token, &i);
+		else if (token->type[i] == DQUOTED && token->word[i][0] == '$')
+			dollar_quote(token, i);
 		if (token->err == 1)
 			return ;
 		i++;
 	}
-	redir(token);
+	redir_pars(token);
 }
 
 unsigned int	parsing(t_token *token)

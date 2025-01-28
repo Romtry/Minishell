@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:34:52 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/20 13:31:10 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:40:05 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,34 +101,4 @@ void	get_type(t_token *token, unsigned int one, unsigned int two)
 	temp[i2] = '\0';
 	free(token->type);
 	token->type = temp;
-}
-
-void	pars_dollar(t_token *token, unsigned int i)
-{
-	t_env	*list;
-
-	list = token->envhead;
-	while (list)
-	{
-		if (ft_strcmp(list->name, token->word[i + 1]) == 0
-			&& token->type[i + 1] == WORD)
-		{
-			erased_str(token, &i);
-			if (i == 0)
-				i--;
-			free(token->word[i + 1]);
-			token->word[i + 1] = ft_strcpy(list->value);
-			return ;
-		}
-		list = list->next;
-	}
-	if (i < token->tlen && token->type[i + 1] == WORD)
-		erased_str2(token, i);
-	else if (i < token->tlen && i > 0
-		&& token->type[i - 1] == WORD && token->type[i + 1] != WORD)
-		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
-	else if (token->type[i + 1] == DQUOTED || token->type[i + 1] == SQUOTED)
-		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
-	erased_str(token, &i);
-	token->type[i] = WORD;
 }

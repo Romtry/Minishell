@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/24 14:06:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:44:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void			print_token(t_token *token);
 void			print_cmd(t_cmd *cmd);
 void			env_print(t_env *env);
 
+// dollar_pars
+void			dollar_quote(t_token *token, unsigned int i);
+void			pars_dollar(t_token *token, unsigned int i);
+void			dollar_pars(t_token *token, unsigned int *i);
+
 // free_utils
 void			free_cmd(t_cmd	*cmd);
 void			free_token(t_token *token);
@@ -103,7 +108,6 @@ char			**array_cpy(char **arr);
 void			erased_str(t_token *token, unsigned int *s);
 void			erased_str2(t_token *token, unsigned int s);
 void			get_type(t_token *token, unsigned int one, unsigned int two);
-void			pars_dollar(t_token *token, unsigned int i);
 
 // parsing
 unsigned int	parsing(t_token *token);
