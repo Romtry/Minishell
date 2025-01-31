@@ -61,7 +61,13 @@ void	pars_dollar(t_token *token, unsigned int i)
 
 void	dollar_pars(t_token *token, unsigned int *i)
 {
-	if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
+	if (token->word[*i + 1] && token->word[*i + 1][0] == '?')
+	{
+		token->err = 1;
+		printf("%u\n", exit_stat);
+		exit_stat = 0;
+	}
+	else if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
 	{
 		token->word[*i - 1] = ft_strjoin(token->word[*i - 1], "$");
 		erased_str(token, i);
