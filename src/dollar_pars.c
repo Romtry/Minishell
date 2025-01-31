@@ -59,13 +59,14 @@ void	pars_dollar(t_token *token, unsigned int i)
 	token->type[i] = WORD;
 }
 
-void	dollar_pars(t_token *token, unsigned int *i)
+void	dollar_pars(t_token *token, unsigned int *i, unsigned int *exit_stat)
 {
 	if (token->word[*i + 1] && token->word[*i + 1][0] == '?')
 	{
 		token->err = 1;
-		printf("%u\n", exit_stat);
-		exit_stat = 0;
+		printf("%u\n", *exit_stat);
+		free_token(token);
+		*exit_stat = 0;
 	}
 	else if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
 	{

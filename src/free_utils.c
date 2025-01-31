@@ -38,15 +38,13 @@ void	free_cmd(t_cmd	*cmd)
 
 void	free_token(t_token *token)
 {
-	unsigned int	i;
-
-	i = 0;
 	if (token->word)
 	{
 		free_word(token);
 		free(token->type);
 		token->type = NULL;
 	}
+	
 }
 
 void	free_word(t_token *token)

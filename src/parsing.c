@@ -51,7 +51,7 @@ void	redir_pars(t_token *token)
 	}
 }
 
-void	parsing2(t_token *token)
+void	parsing2(t_token *token, unsigned int *exit_stat)
 {
 	unsigned int	i;
 
@@ -61,7 +61,7 @@ void	parsing2(t_token *token)
 		if (token->type[i] == PIPE)
 			pipe_pars(token, i);
 		else if (token->type[i] == DOLLAR && token->type[i + 1] == WORD)
-			dollar_pars(token, &i);
+			dollar_pars(token, &i, exit_stat);
 		else if (token->type[i] == DQUOTED && token->word[i][0] == '$')
 			dollar_quote(token, i);
 		if (token->err == 1)
@@ -71,7 +71,7 @@ void	parsing2(t_token *token)
 	redir_pars(token);
 }
 
-unsigned int	parsing(t_token *token)
+unsigned int	parsing(t_token *token, unsigned int *exit_stat)
 {
 	unsigned int	i;
 
@@ -86,7 +86,7 @@ unsigned int	parsing(t_token *token)
 	i--;
 	if (token->word[i] && token->type[i] == SEP)
 		erased_str(token, &i);
-	parsing2(token);
+	parsing2(token, exit_stat);
 	if (token->err == 1)
 		return (1);
 	return (0);

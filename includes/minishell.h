@@ -78,7 +78,7 @@ void			env_print(t_env *env);
 // dollar_pars
 void			dollar_quote(t_token *token, unsigned int i);
 void			pars_dollar(t_token *token, unsigned int i);
-void			dollar_pars(t_token *token, unsigned int *i);
+void			dollar_pars(t_token *token, unsigned int *i, unsigned int *exit_stat);
 
 // free_utils
 void			free_cmd(t_cmd	*cmd);
@@ -110,7 +110,7 @@ void			erased_str2(t_token *token, unsigned int s);
 void			get_type(t_token *token, unsigned int one, unsigned int two);
 
 // parsing
-unsigned int	parsing(t_token *token);
+unsigned int	parsing(t_token *token, unsigned int *exit_stat);
 
 // quotes_pars
 void			erased_quote(t_token *token, unsigned int *p);

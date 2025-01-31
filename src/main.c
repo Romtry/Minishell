@@ -94,7 +94,7 @@ int	main(void)
 	{
 		if (rl(token) == 1)
 			break;
-		parsing(token);
+		parsing(token, &exit_stat);
 		if (token->err == 0)
 		{
 			cmd = malloc(sizeof(t_cmd));
