@@ -1,4 +1,4 @@
-include "minishell.c"
+# include "minishell.h"
 
 void	execute_piped_commands(t_cmd *cmd, char **envp)
 {

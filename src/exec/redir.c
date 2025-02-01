@@ -1,9 +1,9 @@
-include "minishell.c"
+# include "minishell.h"
 
 int	handle_redirections(t_cmd *cmd)
 {
-	inti;
-	intfd;
+	int     i;
+	int     fd;
 
 	i = 0;
 	while (cmd->word[i])
@@ -34,8 +34,8 @@ int	handle_redirections(t_cmd *cmd)
 		}
 		else if (cmd->type[i][0] == HEREDOC) // `<<`
 		{
-			intpipe_fd[2];
-			char*line;
+			int     pipe_fd[2];
+			char*   line;
 
 			if (pipe(pipe_fd) == -1)
 				return (perror("pipe"), -1);

@@ -79,3 +79,17 @@ void	free_env(t_token *token)
 	}
 	free(token);
 }
+
+void	free_array(char **arr)
+{
+	unsigned int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr[i]);
+	free(arr);
+}

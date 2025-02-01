@@ -1,11 +1,19 @@
-include "minishell.c"
+# include "minishell.h"
+
+char	**get_env(void)
+{
+	char    **env;
+
+	env = array_cpy(ENV);
+	return (env);
+}
 
 char	*get_command_path(char *cmd, char **envp)
 {
-	inti;
-	char**paths;
-	char*cmd_path;
-	char*temp;
+	int     i;
+	char**  paths;
+	char*   cmd_path;
+	char*   temp;
 
 	if (!cmd || !envp)
 		return (NULL);
@@ -35,8 +43,8 @@ char	*get_command_path(char *cmd, char **envp)
 
 void	execute_external(t_cmd *cmd, char **envp)
 {
-	pid_tpid;
-	char*cmd_path;
+	pid_t   pid;
+	char*   cmd_path;
 
 	cmd_path = get_command_path(cmd->word[0][0], envp);
 	if (!cmd_path)

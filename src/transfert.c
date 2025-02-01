@@ -101,13 +101,15 @@ void    transfert(t_token *token, t_cmd	*cmd)
 
     i = 0;
     p = 1;
-	print_token(token);
+	cmd->has_pipe = 0;
+	// print_token(token);
     while (token->word[i])
     {
 		if (token->type[i] == PIPE)
 			p++;
 		i++;
     }
+	cmd->has_pipe = p;
 	if (p == 1)
 		return (no_pipe(token, cmd));
 	cmd->word = malloc(sizeof(char **) * (p + 1));

@@ -1,15 +1,15 @@
-include "minishell.c"
+# include "minishell.h"
 
 void	echo(t_cmd *cmd)
 {
 	int	i;
-	int	newline;
+	int	n_line;
 
 	i = 1;
-	newline = 1;
+	n_line = 1;
 	if (cmd->word[0][1] && ft_strcmp(cmd->word[0][1], "-n") == 0)
 	{
-		newline = 0;
+		n_line = 0;
 		i++;
 	}
 	while (cmd->word[0][i])
@@ -19,7 +19,7 @@ void	echo(t_cmd *cmd)
 			printf(" ");
 		i++;
 	}
-	if (newline)
+	if (n_line)
 		printf("\n");
 }
 
@@ -61,7 +61,7 @@ void	pwd(void)
 	}
 }
 
-void	export(t_cmd *cmd, t_env **env)
+void	ft_export(t_cmd *cmd, t_env **env)
 {
 	int		i;
 	t_env	*new_var;
@@ -142,8 +142,8 @@ void	execute_builtin(t_cmd *cmd, t_env **env)
 {
 	int saved_stdout = dup(STDOUT_FILENO);
 
-	if (cmd->has_pipe)
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+	// if (cmd->has_pipe)
+		// dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 	if (ft_strcmp(cmd->word[0][0], "echo") == 0)
 		echo(cmd);
 	else if (ft_strcmp(cmd->word[0][0], "cd") == 0)
@@ -151,7 +151,7 @@ void	execute_builtin(t_cmd *cmd, t_env **env)
 	else if (ft_strcmp(cmd->word[0][0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(cmd->word[0][0], "export") == 0)
-		export(cmd, env);
+		ft_export(cmd, env);
 	else if (ft_strcmp(cmd->word[0][0], "unset") == 0)
 		unset(cmd, env);
 	else if (ft_strcmp(cmd->word[0][0], "env") == 0)

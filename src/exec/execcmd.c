@@ -1,6 +1,6 @@
-include "minishell.c"
+# include "minishell.h"
 
-void	execute_command(t_cmd *cmd, t_env **env)
+void	execute_command(t_cmd *cmd, char **envp, t_env **env)
 {
 	if (!cmd || !cmd->word[0] || !cmd->word[0][0])
 		return ;

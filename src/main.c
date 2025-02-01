@@ -82,14 +82,34 @@ unsigned int	rl(t_token *token)
 	return (0);
 }
 
+t_env	*env2(void)
+{
+	t_env			*env;
+	t_env			*temp;
+	unsigned int	i;
+
+	i = 0;
+	env = ft_lstnew(ENV[0]);
+	temp = env;
+	while (ENV[i])
+	{
+		temp->next = ft_lstnew(ENV[i]);
+		temp = temp->next;
+		i++;
+	}
+	return (env);
+}
+
 int	main(void)
 {
 	t_token	*token;
 	t_cmd	*cmd;
+	t_env	*env;
 
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
 	init_env(token);
+	env = env2();
 	while (1)
 	{
 		if (rl(token) == 1)
@@ -99,7 +119,8 @@ int	main(void)
 		{
 			cmd = malloc(sizeof(t_cmd));
 			transfert(token, cmd);
-			print_cmd(cmd);
+			execute_command(cmd, get_env(), &env);
+			// print_cmd(cmd);
 			free_cmd(cmd);
 		}
 	}

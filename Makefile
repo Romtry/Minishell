@@ -12,10 +12,11 @@
 
 NAME=	minishell
 
-SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/execution.c	src/test.c	\
-		src/malloc_utils.c	src/utils_exec.c	src/parsing_exec.c	src/pars_utils.c			\
-		src/quotes_pars.c	src/utils_exec2.c	src/lst_utils.c		src/exec_func.c 			\
-		src/lexer.c			src/transfert.c		src/free_utils.c	src/dollar_pars.c			\
+SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/test.c				\
+		src/malloc_utils.c	src/dollar_pars.c	src/pars_utils.c	src/lexer.c				\
+		src/quotes_pars.c	src/lst_utils.c		src/transfert.c		src/free_utils.c		\
+		src/exec/bultin.c	src/exec/execcmd.c	src/exec/execpipe.c	src/exec/execexterne.c	\
+		src/exec/redir.c	src/exec/utils.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

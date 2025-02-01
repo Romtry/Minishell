@@ -57,8 +57,9 @@ typedef struct env
 
 typedef struct cmd
 {
-	t_type		**type;
-	char		***word;
+	t_type			**type;
+	char			***word;
+	unsigned int	has_pipe;
 }	t_cmd;
 
 typedef struct token
@@ -73,7 +74,35 @@ typedef struct token
 void			print_array(char **array);
 void			print_token(t_token *token);
 void			print_cmd(t_cmd *cmd);
+
+// bultin
+void			echo(t_cmd *cmd);
+void			cd(t_cmd *cmd, t_env *env);
+void			pwd(void);
+void			ft_export(t_cmd *cmd, t_env **env);
+void			unset(t_cmd *cmd, t_env **env);
 void			env_print(t_env *env);
+void			unset(t_cmd *cmd, t_env **env);
+void			env_builtin(t_env *env);
+void			exit_shell(void);
+void			execute_builtin(t_cmd *cmd, t_env **env);
+int				is_builtin(char *cmd);
+
+// execcmd
+void			execute_command(t_cmd *cmd, char **envp, t_env **env);
+
+// execexterne
+void			execute_external(t_cmd *cmd, char **envp);
+char			**get_env(void);
+
+// execpipe
+void			execute_piped_commands(t_cmd *cmd, char **envp);
+
+// redir
+int				handle_redirections(t_cmd *cmd);
+
+// utils
+char			**ft_split(const char *str, char target);
 
 // dollar_pars
 void			dollar_quote(t_token *token, unsigned int i);
@@ -85,12 +114,12 @@ void			free_cmd(t_cmd	*cmd);
 void			free_token(t_token *token);
 void			free_env(t_token *token);
 void			free_word(t_token *token);
+void			free_array(char **arr);
 
 // lexer
 void			lexer(t_token *token, char *input);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
 unsigned int	count_word(char *str);
-void			lexer(t_token *token, char *input);
 
 // lst_utils
 t_env			*ft_lstnew(char *content);
@@ -122,19 +151,8 @@ void			realloc_word(t_token *token, unsigned int *one,
 unsigned int	ft_strlen(char *str);
 unsigned int	is_sep(char c);
 unsigned int	wich_type(char c);
+unsigned int	ft_strncmp(char *str, char *str2, unsigned int n);
 unsigned int	ft_strcmp(char *str, char *str2);
 
 // transfert
 void		    transfert(t_token *token, t_cmd *cmd);
-
-// exec
-void			parsing_exec(t_token *token, unsigned int *i);
-void			exec(t_token *token, unsigned int *i);
-void			cd(t_token *token, unsigned int *i);
-void			pwd(t_token *token, unsigned int *i);
-void			export(t_token *token, unsigned int *i);
-void			unset(t_token *token, unsigned int *i);
-void			exec_env(t_token *token);
-void			echo(t_token *token, unsigned int *i);
-void			env(t_token *token, unsigned int *i);
-int				exitmentioned(t_token *token);
