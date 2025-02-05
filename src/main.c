@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 14:32:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:56:09 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,6 @@ void	handle_signal(int sig)
 	}
 }
 
-void	init_env(t_token *token)
-{
-	t_env			*env;
-	unsigned int	i;
-
-	i = 0;
-	token->envhead = ft_lstnew(ENV[0]);
-	env = token->envhead;
-	while (ENV[i])
-	{
-		env->next = ft_lstnew(ENV[i]);
-		env = env->next;
-		i++;
-	}
-}
-
 unsigned int	rl(t_token *token)
 {
 	char	*input;
@@ -82,34 +66,13 @@ unsigned int	rl(t_token *token)
 	return (0);
 }
 
-t_env	*env2(void)
-{
-	t_env			*env;
-	t_env			*temp;
-	unsigned int	i;
-
-	i = 0;
-	env = ft_lstnew(ENV[0]);
-	temp = env;
-	while (ENV[i])
-	{
-		temp->next = ft_lstnew(ENV[i]);
-		temp = temp->next;
-		i++;
-	}
-	return (env);
-}
-
 int	main(void)
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	t_env	*env;
 
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
-	init_env(token);
-	env = env2();
 	while (1)
 	{
 		if (rl(token) == 1)
@@ -119,12 +82,12 @@ int	main(void)
 		{
 			cmd = malloc(sizeof(t_cmd));
 			transfert(token, cmd);
-			execute_command(cmd, get_env(), &env);
+			execute_command(cmd);
 			// print_cmd(cmd);
 			free_cmd(cmd);
 		}
 	}
-	free_env(token);
+	free(token);
 	rl_clear_history();
 	return (0);
 }

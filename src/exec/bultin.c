@@ -25,14 +25,14 @@ void	echo(t_cmd *cmd)
 		printf("\n");
 }
 
-void	cd(t_cmd *cmd, t_env *env)
+void	cd(t_cmd *cmd)
 {
 	char	*path;
 	t_env	*home_env;
 
 	if (!cmd->word[0][1])
 	{
-		home_env = env;
+		home_env = get_env(1);
 		while (home_env && ft_strcmp(home_env->name, "HOME") != 0)
 			home_env = home_env->next;
 		if (!home_env)
@@ -63,7 +63,7 @@ void	pwd(void)
 	}
 }
 
-void	ft_export(t_cmd *cmd, t_env **env)
+void	ft_export(t_cmd *cmd)
 {
 	int		i;
 	t_env	*new_var;
@@ -71,7 +71,7 @@ void	ft_export(t_cmd *cmd, t_env **env)
 
 	if (!cmd->word[0][1])
 	{
-		current = *env;
+		current = get_env(1);
 		while (current)
 		{
 			printf("declare -x %s=\"%s\"\n", current->name, current->value);
@@ -88,13 +88,12 @@ void	ft_export(t_cmd *cmd, t_env **env)
 			perror("minishell: export");
 			return ;
 		}
-		new_var->next = *env;
-		*env = new_var;
+		new_var->next = get_env(1);
 		i++;
 	}
 }
 
-void	unset(t_cmd *cmd, t_env **env)
+void	unset(t_cmd *cmd)
 {
 	t_env	*prev;
 	t_env	*curr;
@@ -104,15 +103,13 @@ void	unset(t_cmd *cmd, t_env **env)
 	while (cmd->word[0][i])
 	{
 		prev = NULL;
-		curr = *env;
+		curr = get_env(1);
 		while (curr)
 		{
 			if (ft_strcmp(curr->name, cmd->word[0][i]) == 0)
 			{
 				if (prev)
 					prev->next = curr->next;
-				else
-					*env = curr->next;
 				free(curr->name);
 				free(curr->value);
 				free(curr);
@@ -125,8 +122,11 @@ void	unset(t_cmd *cmd, t_env **env)
 	}
 }
 
-void	env_builtin(t_env *env)
+void	env_builtin(void)
 {
+	t_env	*env;
+
+	env = get_env(1);
 	while (env)
 	{
 		printf("%s=%s\n", env->name, env->value);
@@ -140,7 +140,7 @@ void	exit_shell(void)
 	exit(0);
 }
 
-void	execute_builtin(t_cmd *cmd, t_env **env)
+void	execute_builtin(t_cmd *cmd)
 {
 	int saved_stdout = dup(STDOUT_FILENO);
 
@@ -149,15 +149,15 @@ void	execute_builtin(t_cmd *cmd, t_env **env)
 	if (ft_strcmp(cmd->word[0][0], "echo") == 0)
 		echo(cmd);
 	else if (ft_strcmp(cmd->word[0][0], "cd") == 0)
-		cd(cmd, *env);
+		cd(cmd);
 	else if (ft_strcmp(cmd->word[0][0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(cmd->word[0][0], "export") == 0)
-		ft_export(cmd, env);
+		ft_export(cmd);
 	else if (ft_strcmp(cmd->word[0][0], "unset") == 0)
-		unset(cmd, env);
+		unset(cmd);
 	else if (ft_strcmp(cmd->word[0][0], "env") == 0)
-		env_builtin(*env);
+		env_builtin();
 	else if (ft_strcmp(cmd->word[0][0], "exit") == 0)
 		exit_shell();
 	dup2(saved_stdout, STDOUT_FILENO);

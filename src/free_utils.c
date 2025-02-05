@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 10:01:20 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 14:15:10 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:32:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	free_token(t_token *token)
 		free_word(token);
 		free(token->type);
 		token->type = NULL;
+		free_env(token->envhead);
 	}
-	
 }
 
 void	free_word(t_token *token)
@@ -65,19 +65,21 @@ void	free_word(t_token *token)
 }
 
 
-void	free_env(t_token *token)
+void	free_env(t_env *env)
 {
 	t_env	*temp;
 
-	while (token->envhead)
+	while (env->next)
 	{
-		temp = token->envhead->next;
-		free(token->envhead->name);
-		free(token->envhead->value);
-		free(token->envhead);
-		token->envhead = temp;
+		temp = env->next;
+		free(env->name);
+		free(env->value);
+		free(env);
+		env = temp;
 	}
-	free(token);
+	free(env->name);
+	free(env->value);
+	free(env);
 }
 
 void	free_array(char **arr)

@@ -1,20 +1,36 @@
 # include "minishell.h"
 
-char	**get_env(void)
+void	*get_env(unsigned int n)
 {
-	char    **env;
+	char    		**env;
+	unsigned int	i;
+	t_env			*envhead;
+	t_env			*temp;
 
 	env = array_cpy(ENV);
-	return (env);
+	if (n == 0)
+		return (env);
+	i = 0;
+	envhead = ft_lstnew(ENV[0]);
+	temp = envhead;
+	while (ENV[i])
+	{
+		temp->next = ft_lstnew(ENV[i]);
+		temp = temp->next;
+		i++;
+	}
+	free_array(env);
+	return (envhead);
 }
 
-char	*get_command_path(char *cmd, char **envp)
+char	*get_command_path(char *cmd)
 {
+	char	**envp;
 	int     i;
 	char**  paths;
 	char*   cmd_path;
-	char*   temp;
 
+	envp = get_env(0);
 	if (!cmd || !envp)
 		return (NULL);
 	i = 0;
@@ -23,12 +39,11 @@ char	*get_command_path(char *cmd, char **envp)
 	if (!envp[i])
 		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
+	free_array(envp);
 	i = 0;
 	while (paths && paths[i])
 	{
-		temp = ft_strjoin(paths[i], "/");
-		cmd_path = ft_strjoin(temp, cmd);
-		free(temp);
+		cmd_path = ft_strjoin(ft_strjoin2(paths[i], "/"), cmd);
 		if (access(cmd_path, X_OK) == 0)
 		{
 			free_array(paths);
@@ -41,12 +56,14 @@ char	*get_command_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-void	execute_external(t_cmd *cmd, char **envp)
+void	execute_external(t_cmd *cmd)
 {
+	char	**envp;
 	pid_t   pid;
 	char*   cmd_path;
 
-	cmd_path = get_command_path(cmd->word[0][0], envp);
+	envp = get_env(0);
+	cmd_path = get_command_path(cmd->word[0][0]);
 	if (!cmd_path)
 	{
 		printf("minishell: command not found: %s\n", cmd->word[0][0]);
@@ -65,5 +82,6 @@ void	execute_external(t_cmd *cmd, char **envp)
 		perror("fork");
 	else
 		waitpid(pid, NULL, 0);
+	free_array(envp);
 	free(cmd_path);
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/28 10:57:24 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:54:22 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ void	print_array(char **array)
 	printf("\n");
 }
 
-void	env_print(t_env *env)
-{
-	if (!env)
-	{
-		printf(RED"!env\e[0m\n");
-		return ;
-	}
-	while (env->next)
-	{
-		printf("%s = %s\n", env->name, env->value);
-		env = env->next;
-	}
-}
+// void	env_print(t_env *env)
+// {
+// 	if (!env)
+// 	{
+// 		printf(RED"!env\e[0m\n");
+// 		return ;
+// 	}
+// 	while (env->next)
+// 	{
+// 		printf("%s = %s\n", env->name, env->value);
+// 		env = env->next;
+// 	}
+// }

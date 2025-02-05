@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/01/28 11:44:49 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:59:23 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,26 @@ void			print_cmd(t_cmd *cmd);
 
 // bultin
 void			echo(t_cmd *cmd);
-void			cd(t_cmd *cmd, t_env *env);
+void			cd(t_cmd *cmd);
 void			pwd(void);
-void			ft_export(t_cmd *cmd, t_env **env);
-void			unset(t_cmd *cmd, t_env **env);
-void			env_print(t_env *env);
-void			unset(t_cmd *cmd, t_env **env);
-void			env_builtin(t_env *env);
+void			ft_export(t_cmd *cmd);
+void			unset(t_cmd *cmd);
+void			env_print(void);
+void			unset(t_cmd *cmd);
+void			env_builtin(void);
 void			exit_shell(void);
-void			execute_builtin(t_cmd *cmd, t_env **env);
+void			execute_builtin(t_cmd *cmd);
 int				is_builtin(char *cmd);
 
 // execcmd
-void			execute_command(t_cmd *cmd, char **envp, t_env **env);
+void			execute_command(t_cmd *cmd);
 
 // execexterne
-void			execute_external(t_cmd *cmd, char **envp);
-char			**get_env(void);
+void			execute_external(t_cmd *cmd);
+void			*get_env(unsigned int n);
 
 // execpipe
-void			execute_piped_commands(t_cmd *cmd, char **envp);
+void			execute_piped_commands(t_cmd *cmd);
 
 // redir
 int				handle_redirections(t_cmd *cmd);
@@ -112,7 +112,7 @@ void			dollar_pars(t_token *token, unsigned int *i, unsigned int *exit_stat);
 // free_utils
 void			free_cmd(t_cmd	*cmd);
 void			free_token(t_token *token);
-void			free_env(t_token *token);
+void			free_env(t_env *env);
 void			free_word(t_token *token);
 void			free_array(char **arr);
 

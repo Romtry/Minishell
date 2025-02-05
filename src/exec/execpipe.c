@@ -1,12 +1,14 @@
 # include "minishell.h"
 
-void	execute_piped_commands(t_cmd *cmd, char **envp)
+void	execute_piped_commands(t_cmd *cmd)
 {
+	char		**envp;
 	int			i;
 	int			pipe_fd[2];
 	int			prev_fd;
 	pid_t	pid;
 
+	envp = get_env(0);
 	i = 0;
 	prev_fd = -1;
 	while (cmd->word[i])
