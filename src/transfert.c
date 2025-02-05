@@ -71,7 +71,7 @@ void	transfert2(t_token *token, t_cmd *cmd)
 	p++;
 	cmd->word[p] = NULL;
 	cmd->type[p] = NULL;
-	printf("%u\n", cmd->type[1][0]);
+	// printf("%u\n", cmd->type[1][0]);
 }
 
 void	no_pipe(t_token *token, t_cmd *cmd)
