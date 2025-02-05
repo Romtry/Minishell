@@ -12,11 +12,13 @@ void	echo(t_cmd *cmd)
 		n_line = 0;
 		i++;
 	}
-	while (cmd->word[0][i])
+	if (cmd->type[0][i] == SEP)
+		i++;
+	while (cmd->word[0][i] && (cmd->type[0][i] == SEP || cmd->type[0][i] == WORD))
 	{
 		printf("%s", cmd->word[0][i]);
-		if (cmd->word[0][i + 1])
-			printf(" ");
+		// if (cmd->word[0][i + 1])
+		// 	printf(" ");
 		i++;
 	}
 	if (n_line)
