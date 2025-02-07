@@ -53,7 +53,6 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	free_word(token);
 	token->word = temp;
 	get_type(token, *one, two);
-	printf("\n");
 }
 
 void	erased_quote(t_token *token, unsigned int *p)

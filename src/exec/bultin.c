@@ -14,7 +14,8 @@ void	echo(t_cmd *cmd)
 	}
 	if (cmd->type[0][i] == SEP)
 		i++;
-	while (cmd->word[0][i] && (cmd->type[0][i] == SEP || cmd->type[0][i] == WORD))
+	while (cmd->word[0][i] && (cmd->type[0][i] == SEP || cmd->type[0][i] == WORD
+		|| cmd->type[0][i] == DQUOTED || cmd->type[0][i] == SQUOTED))
 	{
 		printf("%s", cmd->word[0][i]);
 		// if (cmd->word[0][i + 1])
