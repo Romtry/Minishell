@@ -43,7 +43,8 @@ void	free_token(t_token *token)
 		free_word(token);
 		free(token->type);
 		token->type = NULL;
-		free_env(token->envhead);
+		if (token->envhead)
+			free_env(token->envhead);
 	}
 }
 

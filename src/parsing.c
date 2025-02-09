@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+void	sep_clean(t_token *token)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (token->word[i])
+	{
+		if (token->type[i] == SEP)
+			erased_str(token, &i);
+		i++;
+	}
+}
+
 void	pipe_pars(t_token *token, unsigned int i)
 {
 	if (i == 0 || i == token->tlen - 1 || ft_strlen(token->word[i]) != 1)
@@ -87,5 +100,6 @@ unsigned int	parsing(t_token *token, unsigned int *exit_stat)
 	parsing2(token, exit_stat);
 	if (token->err == 1)
 		return (1);
+	sep_clean(token);
 	return (0);
 }

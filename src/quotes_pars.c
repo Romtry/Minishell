@@ -32,29 +32,6 @@ void	skip_quotes(t_token *token, unsigned int *i, unsigned int n)
 	}
 }
 
-void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
-{
-	unsigned int	i2;
-	unsigned int	i;
-	char			**temp;
-
-	i = -1;
-	token->tlen -= (two - *one);
-	temp = malloc(sizeof(char *) * (token->tlen + 1));
-	while (++i < *one)
-		temp[i] = ft_strcpy(token->word[i]);
-	i2 = i++;
-	temp[i2] = ft_strcpy(token->word[i]);
-	while (++i < two)
-		temp[i2] = ft_strjoin(temp[i2], token->word[i]);
-	while (token->word[++i])
-		temp[++i2] = ft_strcpy(token->word[i]);
-	temp[i2 + 1] = NULL;
-	free_word(token);
-	token->word = temp;
-	get_type(token, *one, two);
-}
-
 void	erased_quote(t_token *token, unsigned int *p)
 {
 	char			**temp;
@@ -82,7 +59,53 @@ void	erased_quote(t_token *token, unsigned int *p)
 	get_type(token, *p, *p);
 }
 
+void	switch_dollar(t_token *token, unsigned int one, unsigned int *two)
+{
+	t_env	*env;
 
+	env = token->envhead;
+	while (env->next)
+	{
+		if (ft_strcmp(token->word[one], env->name) == 0)
+		{
+			free(token->word[one]);
+			token->word[one] = ft_strcpy(env->value);
+			return ;
+		}
+		env = env->next;
+	}
+	erased_str(token, &one);
+	*two -= 1;
+}
+
+void	dollar_indquote(t_token *token, unsigned int *one, unsigned int *two)
+{
+	unsigned int	i;
+
+	i = *one;
+	while (i < *two)
+	{
+		if (token->type[i] == DOLLAR)
+		{
+			if (token->type[i + 1] == WORD)
+			{
+				erased_str(token, &i);
+				*two -= 1;
+				i ++;
+				switch_dollar(token, i, two);
+				if (*two == *one + 1)
+				{
+					erased_str(token, &i);
+					erased_str(token, &i);
+					*one -= 1;
+					*two = *one;
+					return ;
+				}
+			}
+		}
+		i++;
+	}
+}
 
 int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 {
@@ -102,6 +125,9 @@ int	secnd_quote(t_token *token, unsigned int *one, t_type quote)
 	else if ((ft_strlen(token->word[two]) % 2) == 0)
 		return (erased_quote(token, &two),
 				secnd_quote(token, one, quote));
-	else
-		return(realloc_word(token, one, two), 0);
+	else if (quote == DQUOTE)
+		dollar_indquote(token, one, &two);
+	if (*one != two)
+		realloc_word(token, one, two);
+	return (0);
 }

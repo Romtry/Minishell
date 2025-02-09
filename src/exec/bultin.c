@@ -1,29 +1,47 @@
 # include "minishell.h"
 
-void	echo(t_cmd *cmd)
+static int  is_n_option(char *arg)
 {
-	int	i;
-	int	n_line;
+	int     i;
 
+	if (!arg || arg[0] != '-')
+		return (0);
 	i = 1;
-	n_line = 1;
-	if (cmd->word[0][1] && ft_strcmp(cmd->word[0][1], "-n") == 0)
+	while (arg[i])
 	{
-		n_line = 0;
+		if (arg[i] != 'n')
+			return (0);
 		i++;
 	}
-	if (cmd->type[0][i] == SEP)
-		i++;
-	while (cmd->word[0][i] && (cmd->type[0][i] == SEP || cmd->type[0][i] == WORD
-		|| cmd->type[0][i] == DQUOTED || cmd->type[0][i] == SQUOTED))
-	{
-		printf("%s", cmd->word[0][i]);
-		// if (cmd->word[0][i + 1])
-		// 	printf(" ");
-		i++;
-	}
-	if (n_line)
-		printf("\n");
+	return (1);
+}
+
+void    echo(t_cmd *cmd)
+{
+    int     i;
+    int     n_line;
+
+    i = 1;
+    n_line = 1;
+    while (cmd->word[0][i] && ft_strcmp(cmd->word[0][i], " ") == 0)
+        i++;
+    if (cmd->word[0][i] && is_n_option(cmd->word[0][i]))
+    {
+        n_line = 0;
+        i++;
+    }
+    while (cmd->word[0][i])
+    {
+        if (ft_strcmp(cmd->word[0][i], " ") != 0)
+        {
+            printf("%s", cmd->word[0][i]);
+            if (cmd->word[0][i + 1] && ft_strcmp(cmd->word[0][i + 1], " ") == 0)
+                printf(" ");
+        }
+        i++;
+    }
+    if (n_line)
+        printf("\n");
 }
 
 void	cd(t_cmd *cmd)
