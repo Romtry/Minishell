@@ -12,6 +12,46 @@
 
 # include "minishell.h"
 
+char	*num_char(unsigned int n)
+{
+	unsigned int	i;
+	unsigned int	n2;
+	char			*ret;
+
+	i = 0;
+	n2 = n;
+	while (n > 10)
+	{
+		i++;
+		n = n/10;
+	}
+	i++;
+	ret = malloc(sizeof(char) * (i + 1));
+	ret[i] = '\0';
+	i--;
+	while (n2 > 10)
+	{
+		ret[i] = (n2 % 10) + '0';
+		n2 = n2/10;
+		i--;
+	}
+	ret[0] = n2 + '0';
+	return (ret);
+}
+
+void	switch_es(t_token *token, unsigned int i)
+{
+	char	*temp;
+
+	erased_str(token, &i);
+	i++;
+	temp = ft_strcpy(token->word[i] + 1);
+	free(token->word[i]);
+	token->word[i] = num_char(token->exit_stat);
+	token->word[i] = ft_strjoin(token->word[i], temp);
+	free(temp);
+}
+
 void	dollar_quote(t_token *token, unsigned int i)
 {
 	t_env	*list;
@@ -59,15 +99,10 @@ void	pars_dollar(t_token *token, unsigned int i)
 	token->type[i] = WORD;
 }
 
-void	dollar_pars(t_token *token, unsigned int *i, unsigned int *exit_stat)
+void	dollar_pars(t_token *token, unsigned int *i)
 {
 	if (token->word[*i + 1] && token->word[*i + 1][0] == '?')
-	{
-		token->err = 1;
-		printf("%u\n", *exit_stat);
-		free_token(token);
-		*exit_stat = 0;
-	}
+		switch_es(token, *i);
 	else if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
 	{
 		token->word[*i - 1] = ft_strjoin(token->word[*i - 1], "$");

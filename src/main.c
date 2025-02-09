@@ -77,7 +77,8 @@ int	main(void)
 	{
 		if (rl(token) == 1)
 			break;
-		parsing(token, &exit_stat);
+		token->exit_stat = exit_stat;
+		parsing(token);
 		if (token->err == 0)
 		{
 			cmd = malloc(sizeof(t_cmd));

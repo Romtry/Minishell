@@ -12,25 +12,25 @@
 
 #include "minishell.h"
 
-void	skip_quotes(t_token *token, unsigned int *i, unsigned int n)
-{
-	char	*temp;
+// void	skip_quotes(t_token *token, unsigned int *i, unsigned int n)
+// {
+// 	char	*temp;
 
-	if (n == 0)
-	{
-		*i = *i - 1;
-		temp = token->word[*i + 1];
-		token->word[*i + 1] = token->word[*i];
-		token->word[*i] = temp;
-	}
-	else
-	{
-		*i = *i + 1;
-		temp = token->word[*i - 1];
-		token->word[*i - 1] = token->word[*i];
-		token->word[*i] = temp;
-	}
-}
+// 	if (n == 0)
+// 	{
+// 		*i = *i - 1;
+// 		temp = token->word[*i + 1];
+// 		token->word[*i + 1] = token->word[*i];
+// 		token->word[*i] = temp;
+// 	}
+// 	else
+// 	{
+// 		*i = *i + 1;
+// 		temp = token->word[*i - 1];
+// 		token->word[*i - 1] = token->word[*i];
+// 		token->word[*i] = temp;
+// 	}
+// }
 
 void	erased_quote(t_token *token, unsigned int *p)
 {
@@ -82,28 +82,29 @@ void	dollar_indquote(t_token *token, unsigned int *one, unsigned int *two)
 {
 	unsigned int	i;
 
-	i = *one;
-	while (i < *two)
+	i = *one - 1;
+	while (++i < *two)
 	{
 		if (token->type[i] == DOLLAR)
 		{
-			if (token->type[i + 1] == WORD)
+			if (token->word[i + 1][0] == '?')
+				switch_es(token, i);
+			else if (token->type[i + 1] == WORD)
 			{
 				erased_str(token, &i);
-				*two -= 1;
 				i ++;
 				switch_dollar(token, i, two);
-				if (*two == *one + 1)
+				if (*two == *one)
 				{
 					erased_str(token, &i);
 					erased_str(token, &i);
 					*one -= 1;
-					*two = *one;
-					return ;
 				}
 			}
+			else
+				break;
+			*two -= 1;
 		}
-		i++;
 	}
 }
 

@@ -60,6 +60,7 @@ typedef struct cmd
 	t_type			**type;
 	char			***word;
 	unsigned int	has_pipe;
+	unsigned int	exit_stat;
 }	t_cmd;
 
 typedef struct token
@@ -69,6 +70,7 @@ typedef struct token
 	t_env			*envhead;
 	char			**word;
 	t_type			*type;
+	unsigned int	exit_stat;
 }	t_token;
 
 void			print_array(char **array);
@@ -105,9 +107,10 @@ int				handle_redirections(t_cmd *cmd);
 char			**ft_split(const char *str, char target);
 
 // dollar_pars
+void			switch_es(t_token *token, unsigned int i);
 void			dollar_quote(t_token *token, unsigned int i);
 void			pars_dollar(t_token *token, unsigned int i);
-void			dollar_pars(t_token *token, unsigned int *i, unsigned int *exit_stat);
+void			dollar_pars(t_token *token, unsigned int *i);
 
 // free_utils
 void			free_cmd(t_cmd	*cmd);
@@ -139,7 +142,7 @@ void			erased_str2(t_token *token, unsigned int s);
 void			get_type(t_token *token, unsigned int one, unsigned int two);
 
 // parsing
-unsigned int	parsing(t_token *token, unsigned int *exit_stat);
+unsigned int	parsing(t_token *token);
 
 // quotes_pars
 void			erased_quote(t_token *token, unsigned int *p);
