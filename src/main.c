@@ -19,20 +19,16 @@ void	print_error(t_token *token, unsigned int n)
 	if (n == 0)
 		printf(RED"Command error tu seras privé de tarte au caca !"CLEAR);
 	else if (n == 1)
-	{
 		printf(RED"Quote not closed so no caca pie !"CLEAR);
-		exit_stat = 2;
-	}
 	else if (n == 2)
-	{
 		printf(RED"syntax error near unexpected token '|' !"CLEAR);
-		exit_stat = 2;
-	}
 	else if (n == 3)
-	{
 		printf(RED"syntax error near unexpected token 'newline'"CLEAR);
-		exit_stat = 2;
-	}
+	else if (n == 4)
+		printf(RED"syntax error near unexpected token '<'"CLEAR);
+	else if (n == 5)
+		printf(RED"syntax error near unexpected token '>'"CLEAR);
+	exit_stat = 2;
 	token->err = 1;
 	free_token(token);
 }
