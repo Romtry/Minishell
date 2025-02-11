@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/11 14:46:59 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:32:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ unsigned int	exit_stat = 0;
 void	print_error(t_token *token, unsigned int n)
 {
 	if (n == 0)
-		printf(RED"Command error tu seras privé de tarte au caca !"CLEAR);
+		perror(RED"Command error tu seras privé de tarte au caca !"CLEAR);
 	else if (n == 1)
-		printf(RED"Quote not closed so no caca pie !"CLEAR);
+		perror(RED"Quote not closed so no caca pie !"CLEAR);
 	else if (n == 2)
-		printf(RED"syntax error near unexpected token '|' !"CLEAR);
+		perror(RED"syntax error near unexpected token '|' !"CLEAR);
 	else if (n == 3)
-		printf(RED"syntax error near unexpected token 'newline'"CLEAR);
+		perror(RED"syntax error near unexpected token 'newline'"CLEAR);
 	else if (n == 4)
-		printf(RED"syntax error near unexpected token '<'"CLEAR);
+		perror(RED"syntax error near unexpected token '<'"CLEAR);
 	else if (n == 5)
-		printf(RED"syntax error near unexpected token '>'"CLEAR);
+		perror(RED"syntax error near unexpected token '>'"CLEAR);
 	exit_stat = 2;
 	token->err = 1;
 	free_token(token);

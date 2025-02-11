@@ -64,7 +64,13 @@ void cd(t_cmd *cmd)
         }
         path = home_env->value;
     }
-    else
+	else if (cmd->word[0][2])
+	{
+		*cmd->exit_stat = 1;
+		write(2, "cd : too many arguments\n", 24);
+		exit(1);
+	}
+	else
         path = cmd->word[0][i];
     if (chdir(path) != 0)
         perror("minishell: cd");
@@ -76,7 +82,7 @@ void	pwd(void)
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		perror("minishell: pwd");
+		("minishell: pwd\n", );
 	else
 	{
 		printf("%s\n", cwd);
