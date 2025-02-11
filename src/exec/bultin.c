@@ -1,5 +1,21 @@
 # include "minishell.h"
 
+static int  is_n_option(char *arg)
+{
+	int     i;
+
+	if (!arg || arg[0] != '-')
+		return (0);
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void    echo(t_cmd *cmd)
 {
     int     i;
@@ -436,6 +452,29 @@ void env_builtin(void)
     }
 }
 
+int	char_int(char *str)
+{
+	int				ret;
+	int				temp;
+	int				signe;
+	unsigned int	i;
+
+	ret = 0;
+	signe = 1;
+	i = 0;
+	if (str[0] == '-')
+		signe = -1;
+	while (str[i])
+	{
+		temp = str[i] - '0';
+		ret = ret * 10;
+		ret = ret + temp;
+		i++;
+	}
+	ret = ret * signe;
+	return (ret);
+}
+
 unsigned int	exit_util(char *str, unsigned int n)
 {
 	unsigned int	i;
@@ -485,7 +524,7 @@ void	execute_builtin(t_cmd *cmd)
 	else if (ft_strcmp(cmd->word[0][0], "env") == 0)
 		env_builtin();
 	else if (ft_strcmp(cmd->word[0][0], "exit") == 0)
-		exit_shell();
+		exit_shell(cmd);
 }
 
 int	is_builtin(char *cmd)

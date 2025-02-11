@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/11 14:52:07 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:10:27 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			unset(t_cmd *cmd);
 void			env_print(void);
 void			unset(t_cmd *cmd);
 void			env_builtin(void);
-void			exit_shell(void);
+void			exit_shell(t_cmd *cmd);
 void			execute_builtin(t_cmd *cmd);
 int				is_builtin(char *cmd);
 
