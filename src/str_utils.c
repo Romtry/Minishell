@@ -6,13 +6,13 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/24 14:07:30 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:51:53 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	ft_strlen(char *str)
+unsigned int	ft_strlen(const char *str)
 {
 	unsigned int	i;
 

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/05 10:59:23 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:52:07 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct cmd
 	t_type			**type;
 	char			***word;
 	unsigned int	has_pipe;
-	unsigned int	exit_stat;
+	unsigned int	*exit_stat;
 }	t_cmd;
 
 typedef struct token
@@ -160,7 +160,7 @@ void			realloc_word(t_token *token, unsigned int *one,
 					unsigned int two);
 
 // str_utils
-unsigned int	ft_strlen(char *str);
+unsigned int	ft_strlen(const char *str);
 unsigned int	is_sep(char c);
 unsigned int	wich_type(char c);
 unsigned int	ft_strncmp(char *str, char *str2, unsigned int n);

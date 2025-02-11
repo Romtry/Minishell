@@ -117,7 +117,7 @@ int handle_redirections(t_cmd *cmd)
     int in_fd = -1, out_fd = -1;
     char **new_args = malloc(sizeof(char *) * (count_args(cmd->word[0]) + 1));
 
-    debug_tokens(cmd->word[0]);
+    // debug_tokens(cmd->word[0]);
     while (cmd->word[0][i])
     {
         if (ft_strcmp(cmd->word[0][i], ">>") == 0)
