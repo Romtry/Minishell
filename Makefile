@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/11 13:38:11 by rothiery         ###   ########.fr        #
+#    Updated: 2025/01/28 11:45:28 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,21 @@ NAME=	minishell
 SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/test.c				\
 		src/malloc_utils.c	src/dollar_pars.c	src/pars_utils.c	src/lexer.c				\
 		src/quotes_pars.c	src/lst_utils.c		src/transfert.c		src/free_utils.c		\
-		src/exec/bultin.c	src/exec/execcmd.c	src/exec/execpipe.c	src/exec/execexterne.c	\
-		src/exec/redir.c	src/exec/utils.c	\
+    		src/exec/execcmd.c \
+   		src/exec/bultin/bultin-utils-env.c \
+  		src/exec/bultin/bultin-utils02.c \
+ 		src/exec/bultin/echo.c \
+ 		src/exec/bultin/export.c \
+    		src/exec/bultin/bultin-utils01.c \
+    		src/exec/bultin/cd-pwd-env-exit.c \
+    		src/exec/bultin/execute-is-builtin.c \
+    		src/exec/bultin/unset.c \
+    		src/exec/externe/execute-external.c \
+    		src/exec/externe/externe-utils01.c \
+    		src/exec/externe/externe-utils02.c \
+    		src/exec/pipe/execpipe.c \
+    		src/exec/redir/redir.c
+
 
 OFILES= ${SRC:%.c=obj/%.o}
 
