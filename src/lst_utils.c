@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:45:35 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/23 10:36:15 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 08:25:14 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env	*ft_lstnew(char *content)
 	if (env)
 	{
 		env->name = get_name(content, &i);
-		if (content + (i + 1))
+		if (content[i])
 			env->value = ft_strcpy(content + (i + 1));
 		env->next = NULL;
 	}
