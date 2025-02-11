@@ -1,5 +1,28 @@
 # include "minishell.h"
 
+int	char_int(char *str)
+{
+	int				ret;
+	int				temp;
+	int				signe;
+	unsigned int	i;
+
+	ret = 0;
+	signe = 1;
+	i = 0;
+	if (str[0] == '-')
+		signe = -1;
+	while (str[i])
+	{
+		temp = str[i] - '0';
+		ret = ret * 10;
+		ret = ret + temp;
+		i++;
+	}
+	ret = ret * signe;
+	return (ret);
+}
+
 static int	count_words(const char *str, char target)
 {
 	int	i;

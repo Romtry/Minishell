@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 09:58:06 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/11 08:06:22 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 08:57:51 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void    transfert(t_token *token, t_cmd	*cmd)
     i = 0;
     p = 1;
 	cmd->has_pipe = 0;
-	// print_token(token);
     while (token->word[i])
     {
 		if (token->type[i] == PIPE)

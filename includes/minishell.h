@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/11 08:20:56 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:07:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ typedef struct cmd
 {
 	t_type			**type;
 	char			***word;
+	unsigned int	err;
 	unsigned int	has_pipe;
-	unsigned int	exit_stat;
+	unsigned int	*exit_stat;
 }	t_cmd;
 
 typedef struct token
@@ -86,7 +87,7 @@ void			unset(t_cmd *cmd);
 void			env_print(void);
 void			unset(t_cmd *cmd);
 void			env_builtin(void);
-void			exit_shell(void);
+void			exit_shell(t_cmd *cmd);
 void			execute_builtin(t_cmd *cmd);
 int				is_builtin(char *cmd);
 
@@ -105,6 +106,7 @@ int				handle_redirections(t_cmd *cmd);
 
 // utils
 char			**ft_split(const char *str, char target);
+int				char_int(char *str);
 
 // dollar_pars
 void			switch_es(t_token *token, unsigned int i);
