@@ -1,5 +1,4 @@
 # include "minishell.h"
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t srcsize;
@@ -42,11 +41,10 @@ static int	count_words(const char *str, char target)
 
 static char	*grab_words(const char *str, char target, int reset)
 {
-	static int	i;
+	static int	i = 0;
 	int			start;
 	int			end;
 
-	i = 0;
 	if (reset)
 	{
 		i = 0;

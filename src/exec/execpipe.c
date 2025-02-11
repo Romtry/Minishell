@@ -11,7 +11,7 @@ static char **clean_arguments(char **args)
     count = 0;
     while (args[i])
     {
-        if (args[i][0] != '\0') // Éviter les arguments vides
+        if (args[i][0] != '\0')
             count++;
         i++;
     }
@@ -66,12 +66,11 @@ void execute_piped_commands(t_cmd *cmd)
             return;
         }
 
-        if (pid == 0) // Child process
+        if (pid == 0)
         {
             t_cmd tmp_cmd;
             tmp_cmd.word = &cmd->word[i];
             tmp_cmd.type = &cmd->type[i];
-
             if (handle_redirections(&tmp_cmd) == -1)
                 exit(EXIT_FAILURE);
 
@@ -103,7 +102,7 @@ void execute_piped_commands(t_cmd *cmd)
                 exit(EXIT_FAILURE);
             }
         }
-        else // Parent
+        else
         {
             if (input_fd != STDIN_FILENO)
                 close(input_fd);
@@ -115,5 +114,5 @@ void execute_piped_commands(t_cmd *cmd)
         }
         i++;
     }
-    while (wait(NULL) > 0); // Wait for all children
+    while (wait(NULL) > 0);
 }

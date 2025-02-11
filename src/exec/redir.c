@@ -10,8 +10,6 @@ void debug_tokens(char **tokens)
         i++;
     }
 }
-
-// Fonction pour compter le nombre d'arguments dans un tableau de chaînes de caractères
 int count_args(char **args)
 {
     int count = 0;
@@ -59,7 +57,7 @@ int handle_output_redirection(char *file, int append)
     }
 
     printf("Opened file %s with fd %d (mode: %s)\n", file, fd,
-           append ? "append" : "truncate"); //debug
+           append ? "append" : "truncate");
 
     if (dup2(fd, STDOUT_FILENO) == -1)
     {
@@ -178,8 +176,6 @@ int handle_redirections(t_cmd *cmd)
         }
     }
     new_args[j] = NULL;
-
-    // Remplacer les anciens arguments par les nouveaux (sans redirections)
     free_array(cmd->word[0]);
     cmd->word[0] = new_args;
 

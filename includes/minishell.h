@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/11 11:07:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:59:23 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ typedef struct cmd
 {
 	t_type			**type;
 	char			***word;
-	unsigned int	err;
 	unsigned int	has_pipe;
-	unsigned int	*exit_stat;
+	unsigned int	exit_stat;
 }	t_cmd;
 
 typedef struct token
@@ -73,6 +72,15 @@ typedef struct token
 	t_type			*type;
 	unsigned int	exit_stat;
 }	t_token;
+
+int cmd_count(t_cmd *cmd);
+char *get_command_path(char *cmd);
+int		handle_heredoc(char *delimiter);
+void	exit_perror(const char *msg); // Example function for error handling
+char *ft_strdup(const char *s);
+
+//bordel
+extern t_env *env_head;  // Déclaration externe
 
 void			print_array(char **array);
 void			print_token(t_token *token);
@@ -87,7 +95,7 @@ void			unset(t_cmd *cmd);
 void			env_print(void);
 void			unset(t_cmd *cmd);
 void			env_builtin(void);
-void			exit_shell(t_cmd *cmd);
+void			exit_shell(void);
 void			execute_builtin(t_cmd *cmd);
 int				is_builtin(char *cmd);
 
@@ -106,7 +114,6 @@ int				handle_redirections(t_cmd *cmd);
 
 // utils
 char			**ft_split(const char *str, char target);
-int				char_int(char *str);
 
 // dollar_pars
 void			switch_es(t_token *token, unsigned int i);

@@ -23,7 +23,6 @@ void execute_command(t_cmd *cmd)
         close(saved_stdin);
         return;
     }
-    //cleanup_command(cmd);
     if (handle_redirections(cmd) == -1)
     {
         close(saved_stdout);

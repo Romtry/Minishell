@@ -15,26 +15,13 @@ NAME=	minishell
 SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/test.c				\
 		src/malloc_utils.c	src/dollar_pars.c	src/pars_utils.c	src/lexer.c				\
 		src/quotes_pars.c	src/lst_utils.c		src/transfert.c		src/free_utils.c		\
-    		src/exec/execcmd.c \
-   		src/exec/bultin/bultin-utils-env.c \
-  		src/exec/bultin/bultin-utils02.c \
- 		src/exec/bultin/echo.c \
- 		src/exec/bultin/export.c \
-    		src/exec/bultin/bultin-utils01.c \
-    		src/exec/bultin/cd-pwd-env-exit.c \
-    		src/exec/bultin/execute-is-builtin.c \
-    		src/exec/bultin/unset.c \
-    		src/exec/externe/execute-external.c \
-    		src/exec/externe/externe-utils01.c \
-    		src/exec/externe/externe-utils02.c \
-    		src/exec/pipe/execpipe.c \
-    		src/exec/redir/redir.c
-
+		src/exec/bultin.c	src/exec/execcmd.c	src/exec/execpipe.c	src/exec/execexterne.c	\
+		src/exec/redir.c	src/exec/utils.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
 CC= 	cc
-CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g3 -I includes
+CFLAGS= -g3 -I includes
 RESET = \033[0m
 GRAS = \033[1m
 ITALIQUE = \033[3m
@@ -60,7 +47,7 @@ REST = ${shell expr 23 - ${BAR}}
 all:	${NAME}
 
 ${NAME}:		${OFILES}
-	@${CC} ${CFLAGS} -lreadline ${OFILES} -o ${NAME}
+	   @${CC} ${CFLAGS} ${OFILES} -o ${NAME} -lreadline -lncurses
 	@echo "\n\n${GREEN}[✓] - ${_GREEN}${NAME}${GREEN} Successfully Compiled!${RESET}"
 
 obj/%.o:%.c
