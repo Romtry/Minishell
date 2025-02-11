@@ -70,7 +70,7 @@ void execute_piped_commands(t_cmd *cmd)
         {
             t_cmd tmp_cmd;
             tmp_cmd.word = &cmd->word[i];
-            tmp_cmd.type = &cmd->type[i]; // Adjust if your struct uses type
+            tmp_cmd.type = &cmd->type[i];
 
             if (handle_redirections(&tmp_cmd) == -1)
                 exit(EXIT_FAILURE);
