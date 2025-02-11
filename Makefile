@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/11 12:59:16 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/11 13:38:11 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/test.c				\
 		src/malloc_utils.c	src/dollar_pars.c	src/pars_utils.c	src/lexer.c				\
 		src/quotes_pars.c	src/lst_utils.c		src/transfert.c		src/free_utils.c		\
 		src/exec/bultin.c	src/exec/execcmd.c	src/exec/execpipe.c	src/exec/execexterne.c	\
-		src/exec/redir.c	src/exec/utils.c	src/exec/export.c	\
+		src/exec/redir.c	src/exec/utils.c	\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
