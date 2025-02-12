@@ -6,21 +6,53 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/01/28 11:45:28 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/12 14:23:09 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	minishell
 
-SRC= 	src/main.c			src/parsing.c		src/str_utils.c		src/test.c				\
-		src/malloc_utils.c	src/dollar_pars.c	src/pars_utils.c	src/lexer.c				\
-		src/quotes_pars.c	src/lst_utils.c		src/transfert.c		src/free_utils.c		\
-		src/exec/bultin.c	src/exec/execcmd.c	src/exec/execpipe.c	src/exec/execexterne.c	\
-		src/exec/redir.c	src/exec/utils.c	\
+VPATH=	src																		\
+		src/exec/bultin															\
+		src/exec/utils															\
+		src/exec/env_exec														\
+		src/fonc_utils/comp														\
+		src/fonc_utils/lst														\
+		src/fonc_utils/str														\
+		src/free_utils/															\
+		src/parsing_part/parsing/utils											\
+		src/parsing_part/lexer_utils											\
+		src/parsing_part/parsing/dollar_utils									\
+		src/parsing_part/parsing/quote_utils									\
+		src/parsing_part/transfert_utils										\
+
+SRC= 	main.c					get_env.c				test.c		 			\
+		cd.c					echo.c					env.c					\
+		exit.c					ft_export.c				pwd.c					\
+		redir.c					unset.c					get_env_h.c				\
+		rdfe.c					sews.c					cmd_count.c				\
+		exec_b.c				execcmd.c				execext.c				\
+		execpipe.c				ft_strcmp.c				ft_strncmp.c			\
+		is_bultin.c				is_sep.c				which_type.c			\
+		ft_lstnew.c				get_name.c				array_cpy.c				\
+		erased_str.c			ft_memcpy.c				ft_split.c				\
+		ft_strchr.c				ft_strcpy.c				ft_strdup.c				\
+		ft_strjoin.c			ft_strlcpy.c									\
+		ft_strlen.c				ft_strndup.c			free_array.c			\
+		free_cmd.c				free_env.c				free_token.c			\
+		free_word.c				lexer.c					malloc_word.c			\
+		tlen_count.c			erased_str2.c			num_char.c				\
+		pars_dollar.c			switch_dollar.c			switch_es.c				\
+		dollar_inquote.c		erased_quote.c			quote_type.c			\
+		realloc_word.c			second_quote.c			dollar_pars.c			\
+		dollar_quote.c			get_type.c				parsing.c				\
+		pipe_pars.c				redir_pars.c			sep_clean.c				\
+		malloc_array.c			no_pipe.c				transfert_pipe.c		\
+		transfert.c																\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
-CC= 	cc
+CC= 	cc	-Wextra -Wall
 CFLAGS= -g3 -I includes
 RESET = \033[0m
 GRAS = \033[1m
@@ -37,7 +69,7 @@ DARK_RED = \033[38;5;88m
 GREEN = \033[38;5;85m
 
 #change value with number of src files !
-NBR_TOT_FICHIER = 20
+NBR_TOT_FICHIER = 70
 
 FICH_COUNT = 0
 NBR_COMPILER = ${shell expr 100 \* ${FICH_COUNT} / ${NBR_TOT_FICHIER}}

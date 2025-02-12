@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   erased_str.c                                       :+:      :+:    :+:   */
+/*   erased_str2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 09:26:20 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:26:27 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/12 13:51:26 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/12 13:51:45 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	erased_str(t_token *token, unsigned int *s)
+void	erased_str2(t_token *token, unsigned int s)
 {
 	char			**temp;
 	unsigned int	i;
@@ -26,7 +26,7 @@ void	erased_str(t_token *token, unsigned int *s)
 		return ;
 	}
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
-	while (++i < *s)
+	while (++i < s)
 		temp[i] = ft_strcpy(token->word[i]);
 	i2 = i;
 	i++;
@@ -35,7 +35,7 @@ void	erased_str(t_token *token, unsigned int *s)
 	temp[i2] = NULL;
 	free_word(token);
 	token->word = temp;
-	get_type(token, *s, *s);
-	if (*s > 0)
-		*s -= 1;
+	get_type(token, s, s);
+	if (s > 0)
+		s -= 1;
 }

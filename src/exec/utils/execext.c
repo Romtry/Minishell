@@ -21,7 +21,7 @@ char *get_command_path(char *cmd)
     i = -1;
     while (paths[++i])
     {
-        cmd_path = ft_strjoin(ft_strjoin2(paths[i], "/"), cmd);
+        cmd_path = ft_strjoin(ft_strjoin(paths[i], "/", false), cmd, true);
         if (!cmd_path)
             continue;
         if (access(cmd_path, X_OK) == 0)
@@ -75,7 +75,6 @@ void execute_external(t_cmd *cmd)
     pid_t pid;
     char *cmd_path;
     char **cleaned_args;
-    int i;
 
     if (!cmd || !cmd->word[0] || !cmd->word[0][0])
     {

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 10:05:57 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 10:05:59 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/12 09:32:17 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/12 13:04:23 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_strjoin(char *str1, char *str2, bool b)
 {
-	size_t srcsize;
-	size_t i;
+	char			*ret;
+	unsigned int	l;
+	unsigned int	i;
 
-	if (!dst || !src)
-		return (0);
-	srcsize = ft_strlen(src);
-	i = 0;
-	if (dstsize != 0)
-	{
-		while (src[i] != '\0' && i < (dstsize - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (srcsize);
+	i = -1;
+	l = ft_strlen(str1) + ft_strlen(str2);
+	ret = malloc(sizeof(char) * l + 1);
+	while (str1[++i])
+		ret[i] = str1[i];
+	i--;
+	while (str2[++i - ft_strlen(str1)])
+		ret[i] = str2[i - ft_strlen(str1)];
+	if (b == true)
+		free(str1);
+	ret[i] = '\0';
+	return (ret);
 }

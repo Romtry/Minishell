@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_utils.c                                     :+:      :+:    :+:   */
+/*   realloc_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:41:09 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:54:22 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 	i2 = i++;
 	temp[i2] = ft_strcpy(token->word[i]);
 	while (++i < two)
-		temp[i2] = ft_strjoin(temp[i2], token->word[i]);
+		temp[i2] = ft_strjoin(temp[i2], token->word[i], true);
 	while (token->word[++i])
 		temp[++i2] = ft_strcpy(token->word[i]);
 	temp[i2 + 1] = NULL;

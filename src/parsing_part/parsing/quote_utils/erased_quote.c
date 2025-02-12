@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:45:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:45:34 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:54:08 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	erased_quote(t_token *token, unsigned int *p)
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
 	while (++i < *p)
 		temp[i] = ft_strcpy(token->word[i]);
-	temp[i] = ft_strjoin(ft_strcpy(token->word[i]), token->word[i + 2]);
+	temp[i] = ft_strjoin(ft_strcpy(token->word[i]), token->word[i + 2], true);
 	i2 = i + 1;
 	i += 3;
 	while (token->word[i])

@@ -1,35 +1,5 @@
 #include "minishell.h"
 
-static char **clean_arguments(char **args)
-{
-    int i;
-    int j;
-    char **cleaned_args;
-    int count;
-
-    i = 0;
-    count = 0;
-    while (args[i])
-    {
-        if (args[i][0] != '\0')
-            count++;
-        i++;
-    }
-    cleaned_args = malloc(sizeof(char *) * (count + 1));
-    if (!cleaned_args)
-        return (NULL);
-    i = 0;
-    j = 0;
-    while (args[i])
-    {
-        if (args[i][0] != '\0')
-            cleaned_args[j++] = args[i];
-        i++;
-    }
-    cleaned_args[j] = NULL;
-    return (cleaned_args);
-}
-
 int arg_count(char **args)
 {
     int count;

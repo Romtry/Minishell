@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dollar_pars.c                                      :+:      :+:    :+:   */
+/*   pars_dollar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:39:49 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:29:06 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:53:21 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	pars_dollar(t_token *token, unsigned int i)
 		erased_str2(token, i);
 	else if (i < token->tlen && i > 0
 		&& token->type[i - 1] == WORD && token->type[i + 1] != WORD)
-		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$");
+		token->word[i - 1] = ft_strjoin(token->word[i - 1], "$", true);
 	else if (token->type[i + 1] == DQUOTED || token->type[i + 1] == SQUOTED)
-		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
+		token->word[i + 1] = ft_strjoin("$", token->word[i + 1], false);
 	erased_str(token, &i);
 	token->type[i] = WORD;
 }

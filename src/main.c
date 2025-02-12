@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:03:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:45:25 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_signal(int sig)
 	}
 }
 
-static unsigned int	rl_lexer(t_token *token)
+unsigned int	rl_lexer(t_token *token)
 {
 	char	*input;
 
@@ -54,27 +54,31 @@ static unsigned int	rl_lexer(t_token *token)
 	if (input[0] == '\0')
 	{
 		free(input);
-		return (1);
+		return (2);
 	}
-	add_history (input);
+	add_history(input);
 	lexer(token, input);
 	free(input);
+	token->exit_stat = exit_stat;
+	parsing(token);
 	return (0);
 }
 
 int	main(void)
 {
-	t_token	*token;
-	t_cmd	*cmd;
+	t_token			*token;
+	t_cmd			*cmd;
+	unsigned int	temp;
 
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
 	while (1)
 	{
-		if (rl_lexer(token) == 1)
+		temp = rl_lexer(token);
+		if (temp == 1)
 			break;
-		token->exit_stat = exit_stat;
-		parsing(token);
+		else if (temp == 2)
+			continue;
 		if (token->err == 0)
 		{
 			cmd = malloc(sizeof(t_cmd));

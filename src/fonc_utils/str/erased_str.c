@@ -1,32 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   erased_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 09:32:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:32:24 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/12 09:26:20 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/12 13:51:12 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoin(char *str1, char *str2)
+void	erased_str(t_token *token, unsigned int *s)
 {
-	char			*ret;
-	unsigned int	l;
+	char			**temp;
 	unsigned int	i;
+	unsigned int	i2;
 
 	i = -1;
-	l = ft_strlen(str1) + ft_strlen(str2);
-	ret = malloc(sizeof(char) * l + 1);
-	while (str1[++i])
-		ret[i] = str1[i];
-	i--;
-	while (str2[++i - ft_strlen(str1)])
-		ret[i] = str2[i - ft_strlen(str1)];
-	free(str1);
-	ret[i] = '\0';
-	return (ret);
+	token->tlen--;
+	if (token->tlen == 0)
+	{
+		token->err = 1;
+		return ;
+	}
+	temp = malloc(sizeof(char *) * (token->tlen + 1));
+	while (++i < *s)
+		temp[i] = ft_strcpy(token->word[i]);
+	i2 = i;
+	i++;
+	while (token->word[i])
+		temp[i2++] = ft_strcpy(token->word[i++]);
+	temp[i2] = NULL;
+	free_word(token);
+	token->word = temp;
+	get_type(token, *s, *s);
+	if (*s > 0)
+		*s -= 1;
 }

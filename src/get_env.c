@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:10:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:11:34 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:40:09 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static t_env *get_env_list(void)
     return (envhead);
 }
 
-void *get_env(unsigned int n)
+void *get_env(bool b)
 {
-    if (n == 0)
+    if (b == true)
         return get_env_array();
     return get_env_list();
 }
