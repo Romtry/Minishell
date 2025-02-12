@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:06:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 10:07:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:19:41 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,17 @@ void    echo(t_cmd *cmd)
 
     i = 1;
     n_line = 1;
-    while (cmd->word[0][i] && ft_strcmp(cmd->word[0][i], " ") == 0)
-        i++;
-    if (cmd->word[0][i] && is_n_option(cmd->word[0][i]))
+    if (cmd->word[0][1] && is_n_option(cmd->word[0][i]))
     {
         n_line = 0;
         i++;
     }
     while (cmd->word[0][i])
     {
-        if (ft_strcmp(cmd->word[0][i], " ") != 0)
-        {
-            printf("%s", cmd->word[0][i]);
-            if (cmd->word[0][i + 1] && ft_strcmp(cmd->word[0][i + 1], " ") == 0)
-                printf(" ");
-        }
+        printf("%s", cmd->word[0][i]);
         i++;
+        if (cmd->word[0][i])
+            printf(" ");
     }
     if (n_line)
         printf("\n");

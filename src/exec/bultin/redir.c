@@ -80,7 +80,6 @@ int handle_heredoc(char *delimiter)
         perror("minishell: pipe");
         return -1;
     }
-
     signal(SIGINT, SIG_DFL);
     while (1)
     {
@@ -95,12 +94,11 @@ int handle_heredoc(char *delimiter)
             free(line);
             break;
         }
-        write(pipe_fd[1], line, strlen(line));
+        write(pipe_fd[1], line, ft_strlen(line));
         write(pipe_fd[1], "\n", 1);
         free(line);
     }
     close(pipe_fd[1]);
-
     if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
     {
         perror("minishell: dup2");

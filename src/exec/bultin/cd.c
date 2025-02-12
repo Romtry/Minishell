@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:25:53 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 14:30:20 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:35:17 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void cd(t_cmd *cmd)
     t_env *home_env;
     int i = 1;
 
-    while (cmd->word[0][i] && ft_strcmp(cmd->word[0][i], " ") == 0)
-        i++;
     if (!cmd->word[0][i])
     {
         home_env = get_env(1);
@@ -41,5 +39,8 @@ void cd(t_cmd *cmd)
 	else
         path = cmd->word[0][i];
     if (chdir(path) != 0)
-        perror("minishell: cd");
+    {
+        // JE DOIS METTRE EXIT STAT A 1
+        write(2, "minishell: cd: No such file or directory\n", 41);
+    }
 }
