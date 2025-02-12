@@ -6,69 +6,11 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:39:49 by rothiery          #+#    #+#             */
-/*   Updated: 2025/01/28 11:47:12 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:29:06 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
-
-char	*num_char(unsigned int n)
-{
-	unsigned int	i;
-	unsigned int	n2;
-	char			*ret;
-
-	i = 0;
-	n2 = n;
-	while (n > 10)
-	{
-		i++;
-		n = n/10;
-	}
-	i++;
-	ret = malloc(sizeof(char) * (i + 1));
-	ret[i] = '\0';
-	i--;
-	while (n2 > 10)
-	{
-		ret[i] = (n2 % 10) + '0';
-		n2 = n2/10;
-		i--;
-	}
-	ret[0] = n2 + '0';
-	return (ret);
-}
-
-void	switch_es(t_token *token, unsigned int i)
-{
-	char	*temp;
-
-	erased_str(token, &i);
-	i++;
-	temp = ft_strcpy(token->word[i] + 1);
-	free(token->word[i]);
-	token->word[i] = num_char(token->exit_stat);
-	token->word[i] = ft_strjoin(token->word[i], temp);
-	free(temp);
-}
-
-void	dollar_quote(t_token *token, unsigned int i)
-{
-	t_env	*list;
-
-	list = token->envhead;
-	token->type[i] = WORD;
-	while (list)
-	{
-		if (ft_strcmp(list->name, (token->word[i] + 1)) == 0)
-		{
-			free(token->word[i]);
-			token->word[i] = ft_strcpy(list->value);
-			return ;
-		}
-		list = list->next;
-	}
-}
 
 void	pars_dollar(t_token *token, unsigned int i)
 {
@@ -97,20 +39,4 @@ void	pars_dollar(t_token *token, unsigned int i)
 		token->word[i + 1] = ft_strjoin2("$", token->word[i + 1]);
 	erased_str(token, &i);
 	token->type[i] = WORD;
-}
-
-void	dollar_pars(t_token *token, unsigned int *i)
-{
-	if (token->word[*i + 1] && token->word[*i + 1][0] == '?')
-		switch_es(token, *i);
-	else if (*i > 0 && *i + 1 >= token->tlen && token->type[*i - 1] == WORD)
-	{
-		token->word[*i - 1] = ft_strjoin(token->word[*i - 1], "$");
-		erased_str(token, i);
-	}
-	else if (*i + 1 >= token->tlen && (*i == 0 || token->type[*i - 1] != WORD))
-		token->type[*i] = WORD;
-	else
-		pars_dollar(token, *i);
-	*i -= 1;
 }

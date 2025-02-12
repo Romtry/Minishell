@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/11 15:32:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:03:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_signal(int sig)
 	}
 }
 
-unsigned int	rl(t_token *token)
+static unsigned int	rl_lexer(t_token *token)
 {
 	char	*input;
 
@@ -71,7 +71,7 @@ int	main(void)
 	token = malloc(sizeof(t_token));
 	while (1)
 	{
-		if (rl(token) == 1)
+		if (rl_lexer(token) == 1)
 			break;
 		token->exit_stat = exit_stat;
 		parsing(token);
@@ -81,7 +81,6 @@ int	main(void)
 			transfert(token, cmd);
 			cmd->exit_stat = &exit_stat;
 			execute_command(cmd);
-			// print_cmd(cmd);
 			free_cmd(cmd);
 		}
 	}

@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   tlen_count.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 09:16:31 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/11 15:48:22 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/12 09:33:07 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/12 09:33:59 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	wich_type(char c)
+unsigned int	tlen_count(char *str)
 {
-	if (is_sep(c) == 0)
-		return (SEP);
-	else if (c == '|')
-		return (PIPE);
-	else if (c == '<')
-		return (INPUTREDIR);
-	else if (c == '>')
-		return (OUTPUTREDIR);
-	else if (c == '\'')
-		return (SQUOTE);
-	else if (c == '\"')
-		return (DQUOTE);
-	else if (c == '$')
-		return (DOLLAR);
-	else
-		return (1);
+	unsigned int	save;
+	unsigned int	ret;
+	unsigned int	i;
+
+	ret = 0;
+	i = 0;
+	while (str[i] && is_sep(str[i]) == 0)
+		i++;
+	while (str[i])
+	{
+		save = wich_type(str[i]);
+		while (str[i] && save == wich_type(str[i]))
+			i++;
+		if ((!str[i]) && is_sep(str[i - 1]) == 0)
+			break;
+		ret++;
+	}
+	return (ret);
 }

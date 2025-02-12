@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/11 15:10:27 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:08:40 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ void			free_array(char **arr);
 // lexer
 void			lexer(t_token *token, char *input);
 unsigned int	malloc_word(t_token *token, char *input, unsigned int c);
-unsigned int	count_word(char *str);
 
 // lst_utils
 t_env			*ft_lstnew(char *content);

@@ -1,17 +1,5 @@
 # include "minishell.h"
 
-int cmd_count(t_cmd *cmd)
-{
-    int count = 0;
-
-    if (!cmd || !cmd->word)
-        return 0;
-    while (cmd->word[count] != NULL)
-        count++;
-    return count;
-}
-
-
 void execute_command(t_cmd *cmd)
 {
     int saved_stdout = dup(STDOUT_FILENO);
