@@ -17,10 +17,24 @@ void	switch_es(t_token *token, unsigned int i)
 	char	*temp;
 
 	erased_str(token, &i);
-	i++;
-	temp = ft_strcpy(token->word[i] + 1);
-	free(token->word[i]);
-	token->word[i] = num_char(token->exit_stat);
-	token->word[i] = ft_strjoin(token->word[i], temp, true);
-	free(temp);
+	if (token->word[i][0] != '?')
+		i++;
+	if (token->word[i][1])
+	{
+		temp = ft_strcpy(token->word[i] + 1);
+		free(token->word[i]);
+		token->word[i] = num_char(token->exit_stat);
+		token->word[i] = ft_strjoin(token->word[i], temp, true);
+		free(temp);
+	}
+	else
+	{
+		free(token->word[i]);
+		token->word[i] = num_char(token->exit_stat);
+	}
+	if (i > 0 && token->type[i - 1] != SEP)
+	{
+		token->word[i - 1] = ft_strjoin(token->word[i - 1], token->word[i], true);
+		erased_str(token, &i);
+	}
 }

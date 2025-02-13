@@ -19,7 +19,8 @@ VPATH=	src																		\
 		src/fonc_utils/comp														\
 		src/fonc_utils/lst														\
 		src/fonc_utils/str														\
-		src/free_utils/															\
+		src/free_utils															\
+		src/parsing_part/parsing												\
 		src/parsing_part/parsing/utils											\
 		src/parsing_part/lexer_utils											\
 		src/parsing_part/parsing/dollar_utils									\
@@ -53,7 +54,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 OFILES= ${SRC:%.c=obj/%.o}
 
 CC= 	cc	-Wextra -Wall
-CFLAGS= -g3 -I includes
+CFLAGS= -fsanitize=address -g3 -I includes
 RESET = \033[0m
 GRAS = \033[1m
 ITALIQUE = \033[3m

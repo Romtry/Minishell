@@ -40,7 +40,7 @@ void cd(t_cmd *cmd)
         path = cmd->word[0][i];
     if (chdir(path) != 0)
     {
-        // JE DOIS METTRE EXIT STAT A 1
+        *cmd->exit_stat = 1;
         write(2, "minishell: cd: No such file or directory\n", 41);
     }
 }
