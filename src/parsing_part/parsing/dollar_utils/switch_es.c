@@ -32,7 +32,7 @@ void	switch_es(t_token *token, unsigned int i)
 		free(token->word[i]);
 		token->word[i] = num_char(token->exit_stat);
 	}
-	if (i > 0 && token->type[i - 1] != SEP)
+	if (i > 0 && token->type[i - 1] == WORD)
 	{
 		token->word[i - 1] = ft_strjoin(token->word[i - 1], token->word[i], true);
 		erased_str(token, &i);

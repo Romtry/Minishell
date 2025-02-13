@@ -138,7 +138,8 @@ void				free_array(char **arr);
 void				free_cmd(t_cmd	*cmd);
 void				free_env(t_env *env);
 void				free_token(t_token *token);
-void				free_word(t_token *token);void	print_cmd(t_cmd *cmd);
+void				free_word(t_token *token);
+void				print_cmd(t_cmd *cmd);
 
 
 // parsing_part
