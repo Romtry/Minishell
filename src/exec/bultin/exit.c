@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:38:09 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:57:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:06:58 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ static unsigned int	exit_util(char *str)
 
 void	exit_shell(t_cmd *cmd)
 {
-	if (cmd->word[0][2])
+	if (cmd->word[0][1] && cmd->word[0][2])
 	{
 		*cmd->exit_stat = 1;
 		write(2, " too many arguments\n", 20);
 	}
 	else
 	{
-		*cmd->exit_stat = exit_util(cmd->word[0][1]);
+		if (cmd->word[0][1])
+			*cmd->exit_stat = exit_util(cmd->word[0][1]);
 		printf("exit\n");
 		exit(*cmd->exit_stat);
 	}

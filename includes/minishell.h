@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/12 14:30:23 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:00:40 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void 				*get_env(bool b);
 void				print_array(char **array);
 void				print_token(t_token *token);
 void				print_cmd(t_cmd *cmd);
+void				env_print(t_env *env);
 
 // exec
 // bultin
