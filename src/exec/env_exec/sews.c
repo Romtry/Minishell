@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:53:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:44:59 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/14 08:11:27 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void sync_env_with_system(void)
     while (current)
     {
         new_environ[i] = ft_strjoin(current->name, "=", false);
-        new_environ[i] = ft_strjoin(new_environ[i], current->value, false);
+        new_environ[i] = ft_strjoin(new_environ[i], current->value, true);
         current = current->next;
         i++;
     }
