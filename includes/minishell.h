@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/14 08:00:40 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:54:12 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct token
 	t_env			*envhead;
 	char			**word;
 	t_type			*type;
-	unsigned int	exit_stat;
+	unsigned int	*exit_stat;
 }	t_token;
 
 // main
@@ -110,6 +110,8 @@ void				execute_piped_commands(t_cmd *cmd);
 
 // fonc_utils
 // comp
+bool				ft_is_alnum(char c);
+bool				ft_is_alpha(char c);
 unsigned int		ft_strcmp(char *str, char *str2);
 unsigned int		ft_strncmp(char *str, char *str2, unsigned int n);
 int					is_builtin(char *cmd);
@@ -151,6 +153,7 @@ unsigned int		tlen_count(char *str);
 
 // parsing
 // dollar_utils
+void				dollar_pars(t_token *token, unsigned int *i);
 char				*num_char(unsigned int n);
 void				pars_dollar(t_token *token, unsigned int i);
 void				switch_dollar(t_token *token, unsigned int one, unsigned int *two);
@@ -159,15 +162,15 @@ void			    transfert(t_token *token, t_cmd	*cmd);
 
 // quote_utils
 void				dollar_indquote(t_token *token, unsigned int *one, unsigned int *two);
+void				dollar_quote(t_token *token, unsigned int i);
 void				erased_quote(t_token *token, unsigned int *p);
 void				quote_type(t_token *token, unsigned int one, unsigned int *temp);
 void				realloc_word(t_token *token, unsigned int *one, unsigned int two);
 int					secnd_quote(t_token *token, unsigned int *one, t_type quote);
 
 // utils
-void				dollar_pars(t_token *token, unsigned int *i);
-void				dollar_quote(t_token *token, unsigned int i);
 void				get_type(t_token *token, unsigned int one, unsigned int two);
+void				pars_heredoc(t_token *token, unsigned int i);
 unsigned int		parsing(t_token *token);
 void				pipe_pars(t_token *token, unsigned int i);
 void				redir_pars(t_token *token);

@@ -7,7 +7,7 @@ char *get_command_path(char *cmd)
     char *cmd_path;
     int i;
 
-    if (!cmd || !(envp = get_env(0)))
+    if (!cmd || !(envp = get_env(true)))
         return (NULL);
     i = 0;
     while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
@@ -69,7 +69,7 @@ static char **clean_arguments(char **args)
 
 void execute_external(t_cmd *cmd)
 {
-        printf("STDOUT_FILENO before external: %d\n", STDOUT_FILENO);
+        // printf("STDOUT_FILENO before external: %d\n", STDOUT_FILENO);
 
 	char **envp;
     pid_t pid;
@@ -78,13 +78,17 @@ void execute_external(t_cmd *cmd)
 
     if (!cmd || !cmd->word[0] || !cmd->word[0][0])
     {
-        printf("minishell: command not found\n");
+        write(2, "minishell: command not found\n", 29);
+		*cmd->exit_stat = 127;
         return;
     }
     cmd_path = get_command_path(cmd->word[0][0]);
     if (!cmd_path)
     {
-        printf("minishell: command not found: %s\n", cmd->word[0][0]);
+        write(2, "minishell: command not found: ", 30);
+        // write(2, cmd->word[0][0], ft_strlen(cmd->word[0][0]));
+        write(2, "\n", 1);
+		*cmd->exit_stat = 127;
         return;
     }
     envp = get_env(0);

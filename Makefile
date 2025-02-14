@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/12 14:23:09 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/14 10:54:43 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		ft_lstnew.c				get_name.c				array_cpy.c				\
 		erased_str.c			ft_memcpy.c				ft_split.c				\
 		ft_strchr.c				ft_strcpy.c				ft_strdup.c				\
-		ft_strjoin.c			ft_strlcpy.c									\
+		ft_strjoin.c			ft_strlcpy.c			ft_is_alpha.c			\
 		ft_strlen.c				ft_strndup.c			free_array.c			\
 		free_cmd.c				free_env.c				free_token.c			\
 		free_word.c				lexer.c					malloc_word.c			\
@@ -49,7 +49,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		dollar_quote.c			get_type.c				parsing.c				\
 		pipe_pars.c				redir_pars.c			sep_clean.c				\
 		malloc_array.c			no_pipe.c				transfert_pipe.c		\
-		transfert.c																\
+		transfert.c				ft_is_alnum.c			pars_heredoc.c			\
 
 OFILES= ${SRC:%.c=obj/%.o}
 
