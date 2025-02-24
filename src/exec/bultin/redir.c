@@ -128,7 +128,7 @@ int handle_redirections(t_cmd *cmd)
                 free_array(new_args);
                 return -1;
             }
-            printf("Detected append redirection (>>) for %s\n", cmd->word[0][i + 1]);
+            // printf("Detected append redirection (>>) for %s\n", cmd->word[0][i + 1]);
             i += 2;
         }
         else if (ft_strcmp(cmd->word[0][i], ">") == 0)
@@ -141,12 +141,12 @@ int handle_redirections(t_cmd *cmd)
                 free_array(new_args);
                 return -1;
             }
-            printf("Detected output redirection (>) for %s\n", cmd->word[0][i + 1]);
+            // printf("Detected output redirection (>) for %s\n", cmd->word[0][i + 1]);
             i += 2;
         }
         else if (ft_strcmp(cmd->word[0][i], "<<") == 0)
         {
-            printf("Detected heredoc (<<) for delimiter %s\n", cmd->word[0][i + 1]);
+            // printf("Detected heredoc (<<) for delimiter %s\n", cmd->word[0][i + 1]);
             if (handle_heredoc(cmd->word[0][i + 1]) == -1)
             {
                 free_array(new_args);
@@ -164,7 +164,7 @@ int handle_redirections(t_cmd *cmd)
                 free_array(new_args);
                 return -1;
             }
-            printf("Detected input redirection (<) for %s\n", cmd->word[0][i + 1]);
+            // printf("Detected input redirection (<) for %s\n", cmd->word[0][i + 1]);
             i += 2;
         }
         else
