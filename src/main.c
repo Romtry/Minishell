@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/24 12:15:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:20:25 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,8 @@ void	handle_signal(int sig)
 unsigned int	rl_lexer(t_token *token)
 {
 	char	*input;
-	char	**env;
 
-	env = get_env(true);
-	print_array(env);
-	free_array(env);
 	input = readline(BLUE"(satoru caca)> "RESET);
-	env = get_env(true);
-	print_array(env);
-	free_array(env);
 	if (!input)
 		return (1);
 	if (input[0] == '\0')
