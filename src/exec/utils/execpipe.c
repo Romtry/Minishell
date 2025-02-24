@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execpipe.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/24 11:16:04 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/24 11:16:06 by rothiery         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int arg_count(char **args)
@@ -66,7 +78,7 @@ void execute_piped_commands(t_cmd *cmd)
                     fprintf(stderr, "minishell: %s: command not found\n", tmp_cmd.word[0][0]);
                     exit(127);
                 }
-                execve(cmd_path, tmp_cmd.word[0], get_env(0));
+                execve(cmd_path, tmp_cmd.word[0], get_env(true));
                 perror("minishell: execve");
                 free(cmd_path);
                 exit(EXIT_FAILURE);

@@ -20,7 +20,7 @@ void cd(t_cmd *cmd)
 
     if (!cmd->word[0][i])
     {
-        home_env = get_env(1);
+        home_env = get_env(false);
         while (home_env && ft_strcmp(home_env->name, "HOME") != 0)
             home_env = home_env->next;
         if (!home_env)

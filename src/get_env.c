@@ -38,6 +38,7 @@ static t_env *get_env_list(void)
         temp = temp->next;
         i++;
     }
+    temp->next = ft_lstnew(environ[i - 1]);
     return (envhead);
 }
 

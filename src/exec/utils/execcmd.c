@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execcmd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/24 11:15:54 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/24 11:15:57 by rothiery         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "minishell.h"
 
 void execute_command(t_cmd *cmd)
@@ -19,10 +31,10 @@ void execute_command(t_cmd *cmd)
     }
     if (cmd->has_pipe >= 2)
     {
-        for (int i = 0; cmd->word[i]; i++)
-        {
-            printf("Command[%d]: %s\n", i, cmd->word[i][0] ? cmd->word[i][0] : "(null)");
-        }
+        // for (int i = 0; cmd->word[i]; i++)
+        // {
+        //     printf("Command[%d]: %s\n", i, cmd->word[i][0] ? cmd->word[i][0] : "(null)");
+        // }
         execute_piped_commands(cmd);
     }
     else if (is_builtin(cmd->word[0][0]))

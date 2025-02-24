@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/14 10:54:12 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:08:29 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct cmd
 	char			***word;
 	unsigned int	has_pipe;
 	unsigned int	*exit_stat;
+	char			***old_environ;
+	bool			*env_change;
 }	t_cmd;
 
 typedef struct token
@@ -72,6 +74,8 @@ typedef struct token
 	char			**word;
 	t_type			*type;
 	unsigned int	*exit_stat;
+	char			**old_environ;
+	bool			env_change;
 }	t_token;
 
 // main
@@ -98,7 +102,7 @@ void				unset(t_cmd *cmd);
 // env_exec
 t_env 				**get_env_head(void);
 void 				remove_duplicates_from_environ(void);
-void 				sync_env_with_system(void);
+void 				sync_env_with_system(t_cmd *cmd);
 
 // utils
 int 				cmd_count(t_cmd *cmd);

@@ -14,20 +14,14 @@
 
 void env_builtin(void)
 {
-	t_env   *env;
 	t_env	*head;
 
-	env = get_env(false);
-	head = env;
-	if (env == NULL)
+	head = get_env(false);
+	if (head == NULL)
 	{
 		printf("No environment variables found.\n");
 		return;
 	}
-	while (env)
-	{
-		printf("%s=%s\n", env->name, env->value);
-		env = env->next;
-	}
+	env_print(head);
 	free_env(head);
 }

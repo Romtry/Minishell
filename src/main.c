@@ -6,32 +6,11 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/14 09:13:45 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:15:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-unsigned int	exit_stat = 0;
-
-void	print_error(t_token *token, unsigned int n)
-{
-	if (n == 0)
-		perror(RED"Command error tu seras privé de tarte au caca !"CLEAR);
-	else if (n == 1)
-		perror(RED"Quote not closed so no caca pie !"CLEAR);
-	else if (n == 2)
-		perror(RED"syntax error near unexpected token '|' !"CLEAR);
-	else if (n == 3)
-		perror(RED"syntax error near unexpected token 'newline'"CLEAR);
-	else if (n == 4)
-		perror(RED"syntax error near unexpected token '<'"CLEAR);
-	else if (n == 5)
-		perror(RED"syntax error near unexpected token '>'"CLEAR);
-	exit_stat = 2;
-	token->err = 1;
-	free_token(token);
-}
 
 void	handle_signal(int sig)
 {
@@ -47,8 +26,15 @@ void	handle_signal(int sig)
 unsigned int	rl_lexer(t_token *token)
 {
 	char	*input;
+	char	**env;
 
+	env = get_env(true);
+	print_array(env);
+	free_array(env);
 	input = readline(BLUE"(satoru caca)> "RESET);
+	env = get_env(true);
+	print_array(env);
+	free_array(env);
 	if (!input)
 		return (1);
 	if (input[0] == '\0')
@@ -59,19 +45,38 @@ unsigned int	rl_lexer(t_token *token)
 	add_history(input);
 	lexer(token, input);
 	free(input);
-	token->exit_stat = &exit_stat;
 	parsing(token);
 	return (0);
+}
+
+void	cmd_work(t_token *token, unsigned int *exit_stat)
+{
+	t_cmd			*cmd;
+
+	cmd = malloc(sizeof(t_cmd));
+	transfert(token, cmd);
+	cmd->exit_stat = exit_stat;
+	cmd->env_change = &token->env_change;
+	cmd->old_environ = malloc(sizeof(char **));
+	if (token->env_change == true)
+		*cmd->old_environ = token->old_environ;
+	execute_command(cmd);
+	if (token->env_change == true)
+		token->old_environ = *cmd->old_environ;
+	free_cmd(cmd);
 }
 
 int	main(void)
 {
 	t_token			*token;
-	t_cmd			*cmd;
 	unsigned int	temp;
+	unsigned int	exit_stat;
 
+	exit_stat = 0;
 	signal(SIGINT, handle_signal);
 	token = malloc(sizeof(t_token));
+	token->exit_stat = &exit_stat;
+	token->env_change = false;
 	while (1)
 	{
 		temp = rl_lexer(token);
@@ -80,14 +85,10 @@ int	main(void)
 		else if (temp == 2)
 			continue;
 		if (token->err == 0)
-		{
-			cmd = malloc(sizeof(t_cmd));
-			transfert(token, cmd);
-			cmd->exit_stat = &exit_stat;
-			execute_command(cmd);
-			free_cmd(cmd);
-		}
+			cmd_work(token, &exit_stat);
 	}
+	if (token->env_change == true)
+		free_array(token->old_environ);
 	free(token);
 	rl_clear_history();
 	return (exit_stat);

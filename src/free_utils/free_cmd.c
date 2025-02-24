@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:18:49 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:19:18 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:12:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	free_cmd(t_cmd	*cmd)
 	}
 	free(cmd->type);
 	free(cmd->word);
+	free(cmd->old_environ);
 	free(cmd);
 }

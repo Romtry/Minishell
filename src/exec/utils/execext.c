@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execext.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/24 11:16:03 by rothiery         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char *get_command_path(char *cmd)
@@ -91,7 +103,7 @@ void execute_external(t_cmd *cmd)
 		*cmd->exit_stat = 127;
         return;
     }
-    envp = get_env(0);
+    envp = get_env(true);
     cleaned_args = clean_arguments(cmd->word[0]);
     pid = fork();
     if (pid == 0)

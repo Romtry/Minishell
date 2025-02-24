@@ -96,7 +96,7 @@ void	env_print(t_env *env)
 	}
 	while (env->next)
 	{
-		printf("%s = %s\n", env->name, env->value);
+		printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 }
