@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/24 13:02:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:53:37 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void execute_external(t_cmd *cmd)
 	cmd_path = get_command_path(cmd->word[0][0]);
 	if (!cmd_path)
 	{
-		printf("%s: command not found: \n", cmd->word[0][0]);
-		// write(2, cmd->word[0][0], ft_strlen(cmd->word[0][0]));
+		write(2, cmd->word[0][0], ft_strlen(cmd->word[0][0]));
+		write(2, ": command not found:\n", 21);
 		*cmd->exit_stat = 127;
 		return;
 	}
@@ -118,7 +118,9 @@ void execute_external(t_cmd *cmd)
 	else if (pid < 0)
 		perror("fork");
 	else
-		waitpid(pid, NULL, 0);
+		waitpid(pid, (int *)cmd->exit_stat, 0);
+	*cmd->exit_stat = *cmd->exit_stat / 256;
+	printf("exit stat = %d", *cmd->exit_stat);
 	free(cmd_path);
 	free_array(envp);
 	free(cleaned_args);
