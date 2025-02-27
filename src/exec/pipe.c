@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:19:21 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 11:28:47 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:54:38 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 
     tmp_cmd.word = &cmd->word[i];
     tmp_cmd.type = &cmd->type[i];
+    tmp_cmd.env_change = cmd->env_change;
+    tmp_cmd.old_environ = cmd->old_environ;
     count = cmd_count(cmd);
     is_not_last = (i < count - 1);
     if (input_fd != STDIN_FILENO)
