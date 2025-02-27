@@ -130,7 +130,7 @@ static int process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
         return handle_heredoc_redir(cmd, i, new_args);
     if (!ft_strcmp(cmd->word[0][*i], "<"))
         return handle_in_redir(cmd, i, new_args);
-    new_args[(*j)++] = ft_strdup(cmd->word[0][*i]);
+    new_args[(*j)++] = ft_strndup(cmd->word[0][*i], ft_strlen(cmd->word[0][*i]));
     (*i)++;
     return 0;
 }
@@ -233,4 +233,3 @@ int handle_redirections(t_cmd *cmd)
     apply_redirections(in_fd, out_fd);
     return 0;
 }
-

@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   env_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 10:38:09 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/14 08:06:58 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/27 09:17:55 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void env_builtin(void)
+{
+	t_env	*head;
+
+	head = get_env(false);
+	if (head == NULL)
+	{
+		printf("No environment variables found.\n");
+		return;
+	}
+	env_print(head);
+	free_env(head);
+}
 
 static int	char_int(char *str)
 {

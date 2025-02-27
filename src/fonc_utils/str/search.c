@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_bultin.c                                        :+:      :+:    :+:   */
+/*   search.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 10:53:34 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 10:53:40 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/27 08:57:37 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/27 09:08:13 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	ft_is_alnum(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+		return (true);
+	return (false);
+}
+
+bool	ft_is_alpha(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (true);
+	return (false);
+}
 
 int	is_builtin(char *cmd)
 {
@@ -31,4 +45,24 @@ int	is_builtin(char *cmd)
 	if (ft_strcmp(cmd, "exit") == 0)
 		return (1);
 	return (0);
+}
+
+unsigned int	is_sep(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (0);
+	return (1);
+}
+
+char *ft_strchr(const char *s, int c)
+{
+    while (*s)
+    {
+        if (*s == (char)c)
+            return (char *)s;
+        s++;
+    }
+    if ((char)c == '\0')
+        return (char *)s;
+    return NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/25 14:53:37 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:06:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,18 @@ char *get_command_path(char *cmd)
 	int i;
 
 	if (!cmd || !(envp = get_env(true)))
-		return (NULL);
+        return (NULL);
+    if (ft_strchr(cmd, '/') != NULL)
+    {
+        if (access(cmd, X_OK) == 0)
+            return ft_strndup(cmd, ft_strlen(cmd));
+        else
+        {
+            fprintf(stderr, "minishell: %s: Permission denied or not found\n", cmd);
+            free_array(envp);
+            return NULL;
+        }
+    }
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
@@ -120,7 +131,7 @@ void execute_external(t_cmd *cmd)
 	else
 		waitpid(pid, (int *)cmd->exit_stat, 0);
 	*cmd->exit_stat = *cmd->exit_stat / 256;
-	printf("exit stat = %d", *cmd->exit_stat);
+	// printf("exit stat = %d", *cmd->exit_stat);
 	free(cmd_path);
 	free_array(envp);
 	free(cleaned_args);

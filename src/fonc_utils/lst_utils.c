@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 14:45:35 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 09:36:50 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/27 08:55:04 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/27 09:21:53 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_name(char const *content, unsigned int *i)
+{
+	char	*temp;
+
+	while (content[*i] && content[*i] != '=')
+		*i += 1;
+	temp = malloc(sizeof(char) * (*i + 1));
+	*i = 0;
+	while (content[*i] && content[*i] != '=')
+	{
+		temp[*i] = content[*i];
+		*i += 1;
+	}
+	temp[*i] = '\0';
+	return (temp);
+}
 
 t_env	*ft_lstnew(char *content)
 {
@@ -28,4 +45,15 @@ t_env	*ft_lstnew(char *content)
 		env->next = NULL;
 	}
 	return (env);
+}
+
+int cmd_count(t_cmd *cmd)
+{
+    int count = 0;
+
+    if (!cmd || !cmd->word)
+        return 0;
+    while (cmd->word[count] != NULL)
+        count++;
+    return count;
 }

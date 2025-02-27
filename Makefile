@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/24 11:16:30 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/27 09:49:17 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,40 +16,32 @@ VPATH=	src																		\
 		src/exec/bultin															\
 		src/exec/utils															\
 		src/exec/env_exec														\
+		src/fonc_utils															\
 		src/fonc_utils/comp														\
-		src/fonc_utils/lst														\
 		src/fonc_utils/str														\
-		src/free_utils															\
+		src/parsing_part														\
 		src/parsing_part/parsing												\
 		src/parsing_part/parsing/utils											\
-		src/parsing_part/lexer_utils											\
-		src/parsing_part/parsing/dollar_utils									\
 		src/parsing_part/parsing/quote_utils									\
 		src/parsing_part/transfert_utils										\
 
 SRC= 	main.c					get_env.c				test.c		 			\
-		cd.c					echo.c					env.c					\
-		exit.c					ft_export.c				pwd.c					\
+		cd_echo.c				env_exit.c				search.c	\
+		ft_export.c				pwd.c						\
 		redir.c					unset.c					get_env_h.c				\
-		rdfe.c					sews.c					cmd_count.c				\
+		rdfe.c					sews.c									\
 		exec_b.c				execcmd.c				execext.c				\
-		execpipe.c				ft_strcmp.c				ft_strncmp.c			\
-		is_bultin.c				is_sep.c				which_type.c			\
-		ft_lstnew.c				get_name.c				array_cpy.c				\
-		erased_str.c			ft_memcpy.c				ft_split.c				\
-		ft_strchr.c				ft_strcpy.c				ft_strdup.c				\
-		ft_strjoin.c			ft_strlcpy.c			ft_is_alpha.c			\
-		ft_strlen.c				ft_strndup.c			free_array.c			\
-		free_cmd.c				free_env.c				free_token.c			\
-		free_word.c				lexer.c					malloc_word.c			\
-		tlen_count.c			erased_str2.c			num_char.c				\
-		pars_dollar.c			switch_dollar.c			switch_es.c				\
+		execpipe.c				comp.c			\
+		lst_utils.c				type.c			\
+		erased_str.c				ft_split.c				\
+		ft_strjoin.c			lexer_utils.c						\
+		ft_strlen.c				copies.c			free_utils.c		\
 		dollar_inquote.c		erased_quote.c			quote_type.c			\
-		realloc_word.c			second_quote.c			dollar_pars.c			\
-		dollar_quote.c			get_type.c				parsing.c				\
+		realloc_word.c			second_quote.c			dollar_utils.c			\
+		dollar_quote.c							parsing.c				\
 		pipe_pars.c				redir_pars.c			sep_clean.c				\
 		malloc_array.c			no_pipe.c				transfert_pipe.c		\
-		transfert.c				ft_is_alnum.c			pars_heredoc.c			\
+		transfert.c							pars_heredoc.c			\
 		print_error.c															\
 
 OFILES= ${SRC:%.c=obj/%.o}

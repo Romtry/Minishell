@@ -6,7 +6,7 @@ static void    handle_parent(int *input_fd, int pipe_fd[2], int i, int count);
 static int    create_pipe(int pipe_fd[2], int need_pipe);
 static void    handle_fork_error(void);
 static void    wait_for_children(void);
-void    execute_piped_commands(t_cmd *cmd);
+void    piped_commands(t_cmd *cmd);
 
 static void    setup_io(int input_fd, int pipe_fd[2], int is_not_last)
 {
@@ -72,53 +72,4 @@ static void    handle_parent(int *input_fd, int pipe_fd[2], int i, int count)
     }
     else
         *input_fd = STDIN_FILENO;
-}
-
-static int    create_pipe(int pipe_fd[2], int need_pipe)
-{
-    if (need_pipe && pipe(pipe_fd) == -1)
-    {
-        perror("minishell: pipe");
-        return (0);
-    }
-    return (1);
-}
-
-static void    handle_fork_error(void)
-{
-    perror("minishell: fork");
-}
-
-static void    wait_for_children(void)
-{
-    while (wait(NULL) > 0)
-        ;
-}
-
-void    execute_piped_commands(t_cmd *cmd)
-{
-    int        count;
-    int        input_fd;
-    int        pipe_fd[2];
-    pid_t    pid;
-    int        i;
-
-    count = cmd_count(cmd);
-    input_fd = STDIN_FILENO;
-    i = 0;
-    while (i < count)
-    {
-        int    need_pipe = (i < count - 1);
-        if (!create_pipe(pipe_fd, need_pipe))
-            return ;
-        pid = fork();
-        if (pid == -1)
-            return (handle_fork_error());
-        else if (pid == 0)
-            handle_child(i, cmd, input_fd, pipe_fd);
-        else
-            handle_parent(&input_fd, pipe_fd, i, count);
-        i++;
-    }
-    wait_for_children();
 }

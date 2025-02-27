@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   comp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 10:33:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 10:34:30 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/27 08:59:16 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/27 08:59:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_strdup(const char *s)
+unsigned int	ft_strcmp(char *str, char *str2)
 {
-    char *dup;
-    size_t len;
+	unsigned int	i;
 
-    len = ft_strlen(s);
-    dup = (char *)malloc(len + 1);
-    if (!dup)
-        return NULL;
-    ft_memcpy(dup, s, len + 1);
-    return dup;
+	i = 0;
+	while (str[i] && str2[i] && str[i] == str2[i])
+		i++;
+	if (!str[i] && !str2[i])
+		return (0);
+	return (1);
+}
+
+unsigned int	ft_strncmp(char *str, char *str2, unsigned int n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i] && str2[i] && str[i] == str2[i] && i < n)
+		i++;
+	if (i == n)
+		return (0);
+	return (1);
 }

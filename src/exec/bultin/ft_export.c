@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:36:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/24 11:31:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:52:15 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void ft_export(t_cmd *cmd)
 		if (equal_sign)
 		{
 			name = ft_strndup(cmd->word[0][i], equal_sign - cmd->word[0][i]);
-			value = ft_strdup(equal_sign + 1);
+			value = ft_strndup(equal_sign + 1, ft_strlen(equal_sign) - 1);
 		}
 		else
 		{
-			name = ft_strdup(cmd->word[0][i]);
-			value = ft_strdup("");
+			name = ft_strndup(cmd->word[0][i], ft_strlen(cmd->word[0][i]));
+			value = ft_strndup("", 0);
 		}
 		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
 		{
@@ -90,7 +90,7 @@ void ft_export(t_cmd *cmd)
 			if (ft_strcmp(current->name, name) == 0)
 			{
 				free(current->value);
-				current->value = ft_strdup(value);
+				current->value = ft_strndup(value, ft_strlen(value));
 				var_exists = 1;
 				break;
 			}
@@ -107,8 +107,8 @@ void ft_export(t_cmd *cmd)
 				free(value);
 				return;
 			}
-			new_var->name = ft_strdup(name);
-			new_var->value = ft_strdup(value);
+			new_var->name = ft_strndup(name, ft_strlen(name));
+			new_var->value = ft_strndup(value, ft_strlen(value));
 			new_var->next = *env_head_ptr;
 			*env_head_ptr = new_var;
 		}

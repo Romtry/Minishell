@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:35:49 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/25 11:29:56 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:53:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ t_env **get_env_head(void)
             if (equal_sign)
             {
                 name = ft_strndup(__environ[i], equal_sign - __environ[i]);
-                value = ft_strdup(equal_sign + 1);
+                value = ft_strndup(equal_sign + 1, ft_strlen(equal_sign) - 1);
             }
             else
             {
-                name = ft_strdup(__environ[i]);
-                value = ft_strdup("");
+                name = ft_strndup(__environ[i], ft_strlen(__environ[i]));
+                value = ft_strndup("", 0);
             }
             duplicate_found = 0;
             existing = env_head;

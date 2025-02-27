@@ -169,7 +169,7 @@ int handle_redirections(t_cmd *cmd)
         }
         else
         {
-            new_args[j++] = ft_strdup(cmd->word[0][i]);
+            new_args[j++] = ft_strndup(cmd->word[0][i], ft_strlen(cmd->word[0][i]));
             i++;
         }
     }

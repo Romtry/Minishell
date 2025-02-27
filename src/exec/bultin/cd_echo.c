@@ -1,16 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   cd_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 10:06:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 15:19:41 by rothiery         ###   ########.fr       */
+/*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
+/*   Updated: 2025/02/27 09:43:17 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*cd2(void)
+{
+	t_env *home_env;
+
+	home_env = get_env(false);
+	while (home_env && ft_strcmp(home_env->name, "HOME") != 0)
+		home_env = home_env->next;
+	if (!home_env)
+		return(NULL);
+	return(home_env->value);
+}
+
+void	cd(t_cmd *cmd)
+{
+	char *path;
+	int i;
+
+	i = 1;
+	if (!cmd->word[0][i])
+	{
+		path = cd2();
+		if (path == NULL)
+			return((void)printf("minishell: cd: HOME not set\n"));
+	}
+	else if (cmd->word[0][2])
+	{
+		*cmd->exit_stat = 1;
+		write(2, "cd : too many arguments\n", 24);
+		exit(1);
+	}
+	else
+		path = cmd->word[0][i];
+	if (chdir(path) != 0)
+	{
+		*cmd->exit_stat = 1;
+		write(2, "minishell: cd: No such file or directory\n", 41);
+	}
+}
 
 static int  is_n_option(char *arg)
 {
