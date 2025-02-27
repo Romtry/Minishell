@@ -6,13 +6,14 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/27 09:49:17 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/27 10:32:15 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=	minishell
 
 VPATH=	src																		\
+		src/exec																\
 		src/exec/bultin															\
 		src/exec/utils															\
 		src/exec/env_exec														\
@@ -31,7 +32,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		redir.c					unset.c					get_env_h.c				\
 		rdfe.c					sews.c									\
 		exec_b.c				execcmd.c				execext.c				\
-		execpipe.c				comp.c			\
+		pipe.c				comp.c			\
 		lst_utils.c				type.c			\
 		erased_str.c				ft_split.c				\
 		ft_strjoin.c			lexer_utils.c						\

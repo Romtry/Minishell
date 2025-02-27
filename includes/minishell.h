@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/25 11:10:29 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 12:18:14 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ void				ft_export(t_cmd *cmd);
 void				pwd(void);
 int					handle_redirections(t_cmd *cmd);
 void				unset(t_cmd *cmd);
+
+// redir.c
+int handle_out_redir(t_cmd *cmd, int *i, char **new_args);
+int handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args);
+int handle_in_redir(t_cmd *cmd, int *i, char **new_args);
 
 // env_exec
 t_env 				**get_env_head(void);
