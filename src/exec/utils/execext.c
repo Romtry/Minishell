@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 10:06:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:12:53 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ char *get_command_path(char *cmd)
     if (ft_strchr(cmd, '/') != NULL)
     {
         if (access(cmd, X_OK) == 0)
-            return ft_strndup(cmd, ft_strlen(cmd));
+            return (free_array(envp), ft_strndup(cmd, ft_strlen(cmd)));
         else
         {
             fprintf(stderr, "minishell: %s: Permission denied or not found\n", cmd);
-            free_array(envp);
-            return NULL;
+            return (free_array(envp), NULL);
         }
     }
 	i = 0;
