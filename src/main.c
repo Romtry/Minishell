@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 14:55:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:34:42 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned int	rl_lexer(t_token *token)
 {
 	char	*input;
 
-	input = readline(BLUE"(satoru caca)> "RESET);
+	input = readline(BLUE"(minishell)> "RESET);
 	if (!input)
 		return (1);
 	if (input[0] == '\0')
@@ -46,17 +46,22 @@ void	cmd_work(t_token *token, unsigned int *exit_stat)
 {
 	t_cmd			*cmd;
 
-	cmd = malloc(sizeof(t_cmd));
-	transfert(token, cmd);
-	cmd->exit_stat = exit_stat;
-	cmd->env_change = &token->env_change;
-	cmd->old_environ = malloc(sizeof(char **));
-	if (token->env_change == true)
-		*cmd->old_environ = token->old_environ;
-	execute_command(cmd);
-	if (token->env_change == true)
-		token->old_environ = *cmd->old_environ;
-	free_cmd(cmd);
+	if (token->err == 0)
+	{
+		cmd = malloc(sizeof(t_cmd));
+		transfert(token, cmd);
+		cmd->exit_stat = exit_stat;
+		cmd->env_change = &token->env_change;
+		cmd->old_environ = malloc(sizeof(char **));
+		if (token->env_change == true)
+			*cmd->old_environ = token->old_environ;
+		execute_command(cmd);
+		if (token->env_change == true)
+			token->old_environ = *cmd->old_environ;
+		free_cmd(cmd);
+	}
+	else
+		free_token(token);
 }
 
 int	main(void)
@@ -74,11 +79,10 @@ int	main(void)
 	{
 		temp = rl_lexer(token);
 		if (temp == 1)
-			break;
+			break ;
 		else if (temp == 2)
-			continue;
-		if (token->err == 0)
-			cmd_work(token, &exit_stat);
+			continue ;
+		cmd_work(token, &exit_stat);
 	}
 	if (token->env_change == true)
 		free_array(token->old_environ);

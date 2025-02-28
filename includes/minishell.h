@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/27 12:18:14 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:46:34 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int handle_in_redir(t_cmd *cmd, int *i, char **new_args);
 
 // env_exec
 t_env 				**get_env_head(void);
-void 				remove_duplicates_from_environ(void);
 void 				sync_env_with_system(t_cmd *cmd);
 
 // utils

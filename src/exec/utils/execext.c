@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 10:12:53 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:25:22 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ static char **clean_arguments(char **args)
 void execute_external(t_cmd *cmd)
 {
 		// printf("STDOUT_FILENO before external: %d\n", STDOUT_FILENO);
-
+	int		status;
 	char 	**envp;
 	pid_t	pid;
 	char 	*cmd_path;
 	char 	**cleaned_args;
 
+	status = 0;
 	if (!cmd || !cmd->word[0] || !cmd->word[0][0])
 	{
 		write(2, "minishell: command not found\n", 29);
@@ -128,8 +129,13 @@ void execute_external(t_cmd *cmd)
 	else if (pid < 0)
 		perror("fork");
 	else
-		waitpid(pid, (int *)cmd->exit_stat, 0);
-	*cmd->exit_stat = *cmd->exit_stat / 256;
+	{
+		waitpid(pid, &status, 0);
+		if ((status & 0x7F) != 0)
+			*cmd->exit_stat = 128 + (status & 0x7F);
+		else
+			*cmd->exit_stat = (status >> 8) & 0xFF;
+	}
 	// printf("exit stat = %d", *cmd->exit_stat);
 	free(cmd_path);
 	free_array(envp);

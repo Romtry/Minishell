@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:29:19 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 09:30:27 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:06:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	pars_dollar(t_token *token, unsigned int i)
 	else if (token->type[i + 1] == DQUOTED || token->type[i + 1] == SQUOTED)
 		token->word[i + 1] = ft_strjoin("$", token->word[i + 1], false);
 	erased_str(token, &i);
-	token->type[i] = WORD;
 }
 
 char	*num_char(unsigned int n)
@@ -124,8 +123,12 @@ void	dollar_pars(t_token *token, unsigned int *i)
 		erased_str(token, i);
 	}
 	else if (*i + 1 >= token->tlen && (*i == 0 || token->type[*i - 1] != WORD))
+	{
 		token->type[*i] = WORD;
+	}
 	else
+	{
 		pars_dollar(token, *i);
+	}
 	*i -= 1;
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 12:20:42 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 09:44:15 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,9 @@ int handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args)
 
 int handle_in_redir(t_cmd *cmd, int *i, char **new_args)
 {
-    int fd = open(cmd->word[0][*i +1], O_RDONLY);
-    
+    int fd;
+
+    fd = open(cmd->word[0][*i +1], O_RDONLY);
     if (fd == -1)
         return perror("minishell: open"), free_array(new_args), -1;
     printf("Detected input redirection for %s\n", cmd->word[0][*i +1]);
@@ -199,7 +200,6 @@ int handle_in_redir(t_cmd *cmd, int *i, char **new_args)
         return -1;
     }
     close(fd);
-    
     *i += 2;
     return 0;
 }

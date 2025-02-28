@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:16:16 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/14 11:50:28 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:09:36 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	parsing2(t_token *token)
 			pars_heredoc(token, i);
 		else if (token->type[i] == DOLLAR && token->type[i + 1] == WORD)
 			dollar_pars(token, &i);
+		else if (token->type[i] == DOLLAR && !token->type[i + 1])
+			token->type[i] = WORD;
 		else if (token->type[i] == DQUOTED && token->word[i][0] == '$')
 			dollar_quote(token, i);
 		i++;

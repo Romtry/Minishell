@@ -6,45 +6,46 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:10:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 11:32:16 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:34:00 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char **get_env_array(void)
+static char	**get_env_array(void)
 {
-    extern char **environ;
-    return array_cpy(environ);
+	extern char	**environ;
+
+	return (array_cpy(environ));
 }
 
-static t_env *get_env_list(void)
+static t_env	*get_env_list(void)
 {
-    extern char **environ;
-    t_env *envhead;
-    t_env *temp;
-    unsigned int i;
+	extern char		**environ;
+	t_env			*envhead;
+	t_env			*temp;
+	unsigned int	i;
 
-    envhead = ft_lstnew(environ[0]);
-    if (!envhead)
-        return (NULL);
-    temp = envhead;
-    i = 1;
-    while (environ[i])
-    {
-        temp->next = ft_lstnew(environ[i]);
-        if (!temp->next)
-            return (NULL);
-        temp = temp->next;
-        i++;
-    }
-    temp->next = ft_lstnew(environ[i - 1]);
-    return (envhead);
+	envhead = ft_lstnew(environ[0]);
+	if (!envhead)
+		return (NULL);
+	temp = envhead;
+	i = 1;
+	while (environ[i])
+	{
+		temp->next = ft_lstnew(environ[i]);
+		if (!temp->next)
+			return (NULL);
+		temp = temp->next;
+		i++;
+	}
+	temp->next = ft_lstnew(environ[i - 1]);
+	return (envhead);
 }
 
-void *get_env(bool b)
+void	*get_env(bool b)
 {
-    if (b == true)
-        return get_env_array();
-    return get_env_list();
+	if (b == true)
+		return (get_env_array());
+	return (get_env_list());
 }

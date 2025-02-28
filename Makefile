@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/27 13:40:13 by rothiery         ###   ########.fr        #
+#    Updated: 2025/02/28 12:47:03 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		cd_echo.c				env_exit.c				search.c	\
 		ft_export.c				pwd.c						\
 		redir.c					unset.c					get_env_h.c				\
-		rdfe.c					sews.c									\
+		sews.c									\
 		exec_b.c				execcmd.c				execext.c				\
 		pipe.c				comp.c			\
 		lst_utils.c				type.c			\
