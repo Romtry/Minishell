@@ -12,25 +12,32 @@
 
 #include "minishell.h"
 
-char *get_command_path(char *cmd)
+char	*get_command_path(char *cmd)
 {
-	char **envp;
-	char **paths;
-	char *cmd_path;
-	int i;
+	char	**envp;
+	char	**paths;
+	char	*cmd_path;
+	int		i;
 
 	if (!cmd || !(envp = get_env(true)))
         return (NULL);
-    if (ft_strchr(cmd, '/') != NULL)
-    {
-        if (access(cmd, X_OK) == 0)
-            return (free_array(envp), ft_strndup(cmd, ft_strlen(cmd)));
-        else
-        {
-            fprintf(stderr, "minishell: %s: Permission denied or not found\n", cmd);
-            return (free_array(envp), NULL);
-        }
-    }
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK) == -1)
+		{
+			write(2, "minishell: ", 11);
+			write(2, cmd, ft_strlen(cmd));
+			write(2, ": No such file or directory\n", 28);
+			return (NULL);
+		}
+		else if (access(cmd, X_OK) == -1)
+		{
+			write(2, "minishell: ", 11);
+			write(2, cmd, ft_strlen(cmd));
+			write(2, ": Permission denied\n", 20);
+			return (NULL);
+		}
+	}
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;

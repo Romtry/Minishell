@@ -12,28 +12,60 @@
 
 #include "minishell.h"
 
-static void	execute_command2(t_cmd *tmp_cmd)
+static int wait_for_children(pid_t pid)
 {
-	char	*cmd_name;
-	char	*cmd_path;
+	int		status;
+	int		exit_status;
+	pid_t	wpid;
 
-	cmd_name = tmp_cmd->word[0][0];
-	if (is_builtin(cmd_name))
+	exit_status = 0;
+	wpid = 0;
+	status = 0;
+	while ((wpid = wait(&status)) > 0)
 	{
-		execute_builtin(tmp_cmd);
-		exit(EXIT_SUCCESS);
+		if (wpid == pid)
+		{
+			if ((status & 0xFF) == 0)
+				exit_status = (status >> 8) & 0xFF;
+			else
+				exit_status = 128 + (status & 0x7F);
+		}
 	}
-	cmd_path = get_command_path(cmd_name);
-	if (!cmd_path)
-	{
-		fprintf(stderr, "minishell: %s: command not found\n", cmd_name);
-		exit(127);
-	}
-	execve(cmd_path, tmp_cmd->word[0], get_env(true));
-	perror("minishell: execve");
-	free(cmd_path);
-	exit(EXIT_FAILURE);
+	return (exit_status);
 }
+
+void    execute_command2(t_cmd *tmp_cmd)
+{
+    char    *cmd_name;
+    char    *cmd_path;
+
+    cmd_name = tmp_cmd->word[0][0];
+    if (is_builtin(cmd_name))
+    {
+        execute_builtin(tmp_cmd);
+        exit(0);
+    }
+    cmd_path = get_command_path(cmd_name);
+    if (!cmd_path)
+    {
+        if (ft_strchr(cmd_name, '/'))
+        {
+            if (access(cmd_name, F_OK) == -1)
+                exit(127);
+            else if (access(cmd_name, X_OK) == -1)
+                exit(126);
+        }
+		write(2, "minishell: ", 11);
+		write(2, cmd_name, ft_strlen(cmd_name));
+		write(2, ": command not found\n", 20);
+        exit(127);
+    }
+    execve(cmd_path, tmp_cmd->word[0], get_env(0));
+    perror("minishell: execve");
+    free(cmd_path);
+    exit(1);
+}
+
 
 static void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 {
@@ -83,7 +115,7 @@ static int	create_pipe(int pipe_fd[2], int need_pipe)
 	return (1);
 }
 
-void	execute_piped_commands(t_cmd *cmd)
+void    execute_piped_commands(t_cmd *cmd)
 {
 	int		count;
 	int		input_fd;
@@ -107,6 +139,6 @@ void	execute_piped_commands(t_cmd *cmd)
 			handle_parent(&input_fd, pipe_fd, i, count);
 		i++;
 	}
-	while (wait(NULL) > 0)
-		continue ;
+	*cmd->exit_stat = wait_for_children(pid);
 }
+
