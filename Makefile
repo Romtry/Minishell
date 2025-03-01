@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/02/28 12:47:03 by rothiery         ###   ########.fr        #
+#    Updated: 2025/03/01 11:02:53 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		dollar_quote.c							parsing.c				\
 		pipe_pars.c				redir_pars.c			sep_clean.c				\
 		malloc_array.c			no_pipe.c				transfert_pipe.c		\
-		transfert.c							pars_heredoc.c			\
-		print_error.c															\
+		transfert.c				redir2.c			pars_heredoc.c			\
+		print_error.c			count_args.c												\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

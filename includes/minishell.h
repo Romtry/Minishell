@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/02/28 12:46:34 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:05:10 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ void				ft_export(t_cmd *cmd);
 void				pwd(void);
 int					handle_redirections(t_cmd *cmd);
 void				unset(t_cmd *cmd);
+void				determine_redirection_params(int append, int *flags, const char **redir_type);
+int					process_redir(t_cmd *cmd, int *i, int *j, char **new_args);
+void				read_heredoc_lines(int pipe_fd, char *delimiter);
+int					handle_fd_dup(int fd, int std_fd);
+int					handle_heredoc(char *delimiter);
 
 // redir.c
 int handle_out_redir(t_cmd *cmd, int *i, char **new_args);
@@ -131,6 +136,7 @@ t_env				*ft_lstnew(char *content);
 char				*get_name(char const *content, unsigned int *i);
 
 // str
+int					count_args(char **args);
 char				**array_cpy(char **arr);
 void				erased_str(t_token *token, unsigned int *s);
 void				erased_str2(t_token *token, unsigned int s);
