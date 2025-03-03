@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/01 11:05:10 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:50:31 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct token
 }	t_token;
 
 // main
-void			print_error(t_token *token, unsigned int n);
+void				print_error(t_token *token, unsigned int n);
 void 				*get_env(bool b);
 
 // test
@@ -180,7 +180,7 @@ void				dollar_quote(t_token *token, unsigned int i);
 void				erased_quote(t_token *token, unsigned int *p);
 void				quote_type(t_token *token, unsigned int one, unsigned int *temp);
 void				realloc_word(t_token *token, unsigned int *one, unsigned int two);
-int					secnd_quote(t_token *token, unsigned int *one, t_type quote);
+void				secnd_quote(t_token *token, unsigned int *one, t_type quote);
 
 // utils
 void				get_type(t_token *token, unsigned int one, unsigned int two);

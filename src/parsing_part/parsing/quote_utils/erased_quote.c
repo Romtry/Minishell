@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:45:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:54:08 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:05:39 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	erased_quote(t_token *token, unsigned int *p)
 	temp[i2] = NULL;
 	free_word(token);
 	token->word = temp;
-	get_type(token, *p, *p);
+	// get_type(token, *p, *p);
 }
