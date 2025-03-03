@@ -43,7 +43,7 @@ int	out_redir_ret(int fd)
 	return (-1);
 }
 
-int	handle_out_redir(t_cmd *cmd, int *i, char **new_args)
+int	handle_out_redir(t_cmd *cmd, int *i)
 {
 	int			append;
 	char		*filename;
@@ -68,7 +68,7 @@ int	handle_out_redir(t_cmd *cmd, int *i, char **new_args)
 	return (0);
 }
 
-int	handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args)
+int	handle_heredoc_redir(t_cmd *cmd, int *i)
 {
 	if (handle_heredoc(cmd->word[0][*i +1]) == -1)
 		exit(1);
@@ -76,7 +76,7 @@ int	handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args)
 	return (0);
 }
 
-int	handle_in_redir(t_cmd *cmd, int *i, char **new_args)
+int	handle_in_redir(t_cmd *cmd, int *i)
 {
 	int	fd;
 

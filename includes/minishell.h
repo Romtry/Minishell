@@ -105,9 +105,9 @@ int					handle_fd_dup(int fd, int std_fd);
 int					handle_heredoc(char *delimiter);
 
 // redir.c
-int handle_out_redir(t_cmd *cmd, int *i, char **new_args);
-int handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args);
-int handle_in_redir(t_cmd *cmd, int *i, char **new_args);
+int handle_out_redir(t_cmd *cmd, int *i);
+int handle_heredoc_redir(t_cmd *cmd, int *i);
+int handle_in_redir(t_cmd *cmd, int *i);
 
 // env_exec
 t_env 				**get_env_head(void);

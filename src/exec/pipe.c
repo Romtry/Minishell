@@ -16,7 +16,6 @@ int	wait_for_children(pid_t pid)
 {
 	int		status;
 	int		exit_status;
-	pid_t	wpid;
 
 	exit_status = 0;
 	waitpid(pid, &status, 0);
@@ -26,7 +25,6 @@ int	wait_for_children(pid_t pid)
 		exit_status = 128 + (status & 0x7F);
 	while ((waitpid(-1, &status, 0)) > 0)
 	{
-		wpid = waitpid(-1, &status, 0);
 		if ((status & 0x7F) == 13)
 			write(STDERR_FILENO, "minishell: Broken pipe\n", ft_strlen("minishell: Broken pipe\n"));
 	}
