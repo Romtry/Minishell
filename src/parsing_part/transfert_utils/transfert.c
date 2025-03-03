@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static void	transfert2(t_token *token, t_cmd *cmd)
 {
@@ -40,20 +40,20 @@ static void	transfert2(t_token *token, t_cmd *cmd)
 	cmd->type[p] = NULL;
 }
 
-void    transfert(t_token *token, t_cmd	*cmd)
+void	transfert(t_token *token, t_cmd	*cmd)
 {
-    unsigned int    i;
-    unsigned int    p;
+	unsigned int	i;
+	unsigned int	p;
 
-    i = 0;
-    p = 1;
+	i = 0;
+	p = 1;
 	cmd->has_pipe = 0;
-    while (token->word[i])
-    {
+	while (token->word[i])
+	{
 		if (token->type[i] == PIPE)
 			p++;
 		i++;
-    }
+	}
 	cmd->has_pipe = p;
 	if (p == 1)
 		return (no_pipe(token, cmd));

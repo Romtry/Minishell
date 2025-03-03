@@ -15,6 +15,7 @@
 void	env_builtin(void)
 {
 	t_env	*head;
+	t_env	*current;
 
 	head = get_env(false);
 	if (head == NULL)
@@ -22,7 +23,20 @@ void	env_builtin(void)
 		printf("No environment variables found.\n");
 		return ;
 	}
-	env_print(head);
+	current = head;
+	while (current)
+	{
+		if (ft_strcmp(current->name, "COLUMNS") != 0
+			&& ft_strcmp(current->name, "LINES") != 0
+			&& ft_strcmp(current->name, "_") != 0)
+		{
+			if (current->value)
+				printf("%s=%s\n", current->name, current->value);
+			else
+				printf("%s=\n", current->name);
+		}
+		current = current->next;
+	}
 	free_env(head);
 }
 

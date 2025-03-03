@@ -47,13 +47,14 @@ t_env	*ft_lstnew(char *content)
 	return (env);
 }
 
-int cmd_count(t_cmd *cmd)
+int	cmd_count(t_cmd *cmd)
 {
-    int count = 0;
+	int	count;
 
-    if (!cmd || !cmd->word)
-        return 0;
-    while (cmd->word[count] != NULL)
-        count++;
-    return count;
+	count = 0;
+	if (!cmd || !cmd->word)
+		return (0);
+	while (cmd->word[count] != NULL)
+		count++;
+	return (count);
 }

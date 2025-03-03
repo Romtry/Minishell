@@ -81,11 +81,11 @@ void	echo(t_cmd *cmd)
 	}
 	while (cmd->word[0][i])
 	{
-		printf("%s", cmd->word[0][i]);
+		write(STDOUT_FILENO, cmd->word[0][i], ft_strlen(cmd->word[0][i]));
 		i++;
 		if (cmd->word[0][i])
-			printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (n_line)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 }

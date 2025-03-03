@@ -97,7 +97,7 @@ char	*num_char(unsigned int n)
 	while (n > 10)
 	{
 		i++;
-		n = n/10;
+		n = n / 10;
 	}
 	i++;
 	ret = malloc(sizeof(char) * (i + 1));
@@ -106,7 +106,7 @@ char	*num_char(unsigned int n)
 	while (n2 > 10)
 	{
 		ret[i] = (n2 % 10) + '0';
-		n2 = n2/10;
+		n2 = n2 / 10;
 		i--;
 	}
 	ret[0] = n2 + '0';

@@ -14,7 +14,7 @@
 
 void	free_array(char **arr)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (arr[i])

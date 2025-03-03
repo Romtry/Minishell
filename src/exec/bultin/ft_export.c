@@ -22,7 +22,7 @@ bool	export_verif(char *str)
 		while (str[i])
 		{
 			if (str[i] == '=')
-					return (true);
+				return (true);
 			else if (ft_is_alnum(str[i]) == false && str[i] != '_')
 				return (false);
 			i++;
@@ -32,21 +32,24 @@ bool	export_verif(char *str)
 	return (false);
 }
 
-void ft_export(t_cmd *cmd)
+void	ft_export(t_cmd *cmd)
 {
-	int i = 1;
-	t_env **env_head_ptr;
-	t_env *current;
-	t_env *new_var;
-	char *name;
-	char *value;
-	char *equal_sign;
+	int		i;
+	t_env	**env_head_ptr;
+	t_env	*current;
+	t_env	*new_var;
+	char	*name;
+	char	*value;
+	char	*equal_sign;
+	char	*temp;
+	int		var_exists;
 
+	i = 1;
 	env_head_ptr = get_env_head();
 	if (!env_head_ptr)
 	{
 		perror("get_env_head");
-		return;
+		return ;
 	}
 	if (!cmd->word[0][1])
 	{
@@ -56,7 +59,7 @@ void ft_export(t_cmd *cmd)
 			printf("declare -x %s=\"%s\"\n", current->name, current->value);
 			current = current->next;
 		}
-		return;
+		return ;
 	}
 	while (cmd->word[0][i])
 	{
@@ -64,7 +67,7 @@ void ft_export(t_cmd *cmd)
 		{
 			*cmd->exit_stat = 1;
 			write(2, " not a valid identifier\n", 24);
-			break;
+			break ;
 		}
 		equal_sign = ft_strchr(cmd->word[0][i], '=');
 		if (equal_sign)
@@ -79,12 +82,12 @@ void ft_export(t_cmd *cmd)
 		}
 		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
 		{
-			char *temp = ft_strndup(value + 1, ft_strlen(value) - 2);
+			temp = ft_strndup(value + 1, ft_strlen(value) - 2);
 			free(value);
 			value = temp;
 		}
 		current = *env_head_ptr;
-		int var_exists = 0;
+		var_exists = 0;
 		while (current)
 		{
 			if (ft_strcmp(current->name, name) == 0)
@@ -92,11 +95,10 @@ void ft_export(t_cmd *cmd)
 				free(current->value);
 				current->value = ft_strndup(value, ft_strlen(value));
 				var_exists = 1;
-				break;
+				break ;
 			}
 			current = current->next;
 		}
-
 		if (!var_exists)
 		{
 			new_var = malloc(sizeof(t_env));
@@ -105,14 +107,13 @@ void ft_export(t_cmd *cmd)
 				perror("malloc");
 				free(name);
 				free(value);
-				return;
+				return ;
 			}
 			new_var->name = ft_strndup(name, ft_strlen(name));
 			new_var->value = ft_strndup(value, ft_strlen(value));
 			new_var->next = *env_head_ptr;
 			*env_head_ptr = new_var;
 		}
-
 		free(name);
 		free(value);
 		i++;

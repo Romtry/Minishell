@@ -12,60 +12,58 @@
 
 #include "minishell.h"
 
-static int wait_for_children(pid_t pid)
+int	wait_for_children(pid_t pid)
 {
 	int		status;
 	int		exit_status;
 	pid_t	wpid;
 
 	exit_status = 0;
-	wpid = 0;
-	status = 0;
-	while ((wpid = wait(&status)) > 0)
+	waitpid(pid, &status, 0);
+	if ((status & 0xFF) == 0)
+		exit_status = (status >> 8) & 0xFF;
+	else
+		exit_status = 128 + (status & 0x7F);
+	while ((waitpid(-1, &status, 0)) > 0)
 	{
-		if (wpid == pid)
-		{
-			if ((status & 0xFF) == 0)
-				exit_status = (status >> 8) & 0xFF;
-			else
-				exit_status = 128 + (status & 0x7F);
-		}
+		wpid = waitpid(-1, &status, 0);
+		if ((status & 0x7F) == 13)
+			write(STDERR_FILENO, "minishell: Broken pipe\n", ft_strlen("minishell: Broken pipe\n"));
 	}
 	return (exit_status);
 }
 
-void    execute_command2(t_cmd *tmp_cmd)
+void	execute_command2(t_cmd *tmp_cmd)
 {
-    char    *cmd_name;
-    char    *cmd_path;
+	char	*cmd_name;
+	char	*cmd_path;
 
-    cmd_name = tmp_cmd->word[0][0];
-    if (is_builtin(cmd_name))
-    {
-        execute_builtin(tmp_cmd);
-        exit(0);
-    }
-    cmd_path = get_command_path(cmd_name);
-    if (!cmd_path)
-    {
-        if (ft_strchr(cmd_name, '/'))
-        {
-            if (access(cmd_name, F_OK) == -1)
-                exit(127);
-            else if (access(cmd_name, X_OK) == -1)
-                exit(126);
-        }
+	cmd_name = tmp_cmd->word[0][0];
+	if (is_builtin(cmd_name))
+	{
+		execute_builtin(tmp_cmd);
+		exit(0);
+	}
+	cmd_path = get_command_path(cmd_name);
+	if (!cmd_path)
+	{
+		if (ft_strchr(cmd_name, '/'))
+		{
+			if (access(cmd_name, F_OK) == -1)
+				exit(127);
+			else if (access(cmd_name, X_OK) == -1)
+				exit(126);
+		}
 		write(2, "minishell: ", 11);
 		write(2, cmd_name, ft_strlen(cmd_name));
 		write(2, ": command not found\n", 20);
-        exit(127);
-    }
-    execve(cmd_path, tmp_cmd->word[0], get_env(0));
-    perror("minishell: execve");
-    free(cmd_path);
-    exit(1);
+		exit(127);
+	}
+	execve(cmd_path, tmp_cmd->word[0], get_env(0));
+	perror("minishell: execve");
+	free(cmd_path);
+	exit(1);
 }
-
 
 static void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 {
@@ -102,7 +100,10 @@ static void	handle_parent(int *input_fd, int pipe_fd[2], int i, int count)
 		*input_fd = pipe_fd[0];
 	}
 	else
+	{
+		close(pipe_fd[0]);
 		*input_fd = STDIN_FILENO;
+	}
 }
 
 static int	create_pipe(int pipe_fd[2], int need_pipe)
@@ -115,7 +116,7 @@ static int	create_pipe(int pipe_fd[2], int need_pipe)
 	return (1);
 }
 
-void    execute_piped_commands(t_cmd *cmd)
+void	execute_piped_commands(t_cmd *cmd)
 {
 	int		count;
 	int		input_fd;
@@ -141,4 +142,3 @@ void    execute_piped_commands(t_cmd *cmd)
 	}
 	*cmd->exit_stat = wait_for_children(pid);
 }
-

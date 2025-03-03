@@ -12,11 +12,34 @@
 
 #include "minishell.h"
 
-int	out_redir_ret(int fd, char **new_args)
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*str;
+
+	str = (unsigned char *)s;
+	while (n)
+	{
+		*str = '\0';
+		n--;
+		str++;
+	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = (void *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
+}
+
+int	out_redir_ret(int fd)
 {
 	perror("minishell: dup2");
 	close(fd);
-	free_array(new_args);
 	return (-1);
 }
 
@@ -36,11 +59,10 @@ int	handle_out_redir(t_cmd *cmd, int *i, char **new_args)
 	if (fd == -1)
 	{
 		perror("minishell: open");
-		free_array(new_args);
-		return (-1);
+		exit(1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		return (out_redir_ret(fd, new_args));
+		return (out_redir_ret(fd));
 	close(fd);
 	*i += 2;
 	return (0);
@@ -48,9 +70,8 @@ int	handle_out_redir(t_cmd *cmd, int *i, char **new_args)
 
 int	handle_heredoc_redir(t_cmd *cmd, int *i, char **new_args)
 {
-	printf("Detected heredoc for %s\n", cmd->word[0][*i +1]);
 	if (handle_heredoc(cmd->word[0][*i +1]) == -1)
-		return (free_array(new_args), -1);
+		exit(1);
 	*i += 2;
 	return (0);
 }
@@ -61,14 +82,15 @@ int	handle_in_redir(t_cmd *cmd, int *i, char **new_args)
 
 	fd = open(cmd->word[0][*i +1], O_RDONLY);
 	if (fd == -1)
-		return (perror("minishell: open"), free_array(new_args), -1);
-	printf("Detected input redirection for %s\n", cmd->word[0][*i +1]);
+	{
+		perror("minishell: open");
+		exit(1);
+	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		perror("minishell: dup2");
 		close(fd);
-		free_array(new_args);
-		return (-1);
+		exit(1);
 	}
 	close(fd);
 	*i += 2;
@@ -79,26 +101,25 @@ int	handle_redirections(t_cmd *cmd)
 {
 	int		i;
 	int		j;
-	int		in_fd;
-	int		out_fd;
 	char	**new_args;
+	int		count;
 
 	i = 0;
 	j = 0;
-	in_fd = -1;
-	out_fd = -1;
-	new_args = malloc(sizeof(char *) * (count_args(cmd->word[0]) + 1));
+	count = count_args(cmd->word[0]);
+	new_args = ft_calloc(count + 1, sizeof(char *));
+	if (!new_args)
+		return (-1);
 	while (cmd->word[0][i])
 	{
 		if (process_redir(cmd, &i, &j, new_args) == -1)
+		{
+			free_array(new_args);
 			return (-1);
+		}
 	}
 	new_args[j] = NULL;
 	free_array(cmd->word[0]);
 	cmd->word[0] = new_args;
-	if (in_fd != -1)
-		dup2(in_fd, STDIN_FILENO);
-	if (out_fd != -1)
-		dup2(out_fd, STDOUT_FILENO);
 	return (0);
 }

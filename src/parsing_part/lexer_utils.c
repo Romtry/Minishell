@@ -72,7 +72,7 @@ unsigned int	tlen_count(char *str)
 		while (str[i] && save == wich_type(str[i]))
 			i++;
 		if ((!str[i]) && is_sep(str[i - 1]) == 0)
-			break;
+			break ;
 		ret++;
 	}
 	return (ret);

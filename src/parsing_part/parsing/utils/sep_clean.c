@@ -20,9 +20,9 @@ void	sep_clean(t_token *token)
 	while (token->word[i])
 	{
 		if (token->word[i + 1] && (token->type[i] == WORD
-			|| token->type[i] == SQUOTED || token->type[i] == DQUOTED)
+				|| token->type[i] == SQUOTED || token->type[i] == DQUOTED)
 			&& (token->type[i + 1] == WORD || token->type[i + 1] == SQUOTED
-			|| token->type[i + 1] == DQUOTED))
+				|| token->type[i + 1] == DQUOTED))
 		{
 			token->word[i] = ft_strjoin(token->word[i], token->word[i + 1], true);
 			i++;

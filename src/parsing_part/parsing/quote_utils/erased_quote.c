@@ -19,8 +19,8 @@ void	erased_quote(t_token *token, unsigned int *p)
 	unsigned int	i2;
 
 	if (!(*p > 0 && *p < token->tlen - 1 && token->type[*p - 1] == WORD
-		&& token->type[*p + 1] == WORD))
-		return(erased_str(token, p));
+			&& token->type[*p + 1] == WORD))
+		return (erased_str(token, p));
 	if (*p > 0)
 		*p -= 1;
 	i = -1;

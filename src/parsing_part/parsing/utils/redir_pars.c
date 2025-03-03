@@ -30,8 +30,9 @@ void	redir_pars(t_token *token)
 				return (free_token(token), print_error(token, 3));
 			if (token->err == 1)
 				return ;
-			if (token->type[i + 1] != WORD && (i + 3 > token->tlen
-					|| (token->type[i + 1] != SEP || token->type[i + 2] != WORD)))
+			if (!(token->type[i + 1] == WORD || token->type[i + 1] == DQUOTED || token->type[i + 1] == SQUOTED)
+				&& (i + 3 > token->tlen || (token->type[i + 1] != SEP
+						|| !(token->type[i + 2] == WORD || token->type[i + 2] == DQUOTED || token->type[i + 2] == SQUOTED))))
 				return (free_token(token), print_error(token, 3));
 		}
 		i++;

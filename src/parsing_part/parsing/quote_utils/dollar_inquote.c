@@ -39,7 +39,7 @@ void	dollar_indquote(t_token *token, unsigned int *one, unsigned int *two)
 					double_erased(token, &i, one);
 			}
 			else
-				break;
+				break ;
 			*two -= 1;
 		}
 	}
