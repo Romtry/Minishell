@@ -6,22 +6,22 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:02:28 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 09:05:23 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:07:54 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void *ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-    char *d;
-    const char *s;
+	char		*d;
+	const char	*s;
 
-    d = dest;
-    s = src;
-    while (n--)
-        *d++ = *s++;
-    return dest;
+	d = dest;
+	s = src;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
 }
 
 char	**array_cpy(char **arr)
@@ -69,8 +69,8 @@ char	*ft_strcpy(char *str)
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t srcsize;
-	size_t i;
+	size_t	srcsize;
+	size_t	i;
 
 	if (!dst || !src)
 		return (0);
@@ -88,18 +88,18 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (srcsize);
 }
 
-char *ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n)
 {
-    char *dup;
-    size_t len;
+	char	*dup;
+	size_t	len;
 
-    len = 0;
-    while (s[len] && len < n)
-        len++;
-    dup = (char *)malloc(len + 1);
-    if (!dup)
-        return NULL;
-    ft_memcpy(dup, s, len);
-    dup[len] = '\0';
-    return dup;
+	len = 0;
+	while (s[len] && len < n)
+		len++;
+	dup = (char *)malloc(len + 1);
+	if (!dup)
+		return (NULL);
+	ft_memcpy(dup, s, len);
+	dup[len] = '\0';
+	return (dup);
 }

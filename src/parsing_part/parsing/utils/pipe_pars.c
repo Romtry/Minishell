@@ -6,11 +6,30 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:23:21 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:10:06 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:03:27 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	condition(t_token *token, unsigned int i)
+{
+	if ((token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
+			|| token->type[i + 1] == SQUOTE || token->type[i + 1] == DQUOTE
+			|| token->type[i + 1] == INPUTREDIR
+			|| token->type[i + 1] == OUTPUTREDIR
+			|| token->type[i + 1] == HEREDOC
+			|| token->type[i + 1] == APPENDREDIR)
+		|| (token->type[i + 1] == SEP && (token->type[i + 2] == WORD
+				|| token->type[i + 2] == DOLLAR || token->type[i + 2] == SQUOTE
+				|| token->type[i + 2] == DQUOTE
+				|| token->type[i + 2] == INPUTREDIR
+				|| token->type[i + 2] == OUTPUTREDIR
+				|| token->type[i + 2] == HEREDOC
+				|| token->type[i + 2] == APPENDREDIR)))
+		return (true);
+	return (false);
+}
 
 void	pipe_pars(t_token *token, unsigned int i)
 {
@@ -23,15 +42,7 @@ void	pipe_pars(t_token *token, unsigned int i)
 	if (token->type[i - 1] == WORD || token->type[i - 1] == DOLLAR
 		|| token->type[i - 1] == SEP)
 	{
-		if ((token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
-				|| token->type[i + 1] == SQUOTE || token->type[i + 1] == DQUOTE
-				|| token->type[i + 1] == INPUTREDIR || token->type[i + 1] == OUTPUTREDIR
-				|| token->type[i + 1] == HEREDOC || token->type[i + 1] == APPENDREDIR)
-			|| (token->type[i + 1] == SEP && (token->type[i + 2] == WORD
-					|| token->type[i + 2] == DOLLAR || token->type[i + 2] == SQUOTE
-					|| token->type[i + 2] == DQUOTE
-					|| token->type[i + 2] == INPUTREDIR || token->type[i + 2] == OUTPUTREDIR
-					|| token->type[i + 2] == HEREDOC || token->type[i + 2] == APPENDREDIR)))
+		if (condition(token, i) == true)
 			return ;
 	}
 	free_token(token);

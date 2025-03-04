@@ -6,26 +6,11 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 10:49:55 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/01 11:06:08 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:11:55 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_strdup(const char *s)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	while (i - 1 != (int)ft_strlen(s))
-	{
-		str[i] = s[i];
-		i++;
-	}
-	return (str);
-}
 
 int	handle_heredoc(char *delimiter)
 {
@@ -84,7 +69,8 @@ int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
 		return (handle_heredoc_redir(cmd, i));
 	if (!ft_strcmp(cmd->word[0][*i], "<"))
 		return (handle_in_redir(cmd, i));
-	new_args[(*j)++] = ft_strdup(cmd->word[0][*i]);
+	new_args[(*j)++] = ft_strndup(cmd->word[0][*i],
+			ft_strlen(cmd->word[0][*i]));
 	(*i)++;
 	return (0);
 }

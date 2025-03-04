@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 08:57:37 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 09:08:13 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:05:36 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool	ft_is_alnum(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'))
 		return (true);
 	return (false);
 }
@@ -49,20 +50,21 @@ int	is_builtin(char *cmd)
 
 unsigned int	is_sep(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
 		return (0);
 	return (1);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-    while (*s)
-    {
-        if (*s == (char)c)
-            return (char *)s;
-        s++;
-    }
-    if ((char)c == '\0')
-        return (char *)s;
-    return NULL;
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/03 14:50:31 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:14:34 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define BLUE			"\001\e[38;2;47;160;219m\002"
 #define RED			"\e[38;5;196m"
 #define RESET			"\001\e[0m\002"
-#define	CLEAR		"\e[0m\n"
+#define CLEAR		"\e[0m\n"
 #define ENV			__environ
 
 typedef enum e_type
@@ -80,7 +80,7 @@ typedef struct token
 
 // main
 void				print_error(t_token *token, unsigned int n);
-void 				*get_env(bool b);
+void				*get_env(bool b);
 
 // test
 void				print_array(char **array);
@@ -89,6 +89,11 @@ void				print_cmd(t_cmd *cmd);
 void				env_print(t_env *env);
 
 // exec
+void				handle_child(int i, t_cmd *cmd, int input_fd,
+						int pipe_fd[2]);
+void				var_work(t_env **env_head_ptr, char *name, char *value);
+bool				var_init(t_env **env_head_ptr, char *name, char *value);
+
 // bultin
 void				cd(t_cmd *cmd);
 void				echo(t_cmd *cmd);
@@ -98,26 +103,28 @@ void				ft_export(t_cmd *cmd);
 void				pwd(void);
 int					handle_redirections(t_cmd *cmd);
 void				unset(t_cmd *cmd);
-void				determine_redirection_params(int append, int *flags, const char **redir_type);
+void				determine_redirection_params(int append, int *flags,
+						const char **redir_type);
 int					process_redir(t_cmd *cmd, int *i, int *j, char **new_args);
 void				read_heredoc_lines(int pipe_fd, char *delimiter);
 int					handle_fd_dup(int fd, int std_fd);
 int					handle_heredoc(char *delimiter);
 
 // redir.c
-int handle_out_redir(t_cmd *cmd, int *i);
-int handle_heredoc_redir(t_cmd *cmd, int *i);
-int handle_in_redir(t_cmd *cmd, int *i);
+int					handle_out_redir(t_cmd *cmd, int *i);
+int					handle_heredoc_redir(t_cmd *cmd, int *i);
+int					handle_in_redir(t_cmd *cmd, int *i);
+int					handle_out_redir(t_cmd *cmd, int *i);
 
 // env_exec
-t_env 				**get_env_head(void);
-void 				sync_env_with_system(t_cmd *cmd);
+t_env				**get_env_head(void);
+void				sync_env_with_system(t_cmd *cmd);
 
 // utils
-int 				cmd_count(t_cmd *cmd);
+int					cmd_count(t_cmd *cmd);
 void				execute_builtin(t_cmd *cmd);
 void				execute_command(t_cmd *cmd);
-char 				*get_command_path(char *cmd);
+char				*get_command_path(char *cmd);
 void				execute_external(t_cmd *cmd);
 void				execute_piped_commands(t_cmd *cmd);
 
@@ -142,7 +149,7 @@ void				erased_str(t_token *token, unsigned int *s);
 void				erased_str2(t_token *token, unsigned int s);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 char				**ft_split(const char *str, char target);
-char 				*ft_strchr(const char *s, int c);
+char				*ft_strchr(const char *s, int c);
 char				*ft_strcpy(char *str1);
 char				*ft_strdup(const char *s);
 char				*ft_strjoin(char *s1, char *s2, bool b);
@@ -158,7 +165,6 @@ void				free_token(t_token *token);
 void				free_word(t_token *token);
 void				print_cmd(t_cmd *cmd);
 
-
 // parsing_part
 // lexer_utils
 void				lexer(t_token *token, char *input);
@@ -170,20 +176,26 @@ unsigned int		tlen_count(char *str);
 void				dollar_pars(t_token *token, unsigned int *i);
 char				*num_char(unsigned int n);
 void				pars_dollar(t_token *token, unsigned int i);
-void				switch_dollar(t_token *token, unsigned int one, unsigned int *two);
+void				switch_dollar(t_token *token, unsigned int one,
+						unsigned int *two);
 void				switch_es(t_token *token, unsigned int i);
-void			    transfert(t_token *token, t_cmd	*cmd);
+void				transfert(t_token *token, t_cmd	*cmd);
 
 // quote_utils
-void				dollar_indquote(t_token *token, unsigned int *one, unsigned int *two);
+void				dollar_indquote(t_token *token, unsigned int *one,
+						unsigned int *two);
 void				dollar_quote(t_token *token, unsigned int i);
 void				erased_quote(t_token *token, unsigned int *p);
-void				quote_type(t_token *token, unsigned int one, unsigned int *temp);
-void				realloc_word(t_token *token, unsigned int *one, unsigned int two);
-void				secnd_quote(t_token *token, unsigned int *one, t_type quote);
+void				quote_type(t_token *token, unsigned int one,
+						unsigned int *temp);
+void				realloc_word(t_token *token, unsigned int *one,
+						unsigned int two);
+void				secnd_quote(t_token *token, unsigned int *one,
+						t_type quote);
 
 // utils
-void				get_type(t_token *token, unsigned int one, unsigned int two);
+void				get_type(t_token *token, unsigned int one,
+						unsigned int two);
 void				pars_heredoc(t_token *token, unsigned int i);
 unsigned int		parsing(t_token *token);
 void				pipe_pars(t_token *token, unsigned int i);
@@ -193,5 +205,6 @@ void				sep_clean(t_token *token);
 // transfert_utils
 void				malloc_array(t_token *token, t_cmd *cmd);
 void				no_pipe(t_token *token, t_cmd *cmd);
-void				transfert_pipe(t_cmd *cmd, unsigned int *p, unsigned int *i2);
-void			    transfert(t_token *token, t_cmd	*cmd);
+void				transfert_pipe(t_cmd *cmd, unsigned int *p,
+						unsigned int *i2);
+void				transfert(t_token *token, t_cmd	*cmd);

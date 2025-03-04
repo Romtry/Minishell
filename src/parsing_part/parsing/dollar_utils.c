@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:29:19 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/28 12:06:49 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/04 10:04:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	switch_es(t_token *token, unsigned int i)
 	}
 	if (i > 0 && token->type[i - 1] == WORD)
 	{
-		token->word[i - 1] = ft_strjoin(token->word[i - 1], token->word[i], true);
+		token->word[i - 1] = ft_strjoin(token->word[i - 1],
+				token->word[i], true);
 		erased_str(token, &i);
 	}
 }

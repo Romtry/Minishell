@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/03/01 11:02:53 by rothiery         ###   ########.fr        #
+#    Updated: 2025/03/04 15:14:58 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME=	minishell
 VPATH=	src																		\
 		src/exec																\
 		src/exec/bultin															\
+		src/exec/bultin/redir													\
+		src/exec/bultin/export													\
 		src/exec/utils															\
 		src/exec/env_exec														\
 		src/fonc_utils															\
@@ -30,11 +32,11 @@ SRC= 	main.c					get_env.c				test.c		 			\
 		cd_echo.c				env_exit.c				search.c	\
 		ft_export.c				pwd.c						\
 		redir.c					unset.c					get_env_h.c				\
-		sews.c									\
+		sews.c					handle_child.c			var.c	\
 		exec_b.c				execcmd.c				execext.c				\
-		pipe.c				comp.c			\
+		pipe.c					comp.c					redir3.c	\
 		lst_utils.c				type.c			\
-		erased_str.c				ft_split.c				\
+		erased_str.c			ft_split.c				\
 		ft_strjoin.c			lexer_utils.c						\
 		ft_strlen.c				copies.c			free_utils.c		\
 		dollar_inquote.c		erased_quote.c			quote_type.c			\
