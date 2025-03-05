@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:19:21 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/03 15:26:49 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:08:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,18 @@ static int	wait_for_children(pid_t pid)
 {
 	int		status;
 	int		exit_status;
-	pid_t	wpid;
 
 	exit_status = 0;
-	wpid = 0;
-	status = 0;
-	wpid = wait(&status);
-	while (wpid > 0)
+	waitpid(pid, &status, 0);
+	if ((status & 0xFF) == 0)
+		exit_status = (status >> 8) & 0xFF;
+	else
+		exit_status = 128 + (status & 0x7F);
+	while ((waitpid(-1, &status, 0)) > 0)
 	{
-		if (wpid == pid)
-		{
-			if ((status & 0xFF) == 0)
-				exit_status = (status >> 8) & 0xFF;
-			else
-				exit_status = 128 + (status & 0x7F);
-		}
-		wpid = wait(&status);
+		waitpid(-1, &status, 0);
+		if ((status & 0x7F) == 13)
+			write(STDERR_FILENO, "minishell: Broken pipe\n", ft_strlen("minishell: Broken pipe\n"));
 	}
 	return (exit_status);
 }
