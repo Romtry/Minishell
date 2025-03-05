@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/04 15:14:34 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:41:17 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void				handle_child(int i, t_cmd *cmd, int input_fd,
 						int pipe_fd[2]);
 void				var_work(t_env **env_head_ptr, char *name, char *value);
 bool				var_init(t_env **env_head_ptr, char *name, char *value);
+char				*get_command_path(char *cmd);
 
 // bultin
 void				cd(t_cmd *cmd);
