@@ -35,7 +35,7 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 	if (fd == -1)
 	{
 		perror("minishell: open");
-		exit(1);
+		return (-1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (out_redir_ret(fd));
@@ -43,6 +43,7 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 	*i += 2;
 	return (0);
 }
+
 
 int	handle_heredoc_redir(t_cmd *cmd, int *i)
 {
@@ -62,17 +63,17 @@ int	handle_in_redir(t_cmd *cmd, int *i)
 {
 	int	fd;
 
-	fd = open(cmd->word[0][*i +1], O_RDONLY);
+	fd = open(cmd->word[0][*i + 1], O_RDONLY);
 	if (fd == -1)
 	{
 		perror("minishell: open");
-		exit(1);
+		return (-1);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		perror("minishell: dup2");
 		close(fd);
-		exit(1);
+		return (-1);
 	}
 	close(fd);
 	*i += 2;
