@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/05 11:41:17 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:47:02 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct env
 typedef struct cmd
 {
 	t_type			**type;
+	bool			exit;
 	char			***word;
 	unsigned int	has_pipe;
 	unsigned int	*exit_stat;

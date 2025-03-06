@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/28 12:34:42 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:41:32 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	cmd_work(t_token *token, unsigned int *exit_stat)
 	{
 		cmd = malloc(sizeof(t_cmd));
 		transfert(token, cmd);
+		cmd->exit = false;
 		cmd->exit_stat = exit_stat;
 		cmd->env_change = &token->env_change;
 		cmd->old_environ = malloc(sizeof(char **));
@@ -58,6 +59,8 @@ void	cmd_work(t_token *token, unsigned int *exit_stat)
 		execute_command(cmd);
 		if (token->env_change == true)
 			token->old_environ = *cmd->old_environ;
+		if (cmd->exit == true)
+			token->err = 2;
 		free_cmd(cmd);
 	}
 	else
@@ -83,6 +86,8 @@ int	main(void)
 		else if (temp == 2)
 			continue ;
 		cmd_work(token, &exit_stat);
+		if (token->err == 2)
+			break ;
 	}
 	if (token->env_change == true)
 		free_array(token->old_environ);

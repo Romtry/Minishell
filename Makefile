@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/03/05 11:42:27 by rothiery         ###   ########.fr        #
+#    Updated: 2025/03/06 12:05:27 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC= 	main.c					get_env.c				test.c		 			\
 OFILES= ${SRC:%.c=obj/%.o}
 
 CC= 	cc	-Wextra -Wall
-CFLAGS= -fsanitize=address -g3 -I includes
+CFLAGS= -I includes
 RESET = \033[0m
 GRAS = \033[1m
 ITALIQUE = \033[3m

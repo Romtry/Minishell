@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 10:49:55 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:11:55 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:29:08 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	read_heredoc_lines(int pipe_fd, char *delimiter)
 
 	while (1)
 	{
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (!line)
 		{
 			write(1, "\n", 1);

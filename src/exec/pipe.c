@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:19:21 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/05 12:08:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:49:51 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	execute_piped_commands(t_cmd *cmd)
 			handle_child(i, cmd, input_fd, pipe_fd);
 		else
 			handle_parent(&input_fd, pipe_fd, i, count);
+		if (cmd->exit == true)
+			return ;
 		i++;
 	}
 	*cmd->exit_stat = wait_for_children(pid);
