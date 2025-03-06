@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/01 10:45:09 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:24:49 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*cd2(void)
 		return (NULL);
 	return (home_env->value);
 }
-
+//cd
 void	cd(t_cmd *cmd)
 {
 	char	*path;
