@@ -44,7 +44,6 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 	return (0);
 }
 
-
 int	handle_heredoc_redir(t_cmd *cmd, int *i)
 {
 	if (handle_heredoc(cmd, cmd->word[0][*i + 1]) == -1)
