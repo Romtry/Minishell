@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 15:51:22 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:03:19 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	cd(t_cmd *cmd)
 	else if (cmd->word[0][2])
 	{
 		*cmd->exit_stat = 1;
-		cmd->exit = true;
+		cmd->exit = 2;
 		return ((void)write(2, "cd : too many arguments\n", 24));
 	}
 	else
 		path = cmd->word[0][i];
-	if (chdir(path) != 0 && cmd->exit == false)
+	if (chdir(path) != 0 && cmd->exit == 0)
 	{
 		*cmd->exit_stat = 1;
 		write(2, "minishell: cd: No such file or directory\n", 41);
