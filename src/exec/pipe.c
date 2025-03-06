@@ -27,7 +27,7 @@ static int	wait_for_children(pid_t pid)
 	{
 		waitpid(-1, &status, 0);
 		if ((status & 0x7F) == 13)
-			write(STDERR_FILENO, "minishell: Broken pipe\n", ft_strlen("minishell: Broken pipe\n"));
+			write(STDERR_FILENO, "minishell: Broken pipe\n", 23);
 	}
 	return (exit_status);
 }

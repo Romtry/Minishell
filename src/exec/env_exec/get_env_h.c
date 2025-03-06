@@ -56,31 +56,47 @@ t_env	*existing(char *name, char *value, t_env *env_head)
 	return (env_head);
 }
 
+static t_env	*process_env_var(char *env_str, t_env *env_head)
+{
+	char	*name;
+	char	*value;
+	char	*equal_sign;
+
+	equal_sign = ft_strchr(env_str, '=');
+	if (equal_sign)
+	{
+		name = ft_strndup(env_str, equal_sign - env_str);
+		value = ft_strndup(equal_sign + 1, ft_strlen(equal_sign) - 1);
+	}
+	else
+	{
+		name = ft_strndup(env_str, ft_strlen(env_str));
+		value = ft_strndup("", 0);
+	}
+	if (!name || !value)
+	{
+		free(name);
+		free(value);
+		return (NULL);
+	}
+	return (existing(name, value, env_head));
+}
+
 t_env	**get_env_head(void)
 {
-	static t_env	*env_head = NULL;
+	static t_env	*env_head;
 	extern char		**__environ;
-	char			*name;
-	char			*value;
 	int				i;
 
-	i = -1;
-	while (__environ[++i])
+	if (env_head == NULL)
 	{
-		value = ft_strchr(__environ[i], '=');
-		if (value)
+		i = -1;
+		while (__environ[++i])
 		{
-			name = ft_strndup(__environ[i], value - __environ[i]);
-			value = ft_strndup(value + 1, ft_strlen(value) - 1);
+			env_head = process_env_var(__environ[i], env_head);
+			if (!env_head)
+				return (NULL);
 		}
-		else
-		{
-			name = ft_strndup(__environ[i], ft_strlen(__environ[i]));
-			value = ft_strndup("", 0);
-		}
-		env_head = existing(name, value, env_head);
-		if (env_head == NULL)
-			return (NULL);
 	}
 	return (&env_head);
 }

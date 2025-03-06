@@ -12,19 +12,39 @@
 
 #include "minishell.h"
 
-int	handle_heredoc(char *delimiter)
+static void	heredoc_sigint_handler(int sig)
 {
-	int	pipe_fd[2];
+	(void)sig;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_done = 1;
+	close(STDIN_FILENO);
+}
+
+int	handle_heredoc(t_cmd *cmd, char *delimiter)
+{
+	int					pipe_fd[2];
+	struct sigaction	sa_new;
+	struct sigaction	sa_old;
 
 	if (pipe(pipe_fd) == -1)
 		return (perror("minishell: pipe"), -1);
-	signal(SIGINT, SIG_DFL);
-	read_heredoc_lines(pipe_fd[1], delimiter);
+	cmd->heredoc_interrupted = 0;
+	sa_new.sa_handler = heredoc_sigint_handler;
+	sigemptyset(&sa_new.sa_mask);
+	sa_new.sa_flags = 0;
+	sigaction(SIGINT, &sa_new, &sa_old);
+	read_heredoc_lines(cmd, pipe_fd[1], delimiter);
+	sigaction(SIGINT, &sa_old, NULL);
 	close(pipe_fd[1]);
 	if (handle_fd_dup(pipe_fd[0], STDIN_FILENO) == -1)
 		return (close(pipe_fd[0]), -1);
 	close(pipe_fd[0]);
-	return (0);
+	if (cmd->heredoc_interrupted)
+		return (1);
+	else
+		return (0);
 }
 
 int	handle_fd_dup(int fd, int std_fd)
@@ -35,29 +55,6 @@ int	handle_fd_dup(int fd, int std_fd)
 		return (-1);
 	}
 	return (0);
-}
-
-void	read_heredoc_lines(int pipe_fd, char *delimiter)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline("heredoc> ");
-		if (!line)
-		{
-			write(1, "\n", 1);
-			break ;
-		}
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(pipe_fd, line, ft_strlen(line));
-		write(pipe_fd, "\n", 1);
-		free(line);
-	}
 }
 
 int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)

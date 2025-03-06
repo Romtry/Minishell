@@ -46,8 +46,14 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 
 int	handle_heredoc_redir(t_cmd *cmd, int *i)
 {
-	if (handle_heredoc(cmd->word[0][*i +1]) == -1)
-		return (0);
+	if (handle_heredoc(cmd, cmd->word[0][*i + 1]) == -1)
+		return (-1);
+	if (cmd->heredoc_interrupted)
+	{
+		cmd->heredoc_interrupted = 0;
+		*i = 0;
+		return (-1);
+	}
 	*i += 2;
 	return (0);
 }
@@ -71,4 +77,27 @@ int	handle_in_redir(t_cmd *cmd, int *i)
 	close(fd);
 	*i += 2;
 	return (0);
+}
+
+void	read_heredoc_lines(t_cmd *cmd, int pipe_fd, char *delimiter)
+{
+	char	*line;
+
+	while (!cmd->heredoc_interrupted)
+	{
+		line = readline("heredoc> ");
+		if (!line)
+		{
+			cmd->heredoc_interrupted = 1;
+			break ;
+		}
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(pipe_fd, line, ft_strlen(line));
+		write(pipe_fd, "\n", 1);
+		free(line);
+	}
 }

@@ -58,13 +58,14 @@ typedef struct env
 
 typedef struct cmd
 {
-	t_type			**type;
-	bool			exit;
-	char			***word;
-	unsigned int	has_pipe;
-	unsigned int	*exit_stat;
-	char			***old_environ;
-	bool			*env_change;
+	t_type					**type;
+	bool					exit;
+	char					***word;
+	unsigned int			has_pipe;
+	unsigned int			*exit_stat;
+	char					***old_environ;
+	bool					*env_change;
+	volatile sig_atomic_t	heredoc_interrupted;
 }	t_cmd;
 
 typedef struct token
@@ -108,9 +109,10 @@ void				unset(t_cmd *cmd);
 void				determine_redirection_params(int append, int *flags,
 						const char **redir_type);
 int					process_redir(t_cmd *cmd, int *i, int *j, char **new_args);
-void				read_heredoc_lines(int pipe_fd, char *delimiter);
+void				read_heredoc_lines(t_cmd *cmd,
+						int pipe_fd, char *delimiter);
 int					handle_fd_dup(int fd, int std_fd);
-int					handle_heredoc(char *delimiter);
+int					handle_heredoc(t_cmd *cmd, char *delimiter);
 
 // redir.c
 int					handle_out_redir(t_cmd *cmd, int *i);

@@ -43,7 +43,7 @@ static void	execute_command2(t_cmd *tmp_cmd)
 		}
 		writer(cmd_name);
 	}
-	execve(cmd_path, tmp_cmd->word[0], get_env(0));
+	execve(cmd_path, tmp_cmd->word[0], get_env(true));
 	perror("minishell: execve");
 	free(cmd_path);
 	exit(1);
