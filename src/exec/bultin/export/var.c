@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:04:08 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 15:14:03 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 09:46:56 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ bool	var_init(t_env **env_head_ptr, char *name, char *value)
 		{
 			free(current->value);
 			current->value = ft_strndup(value, ft_strlen(value));
-			return (true);
+			return (false);
 		}
 		current = current->next;
 	}
-	return (false);
+	return (true);
 }
 
 void	var_work(t_env **env_head_ptr, char *name, char *value)
