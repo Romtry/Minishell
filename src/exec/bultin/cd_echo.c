@@ -82,7 +82,7 @@ static bool	handle_no_args(t_cmd *cmd, char **path, bool *should_free)
 static void	handle_too_many_args(t_cmd *cmd)
 {
 	*cmd->exit_stat = 1;
-	cmd->exit = true;
+	//cmd->exit = true;
 	write(2, "cd : too many arguments\n", 24);
 }
 
