@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/01 10:45:36 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 10:00:45 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,7 @@ void	env_builtin(void)
 		return ;
 	}
 	current = head;
-	while (current)
-	{
-		if (ft_strcmp(current->name, "COLUMNS") != 0
-			&& ft_strcmp(current->name, "LINES") != 0
-			&& ft_strcmp(current->name, "_") != 0)
-		{
-			if (current->value)
-				printf("%s=%s\n", current->name, current->value);
-			else
-				printf("%s=\n", current->name);
-		}
-		current = current->next;
-	}
+	env_print(current);
 	free_env(head);
 }
 

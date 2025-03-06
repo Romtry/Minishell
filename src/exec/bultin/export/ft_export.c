@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:36:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 09:48:40 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 10:53:43 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,13 @@ bool	export_verif(char *str)
 	return (false);
 }
 
-void	no_word(t_env **env_head_ptr)
+void	no_word(void)
 {
 	t_env	*current;
 
-	current = *env_head_ptr;
-	while (current)
-	{
-		printf("declare -x %s=\"%s\"\n", current->name, current->value);
-		current = current->next;
-	}
+	current = get_env(false);
+	env_print(current);
+	free_env(current);
 }
 
 void	check(int i, t_cmd *cmd)
@@ -91,7 +88,7 @@ void	ft_export(t_cmd *cmd)
 	if (!env_head_ptr)
 		return (perror("get_env_head"));
 	if (!cmd->word[0][1])
-		return (no_word(env_head_ptr));
+		return (no_word());
 	while (cmd->word[0][i] && export_verif(cmd->word[0][i]) == true)
 	{
 		value = value_init(cmd->word[0][i], &name);

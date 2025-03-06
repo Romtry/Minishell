@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:33:14 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:14:44 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 10:54:16 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 int	handle_heredoc_redir(t_cmd *cmd, int *i)
 {
 	if (handle_heredoc(cmd->word[0][*i +1]) == -1)
-		exit(1);
+		return (0);
 	*i += 2;
 	return (0);
 }
