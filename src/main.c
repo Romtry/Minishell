@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 13:41:32 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:56:52 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ unsigned int	rl_lexer(t_token *token)
 	add_history(input);
 	lexer(token, input);
 	free(input);
+	if (!token->word[0])
+		return (free_token(token), 2);
 	parsing(token);
 	return (0);
 }
