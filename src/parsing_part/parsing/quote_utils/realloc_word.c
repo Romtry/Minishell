@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:20:13 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:54:22 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 10:38:06 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	realloc_word(t_token *token, unsigned int *one, unsigned int two)
 
 	i = -1;
 	token->tlen -= (two - *one);
+	print_token(token);
 	temp = malloc(sizeof(char *) * (token->tlen + 1));
 	while (++i < *one)
 		temp[i] = ft_strcpy(token->word[i]);
