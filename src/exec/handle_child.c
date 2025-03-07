@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 16:03:03 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:38:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 static void	writer(char *cmd_name)
 {
+	if (ft_strchr(cmd_name, '/'))
+	{
+		if (access(cmd_name, F_OK) == -1)
+			exit(127);
+		else if (access(cmd_name, X_OK) == -1)
+			exit(126);
+	}
 	write(2, "minishell: ", 11);
 	write(2, cmd_name, ft_strlen(cmd_name));
 	write(2, ": command not found\n", 20);
@@ -24,7 +31,9 @@ static void	execute_command2(t_cmd *tmp_cmd)
 {
 	char	*cmd_name;
 	char	*cmd_path;
+	char	**env;
 
+	env = get_env(true);
 	cmd_name = tmp_cmd->word[0][0];
 	if (is_builtin(cmd_name))
 	{
@@ -33,17 +42,9 @@ static void	execute_command2(t_cmd *tmp_cmd)
 	}
 	cmd_path = get_command_path(cmd_name);
 	if (!cmd_path)
-	{
-		if (ft_strchr(cmd_name, '/'))
-		{
-			if (access(cmd_name, F_OK) == -1)
-				exit(127);
-			else if (access(cmd_name, X_OK) == -1)
-				exit(126);
-		}
 		writer(cmd_name);
-	}
-	execve(cmd_path, tmp_cmd->word[0], get_env(0));
+	execve(cmd_path, tmp_cmd->word[0], env);
+	free_array(env);
 	perror("minishell: execve");
 	free(cmd_path);
 	exit(1);

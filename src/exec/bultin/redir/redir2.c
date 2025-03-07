@@ -6,25 +6,12 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 10:49:55 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 14:29:08 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 08:40:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_heredoc(char *delimiter)
-{
-	int	pipe_fd[2];
-
-	if (pipe(pipe_fd) == -1)
-		return (perror("minishell: pipe"), -1);
-	signal(SIGINT, SIG_DFL);
-	read_heredoc_lines(pipe_fd[1], delimiter);
-	close(pipe_fd[1]);
-	if (handle_fd_dup(pipe_fd[0], STDIN_FILENO) == -1)
-		return (close(pipe_fd[0]), -1);
-	close(pipe_fd[0]);
-	return (0);
 }
 
 int	handle_fd_dup(int fd, int std_fd)
@@ -59,6 +46,7 @@ void	read_heredoc_lines(int pipe_fd, char *delimiter)
 		free(line);
 	}
 }
+
 
 int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
 {

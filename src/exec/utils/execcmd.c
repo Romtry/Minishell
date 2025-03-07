@@ -14,7 +14,9 @@
 
 void	execute_command2(t_cmd *cmd)
 {
-	if (is_builtin(cmd->word[0][0]))
+	if (cmd->word[0][0] == NULL)
+		return ;
+	else if (is_builtin(cmd->word[0][0]))
 		execute_builtin(cmd);
 	else
 		execute_external(cmd);
