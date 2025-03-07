@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 16:03:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:19:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static char	*cd2(void)
 		home_env = home_env->next;
 	if (!home_env)
 		return (free_env(head), NULL);
+
 	ret = ft_strndup(home_env->value, ft_strlen(home_env->value));
 	return (free_env(head), ret);
 }
