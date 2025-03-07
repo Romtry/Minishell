@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 08:57:37 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:05:36 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:57:38 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ unsigned int	is_sep(char c)
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
+	if (s)
 	{
-		if (*s == (char)c)
+		while (*s)
+		{
+			if (*s == (char)c)
+				return ((char *)s);
+			s++;
+		}
+		if ((char)c == '\0')
 			return ((char *)s);
-		s++;
 	}
-	if ((char)c == '\0')
-		return ((char *)s);
 	return (NULL);
 }

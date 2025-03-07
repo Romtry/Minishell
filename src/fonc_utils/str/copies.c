@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:02:28 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:07:54 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:00:46 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,16 @@ char	*ft_strndup(const char *s, size_t n)
 	size_t	len;
 
 	len = 0;
-	while (s[len] && len < n)
-		len++;
-	dup = (char *)malloc(len + 1);
-	if (!dup)
-		return (NULL);
-	ft_memcpy(dup, s, len);
-	dup[len] = '\0';
-	return (dup);
+	if (s)
+	{
+		while (s[len] && len < n)
+			len++;
+		dup = (char *)malloc(len + 1);
+		if (!dup)
+			return (NULL);
+		ft_memcpy(dup, s, len);
+		dup[len] = '\0';
+		return (dup);
+	}
+	return (NULL);
 }
