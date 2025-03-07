@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:16:16 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/28 12:09:36 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:17:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	parsing2(t_token *token)
 	{
 		if (token->type[i] == PIPE)
 			pipe_pars(token, i);
-		if (token->type[i] == HEREDOC)
+		else if (token->type[i] == HEREDOC)
 			pars_heredoc(token, i);
 		else if (token->type[i] == DOLLAR && token->type[i + 1] == WORD)
 			dollar_pars(token, &i);
@@ -29,6 +29,8 @@ static void	parsing2(t_token *token)
 			token->type[i] = WORD;
 		else if (token->type[i] == DQUOTED && token->word[i][0] == '$')
 			dollar_quote(token, i);
+		if (token->err == 1)
+			return ;
 		i++;
 	}
 	redir_pars(token);
