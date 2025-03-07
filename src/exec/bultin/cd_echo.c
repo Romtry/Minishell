@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 14:58:50 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:16:50 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static char	*handle_tilde(char *path, t_cmd *cmd, bool *should_free)
 	if (!home)
 	{
 		*cmd->exit_stat = 1;
-		cmd->exit = true;
 		write(2, "minishell: cd: HOME not set\n", 28);
 		return (NULL);
 	}
@@ -62,7 +61,6 @@ static bool	handle_no_args(t_cmd *cmd, char **path, bool *should_free)
 	{
 		write(2, "minishell: cd: HOME not set\n", 28);
 		*cmd->exit_stat = 1;
-		cmd->exit = true;
 		return (false);
 	}
 	*should_free = true;
@@ -72,7 +70,6 @@ static bool	handle_no_args(t_cmd *cmd, char **path, bool *should_free)
 static void	handle_too_many_args(t_cmd *cmd)
 {
 	*cmd->exit_stat = 1;
-	cmd->exit = true;
 	write(2, "cd : too many arguments\n", 24);
 }
 
