@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/07 08:37:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:56:26 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct cmd
 {
 	t_type			**type;
 	unsigned int	exit;
+	t_env			**env_head_ptr;
 	char			***word;
 	unsigned int	has_pipe;
 	unsigned int	*exit_stat;
@@ -93,8 +94,8 @@ void				env_print(t_env *env);
 // exec
 void				handle_child(int i, t_cmd *cmd, int input_fd,
 						int pipe_fd[2]);
-void				var_work(t_env **env_head_ptr, char *name, char *value);
-bool				var_init(t_env **env_head_ptr, char *name, char *value);
+void				var_work(t_cmd *cmd, char *name, char *value);
+bool				var_init(t_cmd *cmd, char *name, char *value);
 char				*get_command_path(char *cmd);
 
 // bultin

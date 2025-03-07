@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 16:02:51 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:10:28 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ unsigned int	rl_lexer(t_token *token)
 	return (0);
 }
 
-void	cmd_work(t_token *token, unsigned int *exit_stat)
+void	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 {
 	t_cmd			*cmd;
+
 
 	if (token->err == 0)
 	{
 		cmd = malloc(sizeof(t_cmd));
 		transfert(token, cmd);
+		cmd->env_head_ptr = env;
 		cmd->exit = 0;
 		cmd->exit_stat = exit_stat;
 		cmd->env_change = &token->env_change;
@@ -69,17 +71,27 @@ void	cmd_work(t_token *token, unsigned int *exit_stat)
 		free_token(token);
 }
 
+static t_token	*token_init(unsigned int *exit_stat, t_env ***env)
+{
+	t_token	*token;
+
+	*env = get_env_head();
+	token = malloc(sizeof(t_token));
+	token->exit_stat = exit_stat;
+	token->env_change = false;
+	return (token);
+}
+
 int	main(void)
 {
+	t_env			**env;
 	t_token			*token;
 	unsigned int	temp;
 	unsigned int	exit_stat;
 
 	exit_stat = 0;
 	signal(SIGINT, handle_signal);
-	token = malloc(sizeof(t_token));
-	token->exit_stat = &exit_stat;
-	token->env_change = false;
+	token = token_init(&exit_stat, &env);
 	while (1)
 	{
 		temp = rl_lexer(token);
@@ -87,10 +99,11 @@ int	main(void)
 			break ;
 		else if (temp == 2)
 			continue ;
-		cmd_work(token, &exit_stat);
+		cmd_work(token, &exit_stat, env);
 		if (token->err == 2)
 			break ;
 	}
+	free_env(*env);
 	if (token->env_change == true)
 		free_array(token->old_environ);
 	free(token);

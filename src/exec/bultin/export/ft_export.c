@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:36:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 10:53:43 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:56:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,19 @@ char	*value_init(char *cmd, char **name)
 void	ft_export(t_cmd *cmd)
 {
 	int		i;
-	t_env	**env_head_ptr;
 	char	*name;
 	char	*value;
 
 	i = 1;
-	env_head_ptr = get_env_head();
-	if (!env_head_ptr)
+	if (!cmd->env_head_ptr)
 		return (perror("get_env_head"));
 	if (!cmd->word[0][1])
 		return (no_word());
 	while (cmd->word[0][i] && export_verif(cmd->word[0][i]) == true)
 	{
 		value = value_init(cmd->word[0][i], &name);
-		if (var_init(env_head_ptr, name, value) == true)
-			var_work(env_head_ptr, name, value);
+		if (var_init(cmd, name, value) == true)
+			var_work(cmd, name, value);
 		free(name);
 		free(value);
 		i++;

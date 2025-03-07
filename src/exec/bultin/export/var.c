@@ -6,17 +6,17 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:04:08 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 09:46:56 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:57:55 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	var_init(t_env **env_head_ptr, char *name, char *value)
+bool	var_init(t_cmd *cmd, char *name, char *value)
 {
 	t_env	*current;
 
-	current = *env_head_ptr;
+	current = *cmd->env_head_ptr;
 	while (current)
 	{
 		if (ft_strcmp(current->name, name) == 0)
@@ -30,7 +30,7 @@ bool	var_init(t_env **env_head_ptr, char *name, char *value)
 	return (true);
 }
 
-void	var_work(t_env **env_head_ptr, char *name, char *value)
+void	var_work(t_cmd *cmd, char *name, char *value)
 {
 	t_env	*new_var;
 
@@ -44,6 +44,6 @@ void	var_work(t_env **env_head_ptr, char *name, char *value)
 	}
 	new_var->name = ft_strndup(name, ft_strlen(name));
 	new_var->value = ft_strndup(value, ft_strlen(value));
-	new_var->next = *env_head_ptr;
-	*env_head_ptr = new_var;
+	new_var->next = *cmd->env_head_ptr;
+	*cmd->env_head_ptr = new_var;
 }

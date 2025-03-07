@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:53:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/28 12:58:13 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:52:42 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	sews(unsigned int i, t_env *current, t_cmd *cmd)
 		perror("malloc");
 		return ;
 	}
-	current = *get_env_head();
+	current = *cmd->env_head_ptr;
 	new_environ[i] = NULL;
 	i--;
 	while (current)
@@ -46,7 +46,7 @@ void	sync_env_with_system(t_cmd *cmd)
 	extern char		**__environ;
 
 	i = 0;
-	current = *get_env_head();
+	current = *cmd->env_head_ptr;
 	while (current)
 	{
 		i++;
