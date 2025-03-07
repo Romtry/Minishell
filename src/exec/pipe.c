@@ -73,7 +73,7 @@ void	execute_piped_commands(t_cmd *cmd)
 			handle_child(i, cmd, input_fd, pipe_fd);
 		else
 			handle_parent(&input_fd, pipe_fd, i, count);
-		if (cmd->exit == 1)
+		if (cmd->exit != 0)
 			return ;
 		i++;
 	}
