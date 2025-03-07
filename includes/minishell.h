@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/06 16:02:19 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/07 08:37:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct env
 
 typedef struct cmd
 {
-<<<<<<< HEAD
 	t_type			**type;
 	unsigned int	exit;
 	char			***word;
@@ -66,16 +65,7 @@ typedef struct cmd
 	unsigned int	*exit_stat;
 	char			***old_environ;
 	bool			*env_change;
-=======
-	t_type					**type;
-	bool					exit;
-	char					***word;
-	unsigned int			has_pipe;
-	unsigned int			*exit_stat;
-	char					***old_environ;
-	bool					*env_change;
 	volatile sig_atomic_t	heredoc_interrupted;
->>>>>>> ae1f5a5f2fd826f788b8bf839b1d7b1dbf82ce17
 }	t_cmd;
 
 typedef struct token
