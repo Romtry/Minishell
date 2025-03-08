@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	print_cmd(t_cmd *cmd)
+/*void	print_cmd(t_cmd *cmd)
 {
 	unsigned int	i;
 	unsigned int	i2;
@@ -72,7 +72,7 @@ void	print_token(t_token *token)
 		printf("type = %s\n", t_type_str[token->type[i]]);
 		i++;
 	}
-}
+}*/
 
 void	print_array(char **array)
 {

@@ -14,7 +14,6 @@
 
 static void	writer(char *cmd_name, t_cmd *cmd)
 {
-
 	if (ft_strchr(cmd_name, '/'))
 	{
 		if (access(cmd_name, F_OK) == -1)
@@ -61,12 +60,10 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 	execve(cmd_path, tmp_cmd->word[0], env);
 	free_array(env);
 	perror("minishell: execve");
-	free(cmd_path); 
-	{
-		cmd->exit = 1;
-		*cmd->exit_stat = 1;
-		return ;
-	}
+	free(cmd_path);
+	cmd->exit = 1;
+	*cmd->exit_stat = 1;
+	return ;
 }
 
 void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])

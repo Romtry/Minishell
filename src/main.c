@@ -48,7 +48,6 @@ void	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 {
 	t_cmd			*cmd;
 
-
 	if (token->err == 0)
 	{
 		cmd = malloc(sizeof(t_cmd));

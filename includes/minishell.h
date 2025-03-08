@@ -58,14 +58,14 @@ typedef struct env
 
 typedef struct cmd
 {
-	t_type			**type;
-	unsigned int	exit;
-	t_env			**env_head_ptr;
-	char			***word;
-	unsigned int	has_pipe;
-	unsigned int	*exit_stat;
-	char			***old_environ;
-	bool			*env_change;
+	t_type					**type;
+	unsigned int			exit;
+	t_env					**env_head_ptr;
+	char					***word;
+	unsigned int			has_pipe;
+	unsigned int			*exit_stat;
+	char					***old_environ;
+	bool					*env_change;
 	volatile sig_atomic_t	heredoc_interrupted;
 }	t_cmd;
 

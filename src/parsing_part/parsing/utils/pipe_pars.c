@@ -37,7 +37,7 @@ void	pipe_pars(t_token *token, unsigned int i)
 	{
 		token->err = 1;
 		*token->exit_stat = EXIT_FAILURE;
-		return(print_error(token, 2));
+		return (print_error(token, 2));
 	}
 	if (token->type[i - 1] == WORD || token->type[i - 1] == DOLLAR
 		|| token->type[i - 1] == SEP)
