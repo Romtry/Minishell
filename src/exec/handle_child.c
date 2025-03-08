@@ -55,6 +55,8 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 	cmd_path = get_command_path(cmd_name);
 	if (!cmd_path)
 		writer(cmd_name, cmd);
+	if (cmd->exit != 0)
+		return ;
 	env = get_env(true);
 	execve(cmd_path, tmp_cmd->word[0], env);
 	free_array(env);
