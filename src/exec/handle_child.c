@@ -12,33 +12,33 @@
 
 #include "minishell.h"
 
-static void	writer(char *cmd_name, t_cmd *tmp_cmd)
+static void	writer(char *cmd_name, t_cmd *cmd)
 {
+
 	if (ft_strchr(cmd_name, '/'))
 	{
 		if (access(cmd_name, F_OK) == -1)
 		{
-			*tmp_cmd->exit_stat = 127;
-			tmp_cmd->exit = 2;
+			cmd->exit = 1;
+			*cmd->exit_stat = 127;
 			return ;
 		}
 		else if (access(cmd_name, X_OK) == -1)
 		{
-			*tmp_cmd->exit_stat = 126;
-			tmp_cmd->exit = 2;
+			cmd->exit = 1;
+			*cmd->exit_stat = 126;
 			return ;
 		}
 	}
 	write(2, "minishell: ", 11);
 	write(2, cmd_name, ft_strlen(cmd_name));
 	write(2, ": command not found\n", 20);
-	*tmp_cmd->exit_stat = 127;
-	tmp_cmd->exit = 2;
+	cmd->exit = 1;
+	*cmd->exit_stat = 127;
 	return ;
 }
 
-
-static void	execute_command2(t_cmd *tmp_cmd)
+static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 {
 	char	*cmd_name;
 	char	*cmd_path;
@@ -48,24 +48,23 @@ static void	execute_command2(t_cmd *tmp_cmd)
 	if (is_builtin(cmd_name))
 	{
 		execute_builtin(tmp_cmd);
-		*tmp_cmd->exit_stat = 0;
-		tmp_cmd->exit = 2;
+		cmd->exit = 1;
+		*cmd->exit_stat = 1;
 		return ;
 	}
 	cmd_path = get_command_path(cmd_name);
 	if (!cmd_path)
-	{	
-		writer(cmd_name, tmp_cmd);
-		if (tmp_cmd->exit != 0)
-			return ;
-	}
+		writer(cmd_name, cmd);
 	env = get_env(true);
 	execve(cmd_path, tmp_cmd->word[0], env);
 	free_array(env);
 	perror("minishell: execve");
 	free(cmd_path); 
-	tmp_cmd->exit = 2;
-	*tmp_cmd->exit_stat = 1;
+	{
+		cmd->exit = 1;
+		*cmd->exit_stat = 1;
+		return ;
+	}
 }
 
 void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
@@ -78,8 +77,6 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	tmp_cmd.type = &cmd->type[i];
 	tmp_cmd.env_change = cmd->env_change;
 	tmp_cmd.old_environ = cmd->old_environ;
-	tmp_cmd.exit_stat = cmd->exit_stat;
-	tmp_cmd.exit = cmd->exit;
 	count = cmd_count(cmd);
 	is_not_last = (i < count - 1);
 	if (input_fd != STDIN_FILENO)
@@ -92,9 +89,9 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	}
 	if (handle_redirections(&tmp_cmd) == -1)
 	{
-		cmd->exit = 2;
+		cmd->exit = 1;
 		*cmd->exit_stat = EXIT_FAILURE;
 	}
 	else
-		execute_command2(&tmp_cmd);
+		execute_command2(&tmp_cmd, cmd);
 }
