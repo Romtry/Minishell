@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 13:42:20 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:57:54 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,25 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 	return ;
 }
 
+static t_cmd	cmd_cpy(t_cmd *cmd, int i)
+{
+	t_cmd	tmp_cmd;
+
+	tmp_cmd.word = &cmd->word[i];
+	tmp_cmd.type = &cmd->type[i];
+	tmp_cmd.env_change = cmd->env_change;
+	tmp_cmd.old_environ = cmd->old_environ;
+	tmp_cmd.exit_stat = cmd->exit_stat;
+	return (tmp_cmd);
+}
+
 void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 {
 	t_cmd	tmp_cmd;
 	int		count;
 	int		is_not_last;
 
-	tmp_cmd.word = &cmd->word[i];
-	tmp_cmd.type = &cmd->type[i];
-	tmp_cmd.env_change = cmd->env_change;
-	tmp_cmd.old_environ = cmd->old_environ;
+	tmp_cmd = cmd_cpy(cmd, i);
 	count = cmd_count(cmd);
 	is_not_last = (i < count - 1);
 	if (input_fd != STDIN_FILENO)

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 17:10:28 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:10:20 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ unsigned int	rl_lexer(t_token *token)
 	return (0);
 }
 
-void	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
+unsigned int	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 {
 	t_cmd			*cmd;
 
@@ -68,6 +68,7 @@ void	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 	}
 	else
 		free_token(token);
+	return (token->err);
 }
 
 static t_token	*token_init(unsigned int *exit_stat, t_env ***env)
@@ -89,6 +90,7 @@ int	main(void)
 	unsigned int	exit_stat;
 
 	exit_stat = 0;
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_signal);
 	token = token_init(&exit_stat, &env);
 	while (1)
@@ -98,8 +100,7 @@ int	main(void)
 			break ;
 		else if (temp == 2)
 			continue ;
-		cmd_work(token, &exit_stat, env);
-		if (token->err == 2)
+		if (cmd_work(token, &exit_stat, env) == 2)
 			break ;
 	}
 	free_env(*env);
