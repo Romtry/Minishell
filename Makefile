@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/03/10 09:34:39 by rothiery         ###   ########.fr        #
+#    Updated: 2025/03/10 11:09:17 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ VPATH=	src																		\
 		src/exec																\
 		src/exec/execext														\
 		src/exec/bultin															\
+		src/exec/bultin/cd														\
 		src/exec/bultin/redir													\
 		src/exec/bultin/export													\
 		src/exec/utils															\
@@ -29,24 +30,23 @@ VPATH=	src																		\
 		src/parsing_part/parsing/quote_utils									\
 		src/parsing_part/transfert_utils										\
 
-SRC= 	main.c					get_env.c				test.c		 			\
-		echo.c				env_exit.c				search.c	\
-		ft_export.c				pwd.c						\
+SRC= 	main.c					get_env.c				test.c					\
+		echo.c					env_exit.c				search.c				\
+		ft_export.c				pwd.c					cd2.c					\
 		redir.c					unset.c					get_env_h.c				\
-		sews.c					handle_child.c			var.c	\
+		sews.c					handle_child.c			var.c					\
 		exec_b.c				execcmd.c				execext.c				\
-		pipe.c					comp.c					redir3.c	\
-		lst_utils.c				type.c					get_cmd_path.c		\
-		erased_str.c			ft_split.c				cd.c \
-		ft_strjoin.c			lexer_utils.c						\
-		ft_strlen.c				copies.c			free_utils.c		\
+		pipe.c					comp.c					redir3.c				\
+		lst_utils.c				type.c					get_cmd_path.c			\
+		erased_str.c			ft_split.c				cd.c 					\
+		ft_strjoin.c			lexer_utils.c			count_args.c			\
+		ft_strlen.c				copies.c				free_utils.c			\
 		dollar_inquote.c		erased_quote.c			quote_type.c			\
 		realloc_word.c			second_quote.c			dollar_utils.c			\
-		dollar_quote.c							parsing.c				\
+		dollar_quote.c			parsing.c				print_error.c			\
 		pipe_pars.c				redir_pars.c			sep_clean.c				\
 		malloc_array.c			no_pipe.c				transfert_pipe.c		\
-		transfert.c				redir2.c			pars_heredoc.c			\
-		print_error.c			count_args.c												\
+		transfert.c				redir2.c				pars_heredoc.c			\
 
 OFILES= ${SRC:%.c=obj/%.o}
 

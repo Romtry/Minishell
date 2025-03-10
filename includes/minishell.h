@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/10 09:59:04 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:06:40 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char				*get_command_path(char *cmd);
 
 // bultin
 void				cd(t_cmd *cmd);
+char				*cd2(void);
 void				echo(t_cmd *cmd);
 void				env_builtin(t_cmd *cmd);
 void				exit_shell(t_cmd *cmd);

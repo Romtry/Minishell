@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 09:34:15 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:05:00 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,33 @@
 	}
 }*/
 
-void	print_token(t_token *token)
-{
-	unsigned int	i;
-	const char		*t_type_str[] = {
-		"END",
-		"WORD",
-		"SEP",				// whitespace
-		"PIPE",				// |
-		"INPUTREDIR",		// <
-		"OUTPUTREDIR",		// >
-		"HEREDOC",			// <<
-		"APPENDREDIR",		// >>
-		"SINGLEQUOTE",		// '
-		"DOUBLEQUOTE",		// "
-		"DOLLAR",			// $
-		"EMPTY",			// NULL
-		"DQUOTED",			// "WORD"
-		"SQUOTED",			// 'WORD'
-	};
-	i = 0;
-	while (token->word[i])
-	{
-		printf("word %u = [%s] ", i, token->word[i]);
-		printf("type = %s\n", t_type_str[token->type[i]]);
-		i++;
-	}
-}
+// void	print_token(t_token *token)
+// {
+// 	unsigned int	i;
+// 	const char		*t_type_str[] = {
+// 		"END",
+// 		"WORD",
+// 		"SEP",				// whitespace
+// 		"PIPE",				// |
+// 		"INPUTREDIR",		// <
+// 		"OUTPUTREDIR",		// >
+// 		"HEREDOC",			// <<
+// 		"APPENDREDIR",		// >>
+// 		"SINGLEQUOTE",		// '
+// 		"DOUBLEQUOTE",		// "
+// 		"DOLLAR",			// $
+// 		"EMPTY",			// NULL
+// 		"DQUOTED",			// "WORD"
+// 		"SQUOTED",			// 'WORD'
+// 	};
+// 	i = 0;
+// 	while (token->word[i])
+// 	{
+// 		printf("word %u = [%s] ", i, token->word[i]);
+// 		printf("type = %s\n", t_type_str[token->type[i]]);
+// 		i++;
+// 	}
+// }
 
 void	print_array(char **array)
 {
