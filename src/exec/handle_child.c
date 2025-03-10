@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 16:17:02 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:06:43 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,19 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 		return ;
 	}
 	cmd_path = get_command_path(cmd_name);
-	if (!cmd_path)
+	if (!cmd_path && (tmp_cmd->type[0][0] == WORD
+		|| tmp_cmd->type[0][0] == SQUOTED || tmp_cmd->type[0][0] == DQUOTED))
 		writer(cmd_name, cmd);
 	if (cmd->exit != 0)
 		return ;
 	env = get_env(true);
-	execve(cmd_path, tmp_cmd->word[0], env);
+	if (tmp_cmd->type[0][0] == WORD
+		|| tmp_cmd->type[0][0] == SQUOTED || tmp_cmd->type[0][0] == DQUOTED)
+	{
+		execve(cmd_path, tmp_cmd->word[0], env);
+		perror("minishell: execve");
+	}
 	free_array(env);
-	perror("minishell: execve");
 	free(cmd_path);
 	cmd->exit = 1;
 	*cmd->exit_stat = 1;
