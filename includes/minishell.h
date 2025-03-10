@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/10 11:06:40 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:12:21 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct token
 	bool			env_change;
 }	t_token;
 
+
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
+
 // main
 void				print_error(t_token *token, unsigned int n);
 void				*get_env(bool b);
@@ -119,7 +123,7 @@ int					handle_heredoc(t_cmd *cmd, char *delimiter);
 
 // redir.c
 int					handle_out_redir(t_cmd *cmd, int *i);
-int					handle_heredoc_redir(t_cmd *cmd, int *i);
+int					handle_heredoc_redir(t_cmd *cmd, int *i, int k);
 int					handle_in_redir(t_cmd *cmd, int *i);
 int					handle_out_redir(t_cmd *cmd, int *i);
 

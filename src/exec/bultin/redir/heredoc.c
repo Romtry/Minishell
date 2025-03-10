@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:13:03 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 14:15:12 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:16:51 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	handle_heredoc(t_cmd *cmd, char *delimiter)
 	return (0);
 }
 
-int	handle_heredoc_redir(t_cmd *cmd, int *i)
+int	handle_heredoc_redir(t_cmd *cmd, int *i, int k)
 {
-	if (handle_heredoc(cmd, cmd->word[0][*i + 1]) == -1)
+	if (handle_heredoc(cmd, cmd->word[k][*i + 1]) == -1)
 		return (-1);
 	if (cmd->heredoc_interrupted)
 	{

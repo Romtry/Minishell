@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 16:33:49 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:12:54 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
 		|| !ft_strcmp(cmd->word[0][*i], ">"))
 		return (handle_out_redir(cmd, i));
 	if (!ft_strcmp(cmd->word[0][*i], "<<"))
-		return (handle_heredoc_redir(cmd, i));
+		return (handle_heredoc_redir(cmd, i, 0));
 	if (!ft_strcmp(cmd->word[0][*i], "<"))
 		return (handle_in_redir(cmd, i));
 	new_args[(*j)++] = ft_strndup(cmd->word[0][*i],
