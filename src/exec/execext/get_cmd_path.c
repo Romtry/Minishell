@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:24:33 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/05 11:44:52 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:25:37 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,16 @@ static char	*err(unsigned int i, char *cmd, char **envp)
 char	*gcp(DIR *dir, char *cmd, char **envp)
 {
 	if (access(cmd, F_OK) == -1)
-		return (err(0, cmd, envp));
+		return (free_array(envp), err(0, cmd, envp));
 	dir = opendir(cmd);
 	if (dir != NULL)
 	{
 		closedir(dir);
-		return (err(1, cmd, envp));
+		return (free_array(envp), err(1, cmd, envp));
 	}
 	if (access(cmd, X_OK) == -1)
-		return (err(2, cmd, envp));
-	free_array(envp);
-	return (ft_strndup(cmd, ft_strlen(cmd)));
+		return (free_array(envp), err(2, cmd, envp));
+	return (free_array(envp), ft_strndup(cmd, ft_strlen(cmd)));
 }
 
 char	*gcp2(int i, char **envp, char *cmd)
@@ -72,8 +71,10 @@ char	*get_command_path(char *cmd)
 
 	dir = NULL;
 	envp = get_env(true);
-	if (!cmd || !envp)
-		return (NULL);
+	if (!envp)
+		return(NULL);
+	else if (!cmd)
+		return(free_array(envp), NULL);
 	if (ft_strchr(cmd, '/'))
 		return (gcp(dir, cmd, envp));
 	i = 0;
