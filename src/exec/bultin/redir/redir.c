@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 14:11:09 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:33:49 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	handle_redirections(t_cmd *cmd)
 		{
 			perror("minishell: dup2");
 			close(cmd->heredoc_fd);
+			free_array(new_args);
 			return (-1);
 		}
 		close(cmd->heredoc_fd);
