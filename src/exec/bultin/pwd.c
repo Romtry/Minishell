@@ -6,13 +6,13 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:26:18 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/12 13:43:54 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:55:22 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+void	pwd(t_cmd *cmd)
 {
 	char	*cwd;
 
@@ -24,4 +24,5 @@ void	pwd(void)
 		printf("%s\n", cwd);
 		free(cwd);
 	}
+	*cmd->exit_stat = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/14 07:59:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:34:15 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 		}
 		i2 = -1;
 	}
-}
+}*/
 
 void	print_token(t_token *token)
 {
@@ -72,7 +72,7 @@ void	print_token(t_token *token)
 		printf("type = %s\n", t_type_str[token->type[i]]);
 		i++;
 	}
-}*/
+}
 
 void	print_array(char **array)
 {

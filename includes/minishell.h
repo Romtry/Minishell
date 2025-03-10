@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/07 16:56:26 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:59:04 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ char				*get_command_path(char *cmd);
 // bultin
 void				cd(t_cmd *cmd);
 void				echo(t_cmd *cmd);
-void				env_builtin(void);
+void				env_builtin(t_cmd *cmd);
 void				exit_shell(t_cmd *cmd);
 void				ft_export(t_cmd *cmd);
-void				pwd(void);
+void				pwd(t_cmd *cmd);
 int					handle_redirections(t_cmd *cmd);
 void				unset(t_cmd *cmd);
 void				determine_redirection_params(int append, int *flags,

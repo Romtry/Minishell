@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:37:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 17:03:46 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:56:54 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	unset2(t_cmd *cmd, char *var_name)
 	{
 		if (ft_strcmp(curr->name, var_name) == 0)
 		{
+			*cmd->exit_stat = 0;
 			if (prev)
 				prev->next = curr->next;
 			else

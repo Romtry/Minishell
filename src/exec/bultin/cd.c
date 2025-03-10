@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_echo.c                                          :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:09:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 15:16:50 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:00:29 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,13 @@ static void	handle_too_many_args(t_cmd *cmd)
 	write(2, "cd : too many arguments\n", 24);
 }
 
-static void	handle_single_arg(t_cmd *cmd, char **path, bool *should_free)
+static bool	handle_single_arg(t_cmd *cmd, char **path, bool *should_free)
 {
 	*path = cmd->word[0][1];
 	*path = handle_tilde(*path, cmd, should_free);
+	if (!*path)
+		return (false);
+	return (true);
 }
 
 void	cd(t_cmd *cmd)
@@ -94,8 +97,7 @@ void	cd(t_cmd *cmd)
 		return (handle_too_many_args(cmd));
 	else
 	{
-		handle_single_arg(cmd, &path, &should_free_path);
-		if (!path)
+		if (handle_single_arg(cmd, &path, &should_free_path) == false)
 			return ;
 	}
 	if (chdir(path) != 0 && cmd->exit == 0)
@@ -103,45 +105,8 @@ void	cd(t_cmd *cmd)
 		*cmd->exit_stat = 1;
 		write(2, "minishell: cd: No such file or directory\n", 41);
 	}
+	else
+		*cmd->exit_stat = 0;
 	if (should_free_path)
 		free(path);
-}
-
-static int	is_n_option(char *arg)
-{
-	int	i;
-
-	if (!arg || arg[0] != '-')
-		return (0);
-	i = 1;
-	while (arg[i])
-	{
-		if (arg[i] != 'n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	echo(t_cmd *cmd)
-{
-	int	i;
-	int	n_line;
-
-	i = 1;
-	n_line = 1;
-	if (cmd->word[0][1] && is_n_option(cmd->word[0][i]))
-	{
-		n_line = 0;
-		i++;
-	}
-	while (cmd->word[0][i])
-	{
-		write(STDOUT_FILENO, cmd->word[0][i], ft_strlen(cmd->word[0][i]));
-		i++;
-		if (cmd->word[0][i])
-			write(STDOUT_FILENO, " ", 1);
-	}
-	if (n_line)
-		write(STDOUT_FILENO, "\n", 1);
 }

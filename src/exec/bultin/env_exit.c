@@ -6,13 +6,13 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 16:03:36 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:58:32 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_builtin(void)
+void	env_builtin(t_cmd *cmd)
 {
 	t_env	*head;
 	t_env	*current;
@@ -23,6 +23,7 @@ void	env_builtin(void)
 		printf("No environment variables found.\n");
 		return ;
 	}
+	*cmd->exit_stat = 0;
 	current = head;
 	env_print(current);
 	free_env(head);
@@ -88,6 +89,7 @@ void	exit_shell(t_cmd *cmd)
 		if (cmd->word[0][1])
 			*cmd->exit_stat = exit_util(cmd->word[0][1]);
 		printf("exit\n");
+		*cmd->exit_stat = 0;
 		cmd->exit = 1;
 	}
 }

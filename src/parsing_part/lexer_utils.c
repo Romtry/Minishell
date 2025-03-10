@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:23:32 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/27 09:24:07 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:43:46 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ unsigned int	malloc_word(t_token *token, char *input, unsigned int c)
 		token->word[c][i] = input[i];
 		i++;
 	}
-	token->type[c] = save;
+	if (save == INPUTREDIR && ft_strlen(token->word[c]) == 2)
+		token->type[c] = HEREDOC;
+	else
+		token->type[c] = save;
 	token->word[c][i] = '\0';
 	return (i);
 }

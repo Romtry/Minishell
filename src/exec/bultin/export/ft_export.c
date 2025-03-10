@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:36:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 16:56:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:57:41 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	check(int i, t_cmd *cmd)
 		*cmd->exit_stat = 1;
 		write(2, " not a valid identifier\n", 24);
 	}
+	else
+		*cmd->exit_stat = 0;
 }
 
 char	*value_init(char *cmd, char **name)
