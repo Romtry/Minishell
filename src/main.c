@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 16:15:32 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:52:56 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ unsigned int	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 		cmd->exit_stat = exit_stat;
 		cmd->env_change = &token->env_change;
 		cmd->old_environ = malloc(sizeof(char **));
-		cmd->heredoc_fd = 0;
+		cmd->heredoc_fd = -1;
 		if (token->env_change == true)
 			*cmd->old_environ = token->old_environ;
 		execute_command(cmd);
