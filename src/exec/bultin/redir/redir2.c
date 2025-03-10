@@ -38,13 +38,10 @@ int	handle_heredoc(t_cmd *cmd, char *delimiter)
 	read_heredoc_lines(cmd, pipe_fd[1], delimiter);
 	sigaction(SIGINT, &sa_old, NULL);
 	close(pipe_fd[1]);
-	if (handle_fd_dup(pipe_fd[0], STDIN_FILENO) == -1)
-		return (close(pipe_fd[0]), -1);
-	close(pipe_fd[0]);
+	cmd->heredoc_fd = pipe_fd[0];
 	if (cmd->heredoc_interrupted)
-		return (1);
-	else
-		return (0);
+		return (close(pipe_fd[0]), 1);
+	return (0);
 }
 
 int	handle_fd_dup(int fd, int std_fd)

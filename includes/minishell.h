@@ -67,6 +67,7 @@ typedef struct cmd
 	char					***old_environ;
 	bool					*env_change;
 	volatile sig_atomic_t	heredoc_interrupted;
+	int						heredoc_fd;
 }	t_cmd;
 
 typedef struct token

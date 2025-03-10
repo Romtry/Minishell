@@ -57,6 +57,17 @@ int	handle_redirections(t_cmd *cmd)
 			return (-1);
 		}
 	}
+	if (cmd->heredoc_fd != -1)
+	{
+		if (dup2(cmd->heredoc_fd, STDIN_FILENO) == -1)
+		{
+			perror("minishell: dup2");
+			close(cmd->heredoc_fd);
+			return (-1);
+		}
+		close(cmd->heredoc_fd);
+		cmd->heredoc_fd = -1;
+	}
 	new_args[j] = NULL;
 	free_array(cmd->word[0]);
 	cmd->word[0] = new_args;

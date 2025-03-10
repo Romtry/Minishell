@@ -99,6 +99,7 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	{
 		cmd->exit = 1;
 		*cmd->exit_stat = EXIT_FAILURE;
+		return ;
 	}
 	else
 		execute_command2(&tmp_cmd, cmd);
