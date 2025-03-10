@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:14:37 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:11:09 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(ptr, count * size);
 	return (ptr);
+}
+
+int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
+{
+	if (!ft_strcmp(cmd->word[0][*i], ">>")
+		|| !ft_strcmp(cmd->word[0][*i], ">"))
+		return (handle_out_redir(cmd, i));
+	if (!ft_strcmp(cmd->word[0][*i], "<<"))
+		return (handle_heredoc_redir(cmd, i));
+	if (!ft_strcmp(cmd->word[0][*i], "<"))
+		return (handle_in_redir(cmd, i));
+	new_args[(*j)++] = ft_strndup(cmd->word[0][*i],
+			ft_strlen(cmd->word[0][*i]));
+	(*i)++;
+	return (0);
 }
 
 int	handle_redirections(t_cmd *cmd)

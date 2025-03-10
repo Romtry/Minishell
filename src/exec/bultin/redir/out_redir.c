@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir3.c                                           :+:      :+:    :+:   */
+/*   out_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 15:33:14 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/06 10:54:16 by rothiery         ###   ########.fr       */
+/*   Created: 2025/03/10 14:11:44 by rothiery          #+#    #+#             */
+/*   Updated: 2025/03/10 14:12:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@ int	out_redir_ret(int fd)
 	perror("minishell: dup2");
 	close(fd);
 	return (-1);
+}
+
+void	determine_redirection_params(int append, int *flags,
+		const char **redir_type)
+{
+	if (append)
+	{
+		*flags |= O_APPEND;
+		*redir_type = "append";
+	}
+	else
+	{
+		*flags |= O_TRUNC;
+		*redir_type = "output";
+	}
 }
 
 int	handle_out_redir(t_cmd *cmd, int *i)
@@ -42,62 +57,4 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 	close(fd);
 	*i += 2;
 	return (0);
-}
-
-int	handle_heredoc_redir(t_cmd *cmd, int *i)
-{
-	if (handle_heredoc(cmd, cmd->word[0][*i + 1]) == -1)
-		return (-1);
-	if (cmd->heredoc_interrupted)
-	{
-		cmd->heredoc_interrupted = 0;
-		*i = 0;
-		return (-1);
-	}
-	*i += 2;
-	return (0);
-}
-
-int	handle_in_redir(t_cmd *cmd, int *i)
-{
-	int	fd;
-
-	fd = open(cmd->word[0][*i + 1], O_RDONLY);
-	if (fd == -1)
-	{
-		perror("minishell: open");
-		return (-1);
-	}
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror("minishell: dup2");
-		close(fd);
-		return (-1);
-	}
-	close(fd);
-	*i += 2;
-	return (0);
-}
-
-void	read_heredoc_lines(t_cmd *cmd, int pipe_fd, char *delimiter)
-{
-	char	*line;
-
-	while (!cmd->heredoc_interrupted)
-	{
-		line = readline("heredoc> ");
-		if (!line)
-		{
-			cmd->heredoc_interrupted = 1;
-			break ;
-		}
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(pipe_fd, line, ft_strlen(line));
-		write(pipe_fd, "\n", 1);
-		free(line);
-	}
 }

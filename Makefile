@@ -6,7 +6,7 @@
 #    By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:44:10 by rothiery          #+#    #+#              #
-#    Updated: 2025/03/10 11:09:17 by rothiery         ###   ########.fr        #
+#    Updated: 2025/03/10 14:19:51 by rothiery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ VPATH=	src																		\
 		src/fonc_utils															\
 		src/fonc_utils/comp														\
 		src/fonc_utils/str														\
-		src/parsing_part														\
+		src/parsing_part									 					\
 		src/parsing_part/parsing												\
 		src/parsing_part/parsing/utils											\
 		src/parsing_part/parsing/quote_utils									\
@@ -36,7 +36,7 @@ SRC= 	main.c					get_env.c				test.c					\
 		redir.c					unset.c					get_env_h.c				\
 		sews.c					handle_child.c			var.c					\
 		exec_b.c				execcmd.c				execext.c				\
-		pipe.c					comp.c					redir3.c				\
+		pipe.c					comp.c					heredoc.c				\
 		lst_utils.c				type.c					get_cmd_path.c			\
 		erased_str.c			ft_split.c				cd.c 					\
 		ft_strjoin.c			lexer_utils.c			count_args.c			\
@@ -46,7 +46,8 @@ SRC= 	main.c					get_env.c				test.c					\
 		dollar_quote.c			parsing.c				print_error.c			\
 		pipe_pars.c				redir_pars.c			sep_clean.c				\
 		malloc_array.c			no_pipe.c				transfert_pipe.c		\
-		transfert.c				redir2.c				pars_heredoc.c			\
+		transfert.c				in_redir.c				pars_heredoc.c			\
+		out_redir.c
 
 OFILES= ${SRC:%.c=obj/%.o}
 
