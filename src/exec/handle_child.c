@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 10:57:54 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:17:02 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static t_cmd	cmd_cpy(t_cmd *cmd, int i)
 	tmp_cmd.env_change = cmd->env_change;
 	tmp_cmd.old_environ = cmd->old_environ;
 	tmp_cmd.exit_stat = cmd->exit_stat;
+	tmp_cmd.heredoc_fd = cmd->heredoc_fd;
 	return (tmp_cmd);
 }
 
