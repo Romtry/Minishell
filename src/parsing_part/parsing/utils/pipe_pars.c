@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:23:21 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 14:39:59 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:57:58 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 bool	condition(t_token *token, unsigned int i)
 {
 	if ((token->type[i + 1] == WORD || token->type[i + 1] == DOLLAR
-			|| token->type[i + 1] == SQUOTE || token->type[i + 1] == DQUOTE
+			|| token->type[i + 1] == SQUOTED || token->type[i + 1] == DQUOTED
 			|| token->type[i + 1] == INPUTREDIR
 			|| token->type[i + 1] == OUTPUTREDIR
 			|| token->type[i + 1] == HEREDOC
 			|| token->type[i + 1] == APPENDREDIR)
 		|| (token->type[i + 1] == SEP && (token->type[i + 2] == WORD
-				|| token->type[i + 2] == DOLLAR || token->type[i + 2] == SQUOTE
-				|| token->type[i + 2] == DQUOTE
+				|| token->type[i + 2] == DOLLAR || token->type[i + 2] == SQUOTED
+				|| token->type[i + 2] == DQUOTED
 				|| token->type[i + 2] == INPUTREDIR
 				|| token->type[i + 2] == OUTPUTREDIR
 				|| token->type[i + 2] == HEREDOC
