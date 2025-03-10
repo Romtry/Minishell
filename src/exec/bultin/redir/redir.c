@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 21:12:54 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:34:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
 	return (0);
 }
 
+void	dup2err(t_cmd *cmd, char **new_args)
+{
+	perror("minishell: dup2");
+	close(cmd->heredoc_fd);
+	free_array(new_args);
+}
+
 int	handle_redirections(t_cmd *cmd)
 {
 	int		i;
@@ -75,12 +82,7 @@ int	handle_redirections(t_cmd *cmd)
 	if (cmd->heredoc_fd != -1)
 	{
 		if (dup2(cmd->heredoc_fd, STDIN_FILENO) == -1)
-		{
-			perror("minishell: dup2");
-			close(cmd->heredoc_fd);
-			free_array(new_args);
-			return (-1);
-		}
+			return (dup2err(cmd, new_args), -1);
 		close(cmd->heredoc_fd);
 		cmd->heredoc_fd = -1;
 	}

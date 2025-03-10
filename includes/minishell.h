@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/10 21:12:21 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:35:27 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,8 @@ typedef struct token
 	bool			env_change;
 }	t_token;
 
-
-void	*ft_calloc(size_t count, size_t size);
-void	ft_bzero(void *s, size_t n);
+void				*ft_calloc(size_t count, size_t size);
+void				ft_bzero(void *s, size_t n);
 
 // main
 void				print_error(t_token *token, unsigned int n);

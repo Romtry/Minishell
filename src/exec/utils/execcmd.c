@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execcmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:15:54 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 21:17:26 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:32:28 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,14 @@ int	execute_heredoc(t_cmd *cmd, int *k)
 		if (ft_strcmp(cmd->word[*k][i], "<<") == 0)
 		{
 			if (handle_heredoc_redir(cmd, &i, *k) == -1)
-			{
-				free_array(new_args);
-				return (-1);
-			}
+				return (free_array(new_args), -1);
 		}
 		else
 		{
-			new_args[j] = ft_strndup(cmd->word[*k][i],ft_strlen(cmd->word[*k][i]));
+			new_args[j] = ft_strndup(cmd->word[*k][i],
+					ft_strlen(cmd->word[*k][i]));
 			if (!new_args[j])
-			{
-				free_array(new_args);
-				return (-1);
-			}
+				return (free_array(new_args), -1);
 			j++;
 			i++;
 		}
@@ -67,7 +62,9 @@ void	execute_command(t_cmd *cmd)
 {
 	int	saved_stdout;
 	int	saved_stdin;
+	int k;
 
+	k = 0;
 	saved_stdout = dup(STDOUT_FILENO);
 	saved_stdin = dup(STDIN_FILENO);
 	if (!cmd || !cmd->word[0] || !cmd->word[0][0])
@@ -76,9 +73,6 @@ void	execute_command(t_cmd *cmd)
 		close(saved_stdin);
 		return ;
 	}
-	
-	int k = 0;
-	int count = cmd_count(cmd);
 	while (cmd->word[k])
 	{
 		execute_heredoc(cmd, &k);

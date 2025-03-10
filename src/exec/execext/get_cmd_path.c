@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:24:33 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 16:25:37 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:32:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	*get_command_path(char *cmd)
 	dir = NULL;
 	envp = get_env(true);
 	if (!envp)
-		return(NULL);
+		return (NULL);
 	else if (!cmd)
-		return(free_array(envp), NULL);
+		return (free_array(envp), NULL);
 	if (ft_strchr(cmd, '/'))
 		return (gcp(dir, cmd, envp));
 	i = 0;
