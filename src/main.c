@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 17:52:56 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:16:46 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ unsigned int	cmd_work(t_token *token, unsigned int *exit_stat, t_env **env)
 		cmd->heredoc_fd = -1;
 		if (token->env_change == true)
 			*cmd->old_environ = token->old_environ;
-		execute_command(cmd);
+		execute_command(cmd, 0, 0, 0);
 		if (token->env_change == true)
 			token->old_environ = *cmd->old_environ;
 		if (cmd->exit == 1)
