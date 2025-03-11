@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:13:03 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 21:16:51 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:15:48 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
 static void	heredoc_sigint_handler(int sig)
 {

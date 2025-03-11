@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 17:06:43 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 08:25:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ static void	writer(char *cmd_name, t_cmd *cmd)
 	return ;
 }
 
+static void	exec_cmd2_util(t_cmd *cmd, char *cmd_path, char **env)
+{
+	free_array(env);
+	free(cmd_path);
+	cmd->exit = 1;
+	*cmd->exit_stat = 1;
+}
+
 static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 {
 	char	*cmd_name;
@@ -46,10 +54,9 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 	cmd_name = tmp_cmd->word[0][0];
 	if (is_builtin(cmd_name))
 	{
-		execute_builtin(tmp_cmd);
 		cmd->exit = 1;
 		*cmd->exit_stat = 1;
-		return ;
+		return (execute_builtin(tmp_cmd));
 	}
 	cmd_path = get_command_path(cmd_name);
 	if (!cmd_path && (tmp_cmd->type[0][0] == WORD
@@ -64,11 +71,7 @@ static void	execute_command2(t_cmd *tmp_cmd, t_cmd *cmd)
 		execve(cmd_path, tmp_cmd->word[0], env);
 		perror("minishell: execve");
 	}
-	free_array(env);
-	free(cmd_path);
-	cmd->exit = 1;
-	*cmd->exit_stat = 1;
-	return ;
+	return (exec_cmd2_util(cmd, cmd_path, env));
 }
 
 static t_cmd	cmd_cpy(t_cmd *cmd, int i)

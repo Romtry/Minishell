@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/10 21:35:27 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:36:47 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void				ft_bzero(void *s, size_t n);
 // main
 void				print_error(t_token *token, unsigned int n);
 void				*get_env(bool b);
+void				handle_signal(int sig);
 
 // test
 void				print_array(char **array);
@@ -125,6 +126,7 @@ int					handle_out_redir(t_cmd *cmd, int *i);
 int					handle_heredoc_redir(t_cmd *cmd, int *i, int k);
 int					handle_in_redir(t_cmd *cmd, int *i);
 int					handle_out_redir(t_cmd *cmd, int *i);
+int					end_func(t_cmd *cmd, char **new_args, int j, int k);
 
 // env_exec
 t_env				**get_env_head(void);
@@ -133,7 +135,7 @@ void				sync_env_with_system(t_cmd *cmd);
 // utils
 int					cmd_count(t_cmd *cmd);
 void				execute_builtin(t_cmd *cmd);
-void				execute_command(t_cmd *cmd);
+void				execute_command(t_cmd *cmd, int i, int j, int k);
 char				*get_command_path(char *cmd);
 void				execute_external(t_cmd *cmd);
 void				execute_piped_commands(t_cmd *cmd);
