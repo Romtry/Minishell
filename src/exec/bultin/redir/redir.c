@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 09:13:11 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:55:24 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	process_redir(t_cmd *cmd, int *i, int *j, char **new_args)
 	if (!ft_strcmp(cmd->word[0][*i], ">>")
 		|| !ft_strcmp(cmd->word[0][*i], ">"))
 		return (handle_out_redir(cmd, i));
-	if (!ft_strcmp(cmd->word[0][*i], "<<"))
-		return (handle_heredoc_redir(cmd, i, 0));
 	if (!ft_strcmp(cmd->word[0][*i], "<"))
 		return (handle_in_redir(cmd, i));
 	new_args[(*j)++] = ft_strndup(cmd->word[0][*i],
