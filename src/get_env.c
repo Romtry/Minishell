@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:10:58 by rothiery          #+#    #+#             */
-/*   Updated: 2025/02/28 12:34:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:21:07 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ void	*get_env(bool b)
 	if (b == true)
 		return (get_env_array());
 	return (get_env_list());
+}
+
+void	free_end(t_env *env, t_token *token)
+{
+	if (env)
+		free_env(env);
+	else
+		write(1, "\n", 1);
+	if (token->env_change == true)
+		free_array(token->old_environ);
 }

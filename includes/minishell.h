@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/11 09:36:47 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:15:51 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void				ft_bzero(void *s, size_t n);
 // main
 void				print_error(t_token *token, unsigned int n);
 void				*get_env(bool b);
+void				free_end(t_env *env, t_token *token);
 void				handle_signal(int sig);
 
 // test

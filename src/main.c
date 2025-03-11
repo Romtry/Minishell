@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:12 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 09:16:46 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:17:28 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ int	main(void)
 		if (cmd_work(token, &exit_stat, env) == 2)
 			break ;
 	}
-	free_env(*env);
-	if (token->env_change == true)
-		free_array(token->old_environ);
+	free_end(*env, token);
 	free(token);
 	rl_clear_history();
 	return (exit_stat);
