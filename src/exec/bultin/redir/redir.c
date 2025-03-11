@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:14:15 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 13:55:24 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:05:05 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	handle_redirections(t_cmd *cmd)
 		if (process_redir(cmd, &i, &j, new_args) == -1)
 			return (free_array(new_args), -1);
 	}
-	if (cmd->heredoc_fd != -1)
-	{
-		if (dup2(cmd->heredoc_fd, STDIN_FILENO) == -1)
-			return (dup2err(cmd, new_args), -1);
-		close(cmd->heredoc_fd);
-		cmd->heredoc_fd = -1;
-	}
+	// if (cmd->heredoc_fd != -1)
+	// {
+	// 	if (dup2(cmd->heredoc_fd, STDIN_FILENO) == -1)
+	// 		return (dup2err(cmd, new_args), -1);
+	// 	close(cmd->heredoc_fd);
+	// 	cmd->heredoc_fd = -1;
+	// }
 	return (end_func(cmd, new_args, j, 0));
 }
