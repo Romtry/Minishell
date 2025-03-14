@@ -63,8 +63,19 @@ void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 	}
 	while (cmd->word[k])
 	{
-		execute_heredoc(cmd, &k, 0, 0);
+		if (execute_heredoc(cmd, &k, 0, 0) == -1)
+		{
+			*cmd->exit_stat = 130;
+			cmd->exit = 2;
+			break ;
+		}
 		k++;
+	}
+	if (cmd->exit)
+	{
+		close(saved_stdout);
+		close(saved_stdin);
+		return ;
 	}
 	if (cmd->has_pipe >= 2)
 		execute_piped_commands(cmd);

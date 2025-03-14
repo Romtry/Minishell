@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-/*void	print_cmd(t_cmd *cmd)
+void	print_cmd(t_cmd *cmd)
 {
 	unsigned int	i;
 	unsigned int	i2;
@@ -28,7 +28,7 @@
 		"SQUOTE",			// '
 		"DQUOTE",			// "
 		"DOLLAR",			// $
-		"EMPTY",        	// NULL
+		"EMPTY",			// NULL
 		"DQUOTED",			//"WORD"
 		"SQUOTED",			//'WORD'
 	};
@@ -44,7 +44,7 @@
 		}
 		i2 = -1;
 	}
-}*/
+}
 
 // void	print_token(t_token *token)
 // {
