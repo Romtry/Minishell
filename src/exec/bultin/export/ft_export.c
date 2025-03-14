@@ -37,7 +37,7 @@ void	no_word(void)
 	t_env	*current;
 
 	current = get_env(false);
-	env_print(current);
+	env_print(current, 1);
 	free_env(current);
 }
 

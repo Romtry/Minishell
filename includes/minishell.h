@@ -97,7 +97,7 @@ void				handle_signal(int sig);
 void				print_array(char **array);
 void				print_token(t_token *token);
 void				print_cmd(t_cmd *cmd);
-void				env_print(t_env *env);
+void				env_print(t_env *env, int exp);
 
 // exec
 void				handle_child(int i, t_cmd *cmd, int input_fd,

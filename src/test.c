@@ -87,7 +87,7 @@ void	print_array(char **array)
 	printf("\n");
 }
 
-void	env_print(t_env *env)
+void	env_print(t_env *env, int exp)
 {
 	if (!env)
 	{
@@ -96,7 +96,10 @@ void	env_print(t_env *env)
 	}
 	while (env->next)
 	{
-		printf("%s=%s\n", env->name, env->value);
+		if (exp == 1)
+			printf("declare -x %s=\"%s\"\n", env->name, env->value);
+		else
+			printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 }
