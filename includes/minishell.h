@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/16 12:55:09 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:14:10 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void				free_end(t_env *env, t_token *token);
 void				handle_signal(int sig);
 
 // test
-void				print_array(char **array);
+void				print_array(char **array, bool b);
 void				print_token(t_token *token);
 void				print_cmd(t_cmd *cmd);
-void				env_print(t_env *env, bool b);
+void				env_print(t_env *env);
 
 // exec
 void				handle_child(int i, t_cmd *cmd, int input_fd,

@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:36:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 09:57:41 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:15:34 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ bool	export_verif(char *str)
 
 void	no_word(void)
 {
-	t_env	*current;
+	char	**env;
 
-	current = get_env(false);
-	env_print(current, 1);
-	free_env(current);
+	env = get_env(true);
+	print_array(env, true);
+	free_array(env);
 }
 
 void	check(int i, t_cmd *cmd)

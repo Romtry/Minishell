@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 12:54:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:37:07 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,62 @@ void	print_cmd(t_cmd *cmd)
 // 	}
 // }
 
-void	print_array(char **array)
+char	**sort_env(char **env)
 {
 	unsigned int	i;
+	unsigned int	i2;
+	char			*temp;
 
-	i = 0;
-	while (array[i])
+	if (!env[1])
+		return (printf("declare -x %s", env[0]), NULL);
+	i = 1;
+	i2 = 0;
+	while (env[i])
 	{
-		printf("[%s]", array[i]);
+		while (env[i][i2])
+		{
+			if (!env[i][i2] || env[i - 1][i2] > env[i][i2])
+			{
+				temp = env[i - 1];
+				env[i - 1] = env[i];
+				env[i] = temp;
+				if (i == 1)
+					i--;
+				else
+					i -= 2;
+				break ;
+			}
+			else if (env[i - 1][i2] < env[i][i2])
+				break ;
+			i2++;
+		}
+		i2 = 0;
 		i++;
 	}
+	return (env);
+}
+
+void	print_array(char **array, bool b)
+{
+	unsigned int	i;
+	char			**env;
+
+	i = -1;
+	if (b == true)
+	{
+		env = sort_env(array);
+		if (env == NULL)
+			return ;
+		while (env[++i])
+			printf("declare -x %s\n", env[i]);
+		return ;
+	}
+	while (array[++i])
+		printf("%s\n", array[i]);
 	printf("\n");
 }
 
-void	env_print(t_env *env, bool b)
+void	env_print(t_env *env)
 {
 	if (!env)
 	{
@@ -96,10 +138,7 @@ void	env_print(t_env *env, bool b)
 	}
 	while (env->next)
 	{
-		if (b == true)
-			printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		else
-			printf("%s=%s\n", env->name, env->value);
+		printf("%s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 }
