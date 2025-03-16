@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:24:33 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 21:32:57 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:00:46 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ static char	*err(unsigned int i, char *cmd, char **envp)
 char	*gcp(DIR *dir, char *cmd, char **envp)
 {
 	if (access(cmd, F_OK) == -1)
-		return (free_array(envp), err(0, cmd, envp));
+		return (err(0, cmd, envp));
 	dir = opendir(cmd);
 	if (dir != NULL)
 	{
 		closedir(dir);
-		return (free_array(envp), err(1, cmd, envp));
+		return (err(1, cmd, envp));
 	}
 	if (access(cmd, X_OK) == -1)
-		return (free_array(envp), err(2, cmd, envp));
+		return (err(2, cmd, envp));
 	return (free_array(envp), ft_strndup(cmd, ft_strlen(cmd)));
 }
 
