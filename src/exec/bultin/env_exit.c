@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 12:55:17 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:56:02 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ void	exit_shell(t_cmd *cmd)
 	{
 		if (cmd->word[0][1])
 			*cmd->exit_stat = exit_util(cmd->word[0][1]);
+		else
+			*cmd->exit_stat = 0;
 		printf("exit\n");
-		*cmd->exit_stat = 0;
 		cmd->exit = 1;
 	}
 }
