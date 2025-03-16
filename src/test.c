@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 16:21:20 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:40:23 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@
 	}
 }*/
 
-void	sort_env2(char ***env, char **temp, unsigned int *i)
+void	sort_env2(char **env, char *temp, unsigned int *i)
 {
-	*temp = *env[*i - 1];
-	*env[*i - 1] = *env[*i];
-	*env[*i] = *temp;
+	temp = env[*i - 1];
+	env[*i - 1] = env[*i];
+	env[*i] = temp;
 	if (*i == 1)
 		*i -= 1;
 	else
@@ -91,6 +91,7 @@ char	**sort_env(char **env)
 	unsigned int	i2;
 	char			*temp;
 
+	temp = env[0];
 	if (!env[1])
 		return (printf("declare -x %s", env[0]), NULL);
 	i = 1;
@@ -101,7 +102,7 @@ char	**sort_env(char **env)
 		{
 			if (!env[i][i2] || env[i - 1][i2] > env[i][i2])
 			{
-				sort_env2(&env, &temp, &i);
+				sort_env2(env, temp, &i);
 				break ;
 			}
 			else if (env[i - 1][i2] < env[i][i2])
