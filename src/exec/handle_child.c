@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 16:02:35 by ttouahmi         ###   ########.fr       */
+/*   Updated: 2025/03/11 08:25:35 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,15 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	tmp_cmd = cmd_cpy(cmd, i);
 	count = cmd_count(cmd);
 	is_not_last = (i < count - 1);
-	if (input_fd != STDIN_FILENO)
-		dup2(input_fd, STDIN_FILENO);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (is_not_last)
 	{
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
+		if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+		{
+			perror("minishell: dup2");
+			exit(EXIT_FAILURE);
+		}
 		close(pipe_fd[1]);
 	}
 	if (handle_redirections(&tmp_cmd) == -1)
@@ -110,6 +113,11 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 		*cmd->exit_stat = EXIT_FAILURE;
 		return ;
 	}
-	else
-		execute_command2(&tmp_cmd, cmd);
+	if (input_fd != STDIN_FILENO)
+	{
+		dup2(input_fd, STDIN_FILENO);
+		close(input_fd);
+	}
+	execute_command2(&tmp_cmd, cmd);
+	exit(*cmd->exit_stat);
 }
