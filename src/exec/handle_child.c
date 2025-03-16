@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttouahmi <ttouahmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 08:25:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 15:11:15 by ttouahmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	tmp_cmd = cmd_cpy(cmd, i);
 	count = cmd_count(cmd);
 	is_not_last = (i < count - 1);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	if (input_fd != STDIN_FILENO)
+		dup2(input_fd, STDIN_FILENO);
 	if (is_not_last)
 	{
 		if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
@@ -113,11 +113,7 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 		*cmd->exit_stat = EXIT_FAILURE;
 		return ;
 	}
-	if (input_fd != STDIN_FILENO)
-	{
-		dup2(input_fd, STDIN_FILENO);
-		close(input_fd);
-	}
-	execute_command2(&tmp_cmd, cmd);
+	else
+		execute_command2(&tmp_cmd, cmd);
 	exit(*cmd->exit_stat);
 }
