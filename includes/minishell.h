@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/11 12:15:51 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:55:09 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void				handle_signal(int sig);
 void				print_array(char **array);
 void				print_token(t_token *token);
 void				print_cmd(t_cmd *cmd);
-void				env_print(t_env *env, int exp);
+void				env_print(t_env *env, bool b);
 
 // exec
 void				handle_child(int i, t_cmd *cmd, int input_fd,

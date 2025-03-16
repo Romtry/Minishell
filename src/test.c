@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 11:05:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:54:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	print_array(char **array)
 	printf("\n");
 }
 
-void	env_print(t_env *env, int exp)
+void	env_print(t_env *env, bool b)
 {
 	if (!env)
 	{
@@ -96,7 +96,7 @@ void	env_print(t_env *env, int exp)
 	}
 	while (env->next)
 	{
-		if (exp == 1)
+		if (b == true)
 			printf("declare -x %s=\"%s\"\n", env->name, env->value);
 		else
 			printf("%s=%s\n", env->name, env->value);

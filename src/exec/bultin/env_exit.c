@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 09:58:32 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:55:17 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	env_builtin(t_cmd *cmd)
 	}
 	*cmd->exit_stat = 0;
 	current = head;
-	env_print(current);
+	env_print(current, false);
 	free_env(head);
 }
 
