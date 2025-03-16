@@ -6,13 +6,13 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 09:17:00 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 15:37:07 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:21:20 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_cmd(t_cmd *cmd)
+/*void	print_cmd(t_cmd *cmd)
 {
 	unsigned int	i;
 	unsigned int	i2;
@@ -44,35 +44,46 @@ void	print_cmd(t_cmd *cmd)
 		}
 		i2 = -1;
 	}
-}
+}*/
 
-// void	print_token(t_token *token)
-// {
-// 	unsigned int	i;
-// 	const char		*t_type_str[] = {
-// 		"END",
-// 		"WORD",
-// 		"SEP",				// whitespace
-// 		"PIPE",				// |
-// 		"INPUTREDIR",		// <
-// 		"OUTPUTREDIR",		// >
-// 		"HEREDOC",			// <<
-// 		"APPENDREDIR",		// >>
-// 		"SINGLEQUOTE",		// '
-// 		"DOUBLEQUOTE",		// "
-// 		"DOLLAR",			// $
-// 		"EMPTY",			// NULL
-// 		"DQUOTED",			// "WORD"
-// 		"SQUOTED",			// 'WORD'
-// 	};
-// 	i = 0;
-// 	while (token->word[i])
-// 	{
-// 		printf("word %u = [%s] ", i, token->word[i]);
-// 		printf("type = %s\n", t_type_str[token->type[i]]);
-// 		i++;
-// 	}
-// }
+/*void	print_token(t_token *token)
+{
+	unsigned int	i;
+	const char		*t_type_str[] = {
+		"END",
+		"WORD",
+		"SEP",				// whitespace
+		"PIPE",				// |
+		"INPUTREDIR",		// <
+		"OUTPUTREDIR",		// >
+		"HEREDOC",			// <<
+		"APPENDREDIR",		// >>
+		"SINGLEQUOTE",		// '
+		"DOUBLEQUOTE",		// "
+		"DOLLAR",			// $
+		"EMPTY",			// NULL
+		"DQUOTED",			// "WORD"
+		"SQUOTED",			// 'WORD'
+	};
+	i = 0;
+	while (token->word[i])
+	{
+		printf("word %u = [%s] ", i, token->word[i]);
+		printf("type = %s\n", t_type_str[token->type[i]]);
+		i++;
+	}
+}*/
+
+void	sort_env2(char ***env, char **temp, unsigned int *i)
+{
+	*temp = *env[*i - 1];
+	*env[*i - 1] = *env[*i];
+	*env[*i] = *temp;
+	if (*i == 1)
+		*i -= 1;
+	else
+		*i -= 2;
+}
 
 char	**sort_env(char **env)
 {
@@ -90,13 +101,7 @@ char	**sort_env(char **env)
 		{
 			if (!env[i][i2] || env[i - 1][i2] > env[i][i2])
 			{
-				temp = env[i - 1];
-				env[i - 1] = env[i];
-				env[i] = temp;
-				if (i == 1)
-					i--;
-				else
-					i -= 2;
+				sort_env2(&env, &temp, &i);
 				break ;
 			}
 			else if (env[i - 1][i2] < env[i][i2])

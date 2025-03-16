@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:34:49 by ttouahmi          #+#    #+#             */
-/*   Updated: 2025/03/16 15:14:10 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:13:18 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct token
 	bool			env_change;
 }	t_token;
 
-extern volatile int g_heredoc_interrupted;
+extern volatile int	g_heredoc_interrupted;
 
 void				*ft_calloc(size_t count, size_t size);
 void				ft_bzero(void *s, size_t n);

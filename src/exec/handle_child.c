@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 08:25:35 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:18:55 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,15 @@ static t_cmd	cmd_cpy(t_cmd *cmd, int i)
 void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 {
 	t_cmd	tmp_cmd;
-	int		count;
 	int		is_not_last;
 
 	tmp_cmd = cmd_cpy(cmd, i);
-	count = cmd_count(cmd);
-	is_not_last = (i < count - 1);
+	is_not_last = (i < (cmd_count(cmd) - 1));
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (is_not_last)
 	{
-		if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-		{
-			perror("minishell: dup2");
-			exit(EXIT_FAILURE);
-		}
+		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
 	if (handle_redirections(&tmp_cmd) == -1)

@@ -6,15 +6,14 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:13:03 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/11 14:04:05 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:23:01 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/ioctl.h>
 
-
-volatile sig_atomic_t g_heredoc_interrupted = 0;
+volatile sig_atomic_t	g_heredoc_interrupted = 0;
 
 static void	heredoc_sigint_handler(int sig)
 {
@@ -37,12 +36,12 @@ void	read_heredoc_lines(t_cmd *cmd, int pipe_fd, char *delimiter)
 		if (g_heredoc_interrupted || !line)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(pipe_fd, line, ft_strlen(line));
 		write(pipe_fd, "\n", 1);
