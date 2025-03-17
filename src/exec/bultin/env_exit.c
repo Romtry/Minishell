@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 15:14:21 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/17 08:23:26 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	env_builtin(t_cmd *cmd)
 	t_env	*head;
 	t_env	*current;
 
+	if (cmd->word[0][1])
+		return ((void)printf("env : '%s': No such file or directory\n", cmd->word[0][1]));
 	head = get_env(false);
 	if (head == NULL)
 	{
