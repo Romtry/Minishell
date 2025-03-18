@@ -68,6 +68,8 @@ typedef struct cmd
 	bool					*env_change;
 	volatile sig_atomic_t	heredoc_interrupted;
 	int						heredoc_fd;
+	int						*heredoc_fds;
+	int						index;
 }	t_cmd;
 
 typedef struct token
@@ -81,8 +83,6 @@ typedef struct token
 	char			**old_environ;
 	bool			env_change;
 }	t_token;
-
-extern volatile int	g_heredoc_interrupted;
 
 void				*ft_calloc(size_t count, size_t size);
 void				ft_bzero(void *s, size_t n);
@@ -122,7 +122,7 @@ int					process_redir(t_cmd *cmd, int *i, int *j, char **new_args);
 void				read_heredoc_lines(t_cmd *cmd,
 						int pipe_fd, char *delimiter);
 int					handle_fd_dup(int fd, int std_fd);
-int					handle_heredoc(t_cmd *cmd, char *delimiter);
+int					handle_heredoc(t_cmd *cmd, char *delimiter, int cmd_idx);
 
 // redir.c
 int					handle_out_redir(t_cmd *cmd, int *i);

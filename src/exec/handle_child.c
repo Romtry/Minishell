@@ -83,7 +83,8 @@ static t_cmd	cmd_cpy(t_cmd *cmd, int i)
 	tmp_cmd.env_change = cmd->env_change;
 	tmp_cmd.old_environ = cmd->old_environ;
 	tmp_cmd.exit_stat = cmd->exit_stat;
-	tmp_cmd.heredoc_fd = cmd->heredoc_fd;
+	tmp_cmd.heredoc_fds = cmd->heredoc_fds;
+	tmp_cmd.index = i;
 	return (tmp_cmd);
 }
 
@@ -96,6 +97,11 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	is_not_last = (i < (cmd_count(cmd) - 1));
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	if (input_fd != STDIN_FILENO)
+	{
+		dup2(input_fd, STDIN_FILENO);
+		close(input_fd);
+	}
 	if (is_not_last)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
@@ -106,11 +112,6 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 		cmd->exit = 1;
 		*cmd->exit_stat = EXIT_FAILURE;
 		return ;
-	}
-	if (input_fd != STDIN_FILENO)
-	{
-		dup2(input_fd, STDIN_FILENO);
-		close(input_fd);
 	}
 	execute_command2(&tmp_cmd, cmd);
 	exit(*cmd->exit_stat);

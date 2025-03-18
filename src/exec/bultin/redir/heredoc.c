@@ -50,7 +50,7 @@ void	read_heredoc_lines(t_cmd *cmd, int pipe_fd, char *delimiter)
 	(void)cmd;
 }
 
-int	handle_heredoc(t_cmd *cmd, char *delimiter)
+int	handle_heredoc(t_cmd *cmd, char *delimiter, int cmd_idx)
 {
 	int					pipe_fd[2];
 	void				(*old_sigint)(int);
@@ -65,17 +65,17 @@ int	handle_heredoc(t_cmd *cmd, char *delimiter)
 	if (g_heredoc_interrupted)
 	{
 		close(pipe_fd[0]);
-		cmd->heredoc_fd = open("/dev/null", O_RDONLY);
+		cmd->heredoc_fds[cmd_idx] = open("/dev/null", O_RDONLY);
 		return (1);
 	}
 	else
-		cmd->heredoc_fd = pipe_fd[0];
+		cmd->heredoc_fds[cmd_idx] = pipe_fd[0];
 	return (0);
 }
 
 int	handle_heredoc_redir(t_cmd *cmd, int *i, int k)
 {
-	if (handle_heredoc(cmd, cmd->word[k][*i + 1]) == -1)
+	if (handle_heredoc(cmd, cmd->word[k][*i + 1], k) == -1)
 		return (-1);
 	if (g_heredoc_interrupted)
 	{

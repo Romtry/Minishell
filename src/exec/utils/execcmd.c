@@ -69,10 +69,23 @@ void	help_norming(bool b, int saved_stdout, int saved_stdin)
 
 void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 {
+	int	num_commands;
+	int	i;
+
 	saved_stdout = dup(STDOUT_FILENO);
 	saved_stdin = dup(STDIN_FILENO);
 	if (!cmd || !cmd->word[0] || !cmd->word[0][0])
 		return (help_norming(true, saved_stdout, saved_stdin));
+	num_commands = cmd_count(cmd);
+	cmd->heredoc_fds = malloc(num_commands * sizeof(int));
+	if (!cmd->heredoc_fds)
+		return (help_norming(true, saved_stdout, saved_stdin));
+	i = 0;
+	while (i < num_commands)
+	{
+		cmd->heredoc_fds[i] = -1;
+		i++;
+	}
 	while (cmd->word[k])
 	{
 		if (execute_heredoc(cmd, &k, 0, 0) == -1)
@@ -93,4 +106,5 @@ void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 			execute_command2(cmd);
 		help_norming(false, saved_stdout, saved_stdin);
 	}
+	free(cmd->heredoc_fds);
 }
