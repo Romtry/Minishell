@@ -67,10 +67,32 @@ void	help_norming(bool b, int saved_stdout, int saved_stdin)
 	}
 }
 
+static void	init_heredoc_fds(t_cmd *cmd, int num_commands)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_commands)
+		cmd->heredoc_fds[i++] = -1;
+}
+
+static void	process_heredocs(t_cmd *cmd, int *k)
+{
+	while (cmd->word[*k])
+	{
+		if (execute_heredoc(cmd, k, 0, 0) == -1)
+		{
+			*cmd->exit_stat = 130;
+			cmd->exit = 2;
+			break ;
+		}
+		(*k)++;
+	}
+}
+
 void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 {
 	int	num_commands;
-	int	i;
 
 	saved_stdout = dup(STDOUT_FILENO);
 	saved_stdin = dup(STDIN_FILENO);
@@ -80,22 +102,8 @@ void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 	cmd->heredoc_fds = malloc(num_commands * sizeof(int));
 	if (!cmd->heredoc_fds)
 		return (help_norming(true, saved_stdout, saved_stdin));
-	i = 0;
-	while (i < num_commands)
-	{
-		cmd->heredoc_fds[i] = -1;
-		i++;
-	}
-	while (cmd->word[k])
-	{
-		if (execute_heredoc(cmd, &k, 0, 0) == -1)
-		{
-			*cmd->exit_stat = 130;
-			cmd->exit = 2;
-			break ;
-		}
-		k++;
-	}
+	init_heredoc_fds(cmd, num_commands);
+	process_heredocs(cmd, &k);
 	if (cmd->exit)
 		return (help_norming(true, saved_stdout, saved_stdin));
 	if (cmd->has_pipe >= 2)

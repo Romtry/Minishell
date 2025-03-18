@@ -19,7 +19,7 @@ void	env_builtin(t_cmd *cmd)
 
 	if (cmd->word[0][1])
 		return ((void)printf("env : '%s': No such file or directory\n",
-			cmd->word[0][1]));
+				cmd->word[0][1]));
 	head = get_env(false);
 	if (head == NULL)
 	{
