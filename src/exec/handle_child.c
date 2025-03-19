@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/19 10:54:28 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:26:25 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 	}
 	if (is_not_last)
 	{
+		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
