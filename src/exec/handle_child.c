@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:14:27 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 16:18:55 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:54:28 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,4 @@ void	handle_child(int i, t_cmd *cmd, int input_fd, int pipe_fd[2])
 		return ;
 	}
 	execute_command2(&tmp_cmd, cmd);
-	exit(*cmd->exit_stat);
 }

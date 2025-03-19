@@ -6,18 +6,19 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:16:01 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/05 11:25:20 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:52:23 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	no_pid(char *cmd_path, char **envp)
+void	no_pid(char *cmd_path, char **envp, t_cmd *cmd)
 {
 	perror("execve");
 	free(cmd_path);
 	free_array(envp);
-	exit(EXIT_FAILURE);
+	*cmd->exit_stat = EXIT_FAILURE;
+	cmd->exit = 1;
 }
 
 void	pid_check(char *cmd_path, t_cmd *cmd)
@@ -32,8 +33,10 @@ void	pid_check(char *cmd_path, t_cmd *cmd)
 	if (pid == 0)
 	{
 		if (execve(cmd_path, cmd->word[0], envp) == -1)
-			no_pid(cmd_path, envp);
+			no_pid(cmd_path, envp, cmd);
 	}
+	if (cmd->exit != 0)
+		return ;
 	else if (pid < 0)
 		perror("fork");
 	else

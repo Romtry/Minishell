@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:00:30 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/07 17:06:18 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:42:47 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,12 @@ void	free_array(char **arr)
 void	free_cmd(t_cmd	*cmd)
 {
 	unsigned int	i;
-	unsigned int	i2;
 
 	i = 0;
-	i2 = 0;
 	while (cmd->word[i])
 	{
-		while (cmd->word[i][i2])
-		{
-			free(cmd->word[i][i2]);
-			i2++;
-		}
-		free(cmd->word[i]);
+		free_array(cmd->word[i]);
 		free(cmd->type[i]);
-		i2 = 0;
 		i++;
 	}
 	free(cmd->type);
