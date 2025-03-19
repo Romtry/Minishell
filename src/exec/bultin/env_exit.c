@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:17:17 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/17 08:23:26 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:15:38 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	char_int(char *str)
 	ret = 0;
 	signe = 1;
 	i = 0;
-	if (str[0] == '-')
+	if (str[i] == '-')
 		signe = -1;
-	while (str[i])
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		temp = str[i] - '0';
 		ret = ret * 10;
@@ -55,6 +55,24 @@ static int	char_int(char *str)
 	return (ret);
 }
 
+static bool	verif(char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	if (i == 0)
+		return (write(2, " numeric argument required\n", 27), false);
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (write(2, " numeric argument required\n", 27), false);
+		i++;
+	}
+	return (true);
+}
+
 static unsigned int	exit_util(char *str)
 {
 	unsigned int	i;
@@ -62,18 +80,18 @@ static unsigned int	exit_util(char *str)
 
 	b = false;
 	i = 0;
-	if (str[0] == '-' || str[0] == '+')
+	while (str[i] == ' ')
+		i++;
+	str = str + i;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[0] == '-')
+		if (str[i] == '-')
 			b = true;
 		str = str + 1;
 	}
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (write(2, " numeric argument required\n", 27), 2);
-		i++;
-	}
+	if (verif(str) == false)
+		return (2);
 	if (b == true)
 		return (256 - (char_int(str) % 256));
 	else
