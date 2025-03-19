@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:13:03 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 16:23:01 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:00:25 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	heredoc_sigint_handler(int sig)
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	rl_done = 1;
 	ioctl(STDIN_FILENO, TIOCSTI, "\004");
 	g_heredoc_interrupted = 1;
 }
