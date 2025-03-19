@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:15:54 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/16 16:26:33 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:09:44 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	execute_command(t_cmd *cmd, int saved_stdout, int saved_stdin, int k)
 	init_heredoc_fds(cmd, num_commands);
 	process_heredocs(cmd, &k);
 	if (cmd->exit)
-		return (help_norming(true, saved_stdout, saved_stdin));
+		return (free(cmd->heredoc_fds), help_norming(true, saved_stdout, saved_stdin));
 	if (cmd->has_pipe >= 2)
 		execute_piped_commands(cmd);
 	else
