@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:11:44 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 14:12:48 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:44:47 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	handle_out_redir(t_cmd *cmd, int *i)
 	if (fd == -1)
 	{
 		perror("minishell: open");
+		*cmd->exit_stat = 1;
 		return (-1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
