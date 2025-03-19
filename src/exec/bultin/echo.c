@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:31:28 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/10 09:55:00 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:36:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	echo(t_cmd *cmd)
 
 	i = 1;
 	n_line = 1;
-	if (cmd->word[0][1] && is_n_option(cmd->word[0][i]))
+	while (cmd->word[0][1] && is_n_option(cmd->word[0][i]))
 	{
 		n_line = 0;
 		i++;
