@@ -6,7 +6,7 @@
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:29:19 by rothiery          #+#    #+#             */
-/*   Updated: 2025/03/04 10:04:30 by rothiery         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:21:57 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*num_char(unsigned int n)
 
 	i = 0;
 	n2 = n;
-	while (n > 10)
+	while (n >= 10)
 	{
 		i++;
 		n = n / 10;
@@ -104,7 +104,7 @@ char	*num_char(unsigned int n)
 	ret = malloc(sizeof(char) * (i + 1));
 	ret[i] = '\0';
 	i--;
-	while (n2 > 10)
+	while (n2 >= 10)
 	{
 		ret[i] = (n2 % 10) + '0';
 		n2 = n2 / 10;
